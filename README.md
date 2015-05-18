@@ -36,3 +36,9 @@ On Windows,
 > git clone https://github.com/gmarik/Vundle.vim.git %USERPROFILE%/vimfiles/bundle/Vundle.vim
 ```
 Run gVim and execute `:PluginInstall`.
+
+### Enabling italics support in terminals (for Linux and Mac only)
+
+```
+./gen-italics-terminfo.sh
+```
