@@ -159,6 +159,33 @@
                 }
             }
         },
+        "work": {
+            "_": {
+                "variables": {
+                    "vim_colorscheme": "solarized",
+                    "vim_textwidth": 100,
+                    "term_colorscheme": "solarized",
+                    "username": "Joongi Kim",
+                    "email": "joongi@lablup.com"
+                }
+            },
+            "linux": {
+                "variables": {
+                    "hg_cacerts": ""
+                }
+            },
+            "windows": {
+                "variables": {
+                    "vim_colorscheme": "solarized",
+                    "hg_cacerts": ""
+                }
+            },
+            "mac": {
+                "variables": {
+                    "hg_cacerts": "~/dummycert.pem"
+                }
+            }
+        },
         "home": {
             "_": {
                 "variables": {
