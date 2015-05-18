@@ -1,0 +1,191 @@
+{
+    "dotfiles": {
+        ".bashrc": {
+            "source": "bashrc",
+            "compatible_platforms": ["linux", "mac"]
+        },
+        ".zshrc": {
+            "source": "zshrc",
+            "compatible_platforms": ["linux", "mac"]
+        },
+        ".oh-my-zsh/themes/achimnol.zsh-theme": {
+            "source": "achimnol.zsh-theme",
+            "compatible_platforms": ["linux", "mac"]
+        },
+        ".dircolors": {
+            "source": "dircolors",
+            "compatible_platforms": ["linux", "mac"],
+            "template_vars": ["term_colorscheme"]
+        },
+        ".ackrc": {
+            "source": "ackrc",
+            "compatible_platforms": ["linux", "mac"]
+        },
+        "sfind.py": {
+            "source": "sfind.py",
+            "executable": true,
+            "compatible_platforms": ["linux", "mac"]
+        },
+        ".tmux.conf": {
+            "source": "tmux.conf",
+            "compatible_platforms": ["linux", "mac"]
+        },
+        ".inputrc": {
+            "source": "inputrc",
+            "compatible_platforms": ["linux"]
+        },
+        "hgeditor": {
+            "source": "hgeditor",
+            "executable": true,
+            "compatible_platforms": ["linux", "mac"]
+        },
+	".emacs": {
+            "source": "emacs",
+            "compatible_platforms": ["linux", "mac", "windows"],
+            "platform_dependent_paths": {
+                "windows": ["%appdata%", ".emacs"]
+            }
+	},
+        ".vimrc": {
+            "source": "vimrc",
+            "template_vars": ["vim_colorscheme"],
+            "compatible_platforms": ["linux", "mac", "windows"],
+            "platform_dependent_paths": {
+                "windows": "_vimrc"
+            }
+        },
+        ".vim/colors/desert256.vim": {
+            "source": "desert256.vim",
+            "compatible_platforms": ["linux", "mac", "windows"],
+            "platform_dependent_paths": {
+                "windows": "vimfiles/colors/desert256.vim"
+            }
+        },
+        ".vim/colors/jellybeans.vim": {
+            "source": "jellybeans.vim",
+            "compatible_platforms": ["linux", "mac", "windows"],
+            "platform_dependent_paths": {
+                "windows": "vimfiles/colors/jellybeans.vim"
+            }
+        },
+        ".vim/colors/solarized.vim": {
+            "source": "solarized.vim",
+            "compatible_platforms": ["linux", "mac", "windows"],
+            "platform_dependent_paths": {
+                "windows": "vimfiles/colors/solarized.vim"
+            }
+        },
+        ".vim/ftplugin/python.vim": {
+            "source": "python.vim",
+            "compatible_platforms": ["linux", "mac", "windows"],
+            "platform_dependent_paths": {
+                "windows": "vimfiles/ftplugin/python.vim"
+            }
+        },
+        ".vim/ftplugin/ruby.vim": {
+            "source": "ruby.vim",
+            "compatible_platforms": ["linux", "mac", "windows"],
+            "platform_dependent_paths": {
+                "windows": "vimfiles/ftplugin/ruby.vim"
+            }
+        },
+        ".vim/ftplugin/c.vim": {
+            "source": "c.vim",
+            "compatible_platforms": ["linux", "mac", "windows"],
+            "template_vars": ["vim_textwidth"],
+            "platform_dependent_paths": {
+                "windows": "vimfiles/ftplugin/c.vim"
+            }
+        },
+        ".vim/ftplugin/cpp.vim": {
+            "source": "cpp.vim",
+            "compatible_platforms": ["linux", "mac", "windows"],
+            "template_vars": ["vim_textwidth"],
+            "platform_dependent_paths": {
+                "windows": "vimfiles/ftplugin/cpp.vim"
+            }
+        },
+        ".vim/ftplugin/cuda.vim": {
+            "source": "cuda.vim",
+            "compatible_platforms": ["linux", "mac", "windows"],
+            "template_vars": ["vim_textwidth"],
+            "platform_dependent_paths": {
+                "windows": "vimfiles/ftplugin/cuda.vim"
+            }
+        },
+        ".hgrc": {
+            "source": "hgrc",
+            "compatible_platforms": ["linux", "mac", "windows"],
+            "platform_dependent_paths": {
+                "windows": "mercurial.ini"
+            },
+            "template_vars": ["username", "email", "hg_cacerts"]
+        },
+        "dummycert.pem": {
+            "source": "dummycert.pem",
+            "compatible_platforms": ["mac"]
+        },
+        ".gitconfig": {
+            "source": "gitconfig",
+            "compatible_platforms": ["linux", "mac", "windows"],
+            "template_vars": ["username", "email"]
+        }
+    },
+    "flavors": {
+        "lab": {
+            "_": {
+                "variables": {
+                    "vim_colorscheme": "solarized",
+                    "vim_textwidth": 75,
+                    "term_colorscheme": "solarized",
+                    "username": "Joongi Kim",
+                    "email": "joongi@an.kaist.ac.kr"
+                }
+            },
+            "linux": {
+                "variables": {
+                    "hg_cacerts": ""
+                }
+            },
+            "windows": {
+                "variables": {
+                    "vim_colorscheme": "solarized",
+                    "hg_cacerts": ""
+                }
+            },
+            "mac": {
+                "variables": {
+                    "hg_cacerts": "~/dummycert.pem"
+                }
+            }
+        },
+        "home": {
+            "_": {
+                "variables": {
+                    "vim_colorscheme": "solarized",
+                    "vim_textwidth": 0,
+                    "term_colorscheme": "solarized",
+                    "username": "Joongi Kim",
+                    "email": "me@daybreaker.info"
+                },
+                "excludes": [".vim/ftplugin/c.vim", ".vim/ftplugin/cpp.vim", ".vim/ftplugin/cuda.vim"]
+            },
+            "linux": {
+                "variables": {
+                    "hg_cacerts": ""
+                }
+            },
+            "windows": {
+                "variables": {
+                    "vim_colorscheme": "solarized",
+                    "hg_cacerts": ""
+                }
+            },
+            "mac": {
+                "variables": {
+                    "hg_cacerts": "~/dummycert.pem"
+                }
+            }
+        }
+    }
+}

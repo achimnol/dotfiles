@@ -1,0 +1,22 @@
+startup_message off
+vbell off
+hardstatus on
+hardstatus alwayslastline
+hardstatus string "%{.bW}%-w%{.rW}%n*%t%{-}%+w %= %c ${USER}@%H"
+term linux
+scrollback 16384
+
+# To use the below function keys, you have to change the keyboard option in PuTTY to 'VT100+'.
+bindkey -k k1 select 0
+bindkey -k k2 select 1
+bindkey -k k3 select 2
+bindkey -k k4 select 3
+bindkey -k k5 select 4
+bindkey -k k6 select 5
+bindkey -k k7 select 6
+bindkey -k k8 select 7
+
+# Change the xterm initialization for GNU Screen. (fixes Debian Bug #134198)
+# The symptom is unwanted screen resize to 80 columns when restoring and starting screen sessions.
+# Originally reported on KDE, but also happend on PuTTY 0.60.
+termcapinfo xterm* 'is=\E[r\E[m\E[2J\E[H\E[?7h\E[?1;4;6l' ti@:te@

@@ -1,0 +1,13 @@
+[http]
+    sslverify = false
+[alias]
+    st = status
+[user]
+    name = {{username}}
+    email = {{email}}
+[color]
+    ui = true
+[core]
+    autocrlf = false
+[push]
+    default = simple

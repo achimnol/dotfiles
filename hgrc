@@ -1,0 +1,16 @@
+[ui]
+username = {{username}} <{{email}}>
+
+[extensions]
+graphlog =
+color =
+progress =
+record =
+rebase =
+convert =
+shelve =
+
+[web]
+%if hg_cacerts:
+cacerts = {{hg_cacerts}}
+%end

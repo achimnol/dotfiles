@@ -1,0 +1,5 @@
+# To use Korean characters in the shell.
+set meta-flag On
+set input-meta On
+set output-meta On
+set convert-meta Off
