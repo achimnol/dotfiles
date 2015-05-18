@@ -13,6 +13,18 @@ After forking this repository, you need to customize `configuration.json`, in pa
 
 ## Installation
 
+### Initializing oh-my-zsh (when using zsh, for Linux/Mac only)
+
+```
+wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O - | sh
+```
+or
+```
+curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh
+```
+
+### Deploying the configurations
+
 ```
 ./deply.py --flavor home
 ```
@@ -37,7 +49,7 @@ On Windows,
 ```
 Run gVim and execute `:PluginInstall`.
 
-### Enabling italics support in terminals (for Linux and Mac only)
+### Enabling italics support in terminals (for Linux/Mac only)
 
 ```
 ./gen-italics-terminfo.sh
