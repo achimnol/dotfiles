@@ -13,9 +13,9 @@ After forking this repository, you need to customize `configuration.json`, in pa
 
 ## Installation
 
-'''
+```
 ./deply.py --flavor home
-'''
+```
 
 If any file already exists, it will ask you whether to overwrite it.
 To overwrite always, add `--force`.
