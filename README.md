@@ -20,3 +20,19 @@ After forking this repository, you need to customize `configuration.json`, in pa
 If any file already exists, it will ask you whether to overwrite it.
 To overwrite always, add `--force`.
 
+### Initializing Vim Vundle
+
+This repository does not include [Vundle](https://github.com/gmarik/Vundle.vim) and other vim plugins.
+For the first time after running `deploy.py`, you must run the followings to get vim to work properly.
+
+On Linux and Mac,
+```
+$ git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+$ vim +PluginInstall +qall
+```
+
+On Windows,
+```
+> git clone https://github.com/gmarik/Vundle.vim.git %USERPROFILE%/vimfiles/bundle/Vundle.vim
+```
+Run gVim and execute `:PluginInstall`.
