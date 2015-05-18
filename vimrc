@@ -44,6 +44,8 @@ Plugin 'bling/vim-airline'
 set laststatus=2  " always show airline
 Plugin 'tpope/vim-vinegar'
 Plugin 'tpope/vim-surround'
+Plugin 'godlygeek/tabular'
+Plugin 'plasticboy/vim-markdown'
 
 call vundle#end()
 filetype plugin on
