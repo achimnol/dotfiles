@@ -49,6 +49,15 @@ On Windows,
 ```
 Run gVim and execute `:PluginInstall`.
 
+If your user name contains non-ASCII characters, make a ASCII symbolic link of your `%USERPROFILE%` directoy as follows:
+```
+> mklink /d ASCIINAME NONASCIINAME
+> set USERPROFILE=C:\Users\ASCIINAME
+> set HOMEPATH=\Users\ASCIINAME
+> "C:\Program Files (x86)\Vim\vim74\gvim.exe"
+```
+and then run `:PluginInstall`.
+
 ### Enabling italics support in terminals (for Linux/Mac only)
 
 ```
