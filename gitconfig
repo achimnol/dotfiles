@@ -14,4 +14,4 @@
 %if _platform == "windows":
 [credential]
     helper = wincred
-%endif
+%end
