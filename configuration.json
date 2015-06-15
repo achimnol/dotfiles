@@ -169,9 +169,9 @@
         "work": {
             "_": {
                 "variables": {
-                    "vim_colorscheme": "solarized",
+                    "vim_colorscheme": "hybrid",
                     "vim_textwidth": 100,
-                    "term_colorscheme": "solarized",
+                    "term_colorscheme": "xterm-256color",
                     "username": "Joongi Kim",
                     "email": "joongi@lablup.com"
                 }
@@ -183,7 +183,7 @@
             },
             "windows": {
                 "variables": {
-                    "vim_colorscheme": "solarized",
+                    "vim_colorscheme": "hybrid",
                     "hg_cacerts": ""
                 }
             },

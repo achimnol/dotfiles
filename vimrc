@@ -118,9 +118,7 @@ set scrolloff=2
 set iminsert=0 imsearch=0
 set backspace=indent,eol,start
 filetype plugin on
-%if vim_colorscheme == "solarized":
 set cursorline
-%end
 
 function MyHomeKey()
     let l:column = col('.')
