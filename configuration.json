@@ -61,6 +61,13 @@
                 "windows": "vimfiles/colors/desert256.vim"
             }
         },
+        ".vim/colors/hybrid.vim": {
+            "source": "hybrid.vim",
+            "compatible_platforms": ["linux", "mac", "windows"],
+            "platform_dependent_paths": {
+                "windows": "vimfiles/colors/hybrid.vim"
+            }
+        },
         ".vim/colors/jellybeans.vim": {
             "source": "jellybeans.vim",
             "compatible_platforms": ["linux", "mac", "windows"],
@@ -135,9 +142,9 @@
         "lab": {
             "_": {
                 "variables": {
-                    "vim_colorscheme": "solarized",
+                    "vim_colorscheme": "hybrid",
                     "vim_textwidth": 75,
-                    "term_colorscheme": "solarized",
+                    "term_colorscheme": "xterm-256color",
                     "username": "Joongi Kim",
                     "email": "joongi@an.kaist.ac.kr"
                 }

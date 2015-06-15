@@ -1,0 +1,26 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_CURRENT_USER\Software\SimonTatham\PuTTY\Sessions\Hybrid]
+"Colour21"="197,200,198"
+"Colour20"="112,120,128"
+"Colour19"="138,190,183"
+"Colour18"="94,141,135"
+"Colour17"="178,147,187"
+"Colour16"="133,103,143"
+"Colour15"="129,163,190"
+"Colour14"="95,129,157"
+"Colour13"="240,198,116"
+"Colour12"="222,147,95"
+"Colour11"="181,189,104"
+"Colour10"="140,148,64"
+"Colour9"="204,102,102"
+"Colour8"="165,66,66"
+"Colour7"="112,120,128"
+"Colour6"="29,31,33"
+"Colour5"="255,255,255"
+"Colour4"="0,0,0"
+"Colour3"="29,31,33"
+"Colour2"="29,31,33"
+"Colour1"="197,200,198"
+"Colour0"="197,200,198"
+
