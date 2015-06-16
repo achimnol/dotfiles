@@ -40,6 +40,7 @@ endif
 Plugin 'gmarik/Vundle.vim'
 Plugin 'rust-lang/rust.vim'
 Plugin 'airblade/vim-gitgutter'
+let g:airline_powerline_fonts = 1
 Plugin 'bling/vim-airline'
 set laststatus=2  " always show airline
 Plugin 'tpope/vim-vinegar'
@@ -96,6 +97,9 @@ if !has("gui_running")	" For terminal vims
     let g:solarized_bold=0
     " Note: solarized recommends use of terminal color setting instead of
     " degraded 256-color mode.
+%end
+%if vim_colorscheme == "hybrid":
+    let g:hybrid_use_Xresources = 1
 %end
     if s:tty=~"/pts/" && ($TERM=~"-256color" || $TERM=="linux" || $TERM=="screen")
 	set t_Co=256
