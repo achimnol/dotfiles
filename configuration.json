@@ -128,10 +128,6 @@
             },
             "template_vars": ["username", "email", "hg_cacerts"]
         },
-        "dummycert.pem": {
-            "source": "dummycert.pem",
-            "compatible_platforms": ["mac"]
-        },
         ".gitconfig": {
             "source": "gitconfig",
             "compatible_platforms": ["linux", "mac", "windows"],
