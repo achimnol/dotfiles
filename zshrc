@@ -87,7 +87,6 @@ alias la='ls -A'
 alias l='ls -CF'
 alias tmux='TERM=xterm-256color-italics tmux -2'
 alias make='make -j'
-alias snakemake='snakemake -j'
 
 export TTY=$(tty)
 export SVN_EDITOR=vim
