@@ -20,7 +20,7 @@ ZSH_THEME="achimnol"
 # DISABLE_LS_COLORS="true"
 
 # Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
+#DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
 # ENABLE_CORRECTION="true"
@@ -47,22 +47,26 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git virtualenv svn mercurial)
 
+# User configuration
+# export PATH="/Users/daybreaker/.rvm/bin:/usr/local/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr/texbin"
+# export MANPATH="/usr/local/man:$MANPATH"
+setopt no_share_history
+if [ -f ~/.zshrc_local ]; then
+  source ~/.zshrc_local
+fi
+
+# Load oh-my-zsh!
 source $ZSH/oh-my-zsh.sh
 
-# User configuration
-
-export PATH="/Users/daybreaker/.rvm/bin:/usr/local/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr/texbin"
-# export MANPATH="/usr/local/man:$MANPATH"
-
 # You may need to manually set your language environment
-export LANG=en_US.UTF-8
+# export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
-if [[ -n $SSH_CONNECTION ]]; then
+#if [[ -n $SSH_CONNECTION ]]; then
+#  export EDITOR='vim'
+#else
   export EDITOR='vim'
-else
-  export EDITOR='mvim'
-fi
+#fi
 
 # Prevent Ctrl+S from freezing terminal (which can be recovered with Ctrl+Q)
 # to set other functions to these keys.
@@ -108,6 +112,3 @@ export HGEDITOR=~/hgeditor
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 #
-if [ -f ~/.zshrc_local ]; then
-  source ~/.zshrc_local
-fi
