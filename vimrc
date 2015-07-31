@@ -48,6 +48,7 @@ Plugin 'tpope/vim-surround'
 Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'nvie/vim-flake8'
+Plugin 'hdima/python-syntax'
 
 call vundle#end()
 filetype plugin on
