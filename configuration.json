@@ -120,6 +120,10 @@
                 "windows": "vimfiles/ftplugin/cuda.vim"
             }
         },
+        ".config/flake8": {
+            "source": "flake8.config",
+            "compatible_platforms": ["linux", "mac", "windows"]
+        },
         ".hgrc": {
             "source": "hgrc",
             "compatible_platforms": ["linux", "mac", "windows"],

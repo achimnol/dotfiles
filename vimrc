@@ -10,31 +10,31 @@ set enc=utf-8
 let g:solarized_contrast="high"
 %end
 
-if has("gui_running") && has("win32")	" For Windows gVim
-    source $VIMRUNTIME/delmenu.vim
-    set langmenu=ko_kr
-    source $VIMRUNTIME/menu.vim
+if has("gui_running") && has("win32")   " For Windows gVim
+  source $VIMRUNTIME/delmenu.vim
+  set langmenu=ko_kr
+  source $VIMRUNTIME/menu.vim
 
-    " Set the initial state of IME as Englinsh for insert/search mode.
-    set iminsert=0 imsearch=0
+  " Set the initial state of IME as Englinsh for insert/search mode.
+  set iminsert=0 imsearch=0
 
-    " Theme
-    colorscheme {{vim_colorscheme}}
-    set guifont=Consolas:h9:cANSI
-    set guifontwide=NanumGothicCoding:h10:cDEFAULT
-    winsize 120 45
+  " Theme
+  colorscheme {{vim_colorscheme}}
+  set guifont=Consolas:h9:cANSI
+  set guifontwide=NanumGothicCoding:h10:cDEFAULT
+  winsize 120 45
 endif
 
 
 " Vundle package manager
 filetype off
 if has("win32")
-    set rtp+=~/vimfiles/bundle/Vundle.vim/
-    let path='~/vimfiles/bundle'
-    call vundle#begin(path)
+  set rtp+=~/vimfiles/bundle/Vundle.vim/
+  let path='~/vimfiles/bundle'
+  call vundle#begin(path)
 else
-    set rtp+=~/.vim/bundle/Vundle.vim
-    call vundle#begin()
+  set rtp+=~/.vim/bundle/Vundle.vim
+  call vundle#begin()
 endif
 
 Plugin 'gmarik/Vundle.vim'
@@ -47,68 +47,69 @@ Plugin 'tpope/vim-vinegar'
 Plugin 'tpope/vim-surround'
 Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
+Plugin 'nvie/vim-flake8'
 
 call vundle#end()
 filetype plugin on
 
 
-if has("gui_running")	" For general gVim
-    " Toggle menu/tool bars
-    function s:MenuBar()
-	if stridx(&guioptions, 'm') == -1
-	    set go+=T go+=m
-	else
-	    set go-=T go-=m
-	endif
-    endfunction
-    map <silent> <F10> :call <SID>MenuBar()<cr>
-    call <SID>MenuBar()
+if has("gui_running")   " For general gVim
+  " Toggle menu/tool bars
+  function s:MenuBar()
+    if stridx(&guioptions, 'm') == -1
+      set go+=T go+=m
+    else
+      set go-=T go-=m
+    endif
+  endfunction
+  map <silent> <F10> :call <SID>MenuBar()<cr>
+  call <SID>MenuBar()
 endif
 if has("gui_macvim")  " MacVim
-    set bg=dark
-    colorscheme {{vim_colorscheme}}
-    set gfn=Monaco:h12
-    set fuopt+=maxvert
-    set fuopt+=maxhorz
-    set columns=120 lines=50
-    set go-=T
-    set imd
-    set transparency=0
-    map t_kD=
+  set bg=dark
+  colorscheme {{vim_colorscheme}}
+  set gfn=Monaco:h12
+  set fuopt+=maxvert
+  set fuopt+=maxhorz
+  set columns=120 lines=50
+  set go-=T
+  set imd
+  set transparency=0
+  map t_kD=
 endif
 
 syntax on
 syntax sync minlines=2000
 
-if !has("gui_running")	" For terminal vims
-    if has("win32")
-	let s:tty="/dev/pts/0"	" emulate
-    elseif $TERM_PROGRAM == 'Apple_Terminal' || $TERM_PROGRAM =~ "iTerm\.app"
-	let s:tty="/dev/pts/0"	" emulate
-    else
-	" The environment variable TTY is set by the shell (see bashrc).
-	" Vim's system() function uses redirection and thus the result is
-	" 'not a tty' error instead of the actual tty name.
-	let s:tty=$TTY
-    endif
-    set bg=dark
+if !has("gui_running")  " For terminal vims
+  if has("win32")
+    let s:tty="/dev/pts/0"  " emulate
+  elseif $TERM_PROGRAM == 'Apple_Terminal' || $TERM_PROGRAM =~ "iTerm\.app"
+    let s:tty="/dev/pts/0"  " emulate
+  else
+    " The environment variable TTY is set by the shell (see bashrc).
+    " Vim's system() function uses redirection and thus the result is
+    " 'not a tty' error instead of the actual tty name.
+    let s:tty=$TTY
+  endif
+  set bg=dark
 %if vim_colorscheme == "solarized":
-    let g:solarized_termcolors=16
-    let g:solarized_bold=0
-    " Note: solarized recommends use of terminal color setting instead of
-    " degraded 256-color mode.
+  let g:solarized_termcolors=16
+  let g:solarized_bold=0
+  " Note: solarized recommends use of terminal color setting instead of
+  " degraded 256-color mode.
 %end
 %if vim_colorscheme == "hybrid":
-    let g:hybrid_use_Xresources = 1
+  let g:hybrid_use_Xresources = 1
 %end
-    if s:tty=~"/pts/" && ($TERM=~"-256color" || $TERM=="linux" || $TERM=="screen")
-	set t_Co=256
-	set term=xterm-256color-italics
-	colorscheme {{vim_colorscheme}}
-	highlight Comment cterm=italic
-    else
-	colorscheme default
-    endif
+  if s:tty=~"/pts/" && ($TERM=~"-256color" || $TERM=="linux" || $TERM=="screen")
+    set t_Co=256
+    set term=xterm-256color-italics
+    colorscheme {{vim_colorscheme}}
+    highlight Comment cterm=italic
+  else
+    colorscheme default
+  endif
 endif
 
 set tenc=utf-8 fencs=utf-8,utf-16le,cp949,latin1 fenc=utf-8
@@ -125,11 +126,11 @@ filetype plugin on
 set cursorline
 
 function MyHomeKey()
-    let l:column = col('.')
-    execute "normal ^"
-    if l:column == col('.')
-	execute "normal 0"
-    endif
+  let l:column = col('.')
+  execute "normal ^"
+  if l:column == col('.')
+    execute "normal 0"
+  endif
 endfunction
 
 " Show man pages inside vim like :help command.
@@ -138,14 +139,14 @@ nmap K :Man <cword><cr>
 
 " Temp directory setup
 if exists("$HOME")
-    let s:home_dir = substitute($HOME, '[/\\]$', '', '')
-    if has("win32")
-	let s:home_dir = s:home_dir . '/_vim'
-    else
-	let s:home_dir = s:home_dir . '/.vim'
-    endif
-    let &dir = s:home_dir . "/tmp" . &dir
-    let &bdir = s:home_dir . "/backup" . &bdir
+  let s:home_dir = substitute($HOME, '[/\\]$', '', '')
+  if has("win32")
+    let s:home_dir = s:home_dir . '/_vim'
+  else
+    let s:home_dir = s:home_dir . '/.vim'
+  endif
+  let &dir = s:home_dir . "/tmp" . &dir
+  let &bdir = s:home_dir . "/backup" . &bdir
 endif
 
 map j gj
@@ -162,4 +163,4 @@ inoremap # X#
 
 set mouse=a
 
-" vim: ts=8 sts=4 sw=4 noet
+" vim: ts=8 sts=2 sw=2 et
