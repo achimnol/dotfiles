@@ -20,7 +20,7 @@ if has("gui_running") && has("win32")   " For Windows gVim
 
   " Theme
   colorscheme {{vim_colorscheme}}
-  set guifont=Consolas:h9:cANSI
+  set guifont=Hack:h10:cANSI
   set guifontwide=NanumGothicCoding:h10:cDEFAULT
   winsize 120 45
 endif
