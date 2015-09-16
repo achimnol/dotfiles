@@ -82,6 +82,13 @@
                 "windows": "vimfiles/colors/solarized.vim"
             }
         },
+        ".vim/syntax/snakemake.vim": {
+            "source": "snakemake.vim",
+            "compatible_platforms": ["linux", "mac", "windows"],
+            "platform_dependent_paths": {
+                "windows": "vimfiles/syntax/snakemake.vim"
+            }
+        },
         ".vim/ftplugin/python.vim": {
             "source": "python.vim",
             "compatible_platforms": ["linux", "mac", "windows"],
