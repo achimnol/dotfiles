@@ -10,6 +10,16 @@ function get_pwd() {
   print -D $PWD
 }
 
+function pyvenv_info() {
+  pe=$(pyenv_prompt_info)
+  ve=$(virtualenv_prompt_info)
+  if [ ${#ve} != 0 ]; then
+    echo "[py$pe:$ve[2,-2]]"
+  else
+    echo "[py$pe]"
+  fi
+}
+
 function put_spacing() {
   local git=$(git_prompt_info)
   if [ ${#git} != 0 ]; then
@@ -19,7 +29,7 @@ function put_spacing() {
   fi
 
   local termwidth
-  (( termwidth = ${COLUMNS} - 3 - ${#HOST} - ${#$(get_pwd)} - ${git} ))
+  (( termwidth = ${COLUMNS} - 3 - ${#HOST} - ${#$(get_pwd)} - ${#$(pyvenv_info)} - 1 - ${git} ))
 
   local spacing=""
   for i in {1..$termwidth}; do
@@ -30,7 +40,7 @@ function put_spacing() {
 
 function precmd() {
 print -rP '
-$fg[cyan]%m: $fg[yellow]$(get_pwd)$(put_spacing)$(git_prompt_info) '
+$fg[cyan]%m: $fg[yellow]$(get_pwd) $fg_bold[yellow]$(pyvenv_info)$(put_spacing)$(git_prompt_info) '
 }
 
 PROMPT='%{$reset_color%}%{$fg[white]%}%(!.#.>)%{$reset_color%} '
