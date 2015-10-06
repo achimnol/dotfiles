@@ -40,7 +40,7 @@ function put_spacing() {
 
 function precmd() {
 print -rP '
-$fg[cyan]%m: $fg[yellow]$(get_pwd) $fg_bold[yellow]$(pyvenv_info)$(put_spacing)$(git_prompt_info) '
+$fg[cyan]%m: $fg[yellow]$(get_pwd) $fg_bold[yellow]$(pyvenv_info) $(git_prompt_info)'
 }
 
 PROMPT='%{$reset_color%}%{$fg[white]%}%(!.#.>)%{$reset_color%} '
