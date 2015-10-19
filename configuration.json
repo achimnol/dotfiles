@@ -203,9 +203,9 @@
         "home": {
             "_": {
                 "variables": {
-                    "vim_colorscheme": "solarized",
+                    "vim_colorscheme": "hybrid",
                     "vim_textwidth": 0,
-                    "term_colorscheme": "solarized",
+                    "term_colorscheme": "hybrid",
                     "username": "Joongi Kim",
                     "email": "me@daybreaker.info"
                 },
