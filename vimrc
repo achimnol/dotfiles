@@ -40,7 +40,7 @@ endif
 Plugin 'gmarik/Vundle.vim'
 Plugin 'rust-lang/rust.vim'
 Plugin 'airblade/vim-gitgutter'
-let g:airline_powerline_fonts = 1
+let g:airline_powerline_fonts = 0
 Plugin 'bling/vim-airline'
 set laststatus=2  " always show airline
 Plugin 'tpope/vim-vinegar'
