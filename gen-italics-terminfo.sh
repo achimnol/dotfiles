@@ -1,3 +1,4 @@
+#! /bin/bash
 # To use italics in "normal" terminals and tmux.
 # From tmux's FAQ section: https://github.com/ThomasAdam/tmux/blob/master/FAQ
 
