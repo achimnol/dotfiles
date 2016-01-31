@@ -89,7 +89,7 @@ fi
 alias ll='ls -l'
 alias la='ls -A'
 alias l='ls -CF'
-alias tmux='TERM=xterm-256color-italics tmux -2'
+alias tmux='tmux -2'
 alias make='make -j'
 
 export TTY=$(tty)

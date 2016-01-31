@@ -13,3 +13,20 @@ for term in "${terms[@]}"; do
     tic /tmp/screen.terminfo
     rm /tmp/screen.terminfo
 done
+
+cat <<EOF > /tmp/tmux.terminfo
+tmux|tmux terminal multiplexer,
+	ritm=\E[23m, rmso=\E[27m, sitm=\E[3m, smso=\E[7m, Ms@,
+	use=xterm+tmux, use=screen,
+
+EOF
+tic -x /tmp/tmux.terminfo
+rm /tmp/tmux.terminfo
+
+cat <<EOF > /tmp/tmux-256color.terminfo
+tmux-256color|tmux with 256 colors,
+	use=xterm-256color, use=tmux,
+
+EOF
+tic -x /tmp/tmux-256color.terminfo
+rm /tmp/tmux-256color.terminfo
