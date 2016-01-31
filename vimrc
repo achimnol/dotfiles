@@ -105,7 +105,6 @@ if !has("gui_running")  " For terminal vims
 %end
   if s:tty=~"/pts/" && ($TERM=~"-256color" || $TERM=="linux" || $TERM=="screen")
     set t_Co=256
-    set term=xterm-256color-italics
     colorscheme {{vim_colorscheme}}
     highlight Comment cterm=italic
   else
