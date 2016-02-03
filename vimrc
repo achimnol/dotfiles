@@ -103,12 +103,18 @@ if !has("gui_running")  " For terminal vims
 %if vim_colorscheme == "hybrid":
   let g:hybrid_use_Xresources = 1
 %end
-  if s:tty=~"/pts/" && ($TERM=~"-256color" || $TERM=="linux" || $TERM=="screen")
+  if s:tty=~"/pts/" && ($TERM =~ "-256color$" || $TERM == "linux")
     set t_Co=256
     colorscheme {{vim_colorscheme}}
     highlight Comment cterm=italic
   else
     colorscheme default
+  endif
+  if $TERM =~ '^screen' || $TERM =~ '^tmux'
+    map <Esc>[1~ <Home>
+    map! <Esc>[1~ <Home>
+    map <Esc>[4~ <End>
+    map! <Esc>[4~ <End>
   endif
 endif
 
