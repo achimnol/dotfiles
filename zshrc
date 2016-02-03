@@ -92,6 +92,12 @@ alias l='ls -CF'
 alias tmux='tmux -2'
 alias make='make -j'
 
+# Fix tmux/screen home/end keys
+if [[ "$TERM" =~ ^tmux || "$TERM" =~ ^screen ]]; then
+    bindkey '^[[1~' beginning-of-line
+    bindkey '^[[4~' end-of-line
+fi
+
 export TTY=$(tty)
 export SVN_EDITOR=vim
 export HGENCODING=UTF-8
