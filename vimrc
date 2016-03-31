@@ -156,6 +156,7 @@ if exists("$HOME")
   let &bdir = s:home_dir . "/backup" . &bdir
 endif
 
+set timeout timeoutlen=3000 ttimeoutlen=100
 map j gj
 map k gk
 map <Down> gj
