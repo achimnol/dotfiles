@@ -74,26 +74,27 @@ stty start undef
 
 # enable color support of ls and also add handy aliases
 if [ "$TERM" != "dumb" ]; then
-    os_type=`uname -s`
-    if [[ "$os_type" == "Linux" ]]; then
-	LS_COLOR_OPTION='--color=auto'
-    else
-	LS_COLOR_OPTION='-G'
-    fi
-    if [[ "$TERM" == "tmux-256color" ]]; then
-	alias ls="TERM=xterm-256color ls $LS_COLOR_OPTION"
-	alias dir="TERM=xterm-256color ls $LS_COLOR_OPTION"
-    else
-	alias ls="ls $LS_COLOR_OPTION"
-	alias dir="ls $LS_COLOR_OPTION"
-    fi
+  os_type=`uname -s`
+  if [[ "$os_type" == "Linux" ]]; then
+    LS_COLOR_OPTION='--color=auto'
+  else
+    LS_COLOR_OPTION='-G'
+  fi
+  if [[ "$TERM" == "tmux-256color" ]]; then
+    alias ls="TERM=xterm-256color ls $LS_COLOR_OPTION"
+    alias dir="TERM=xterm-256color ls $LS_COLOR_OPTION"
+    alias htop='TERM=xterm-color htop'
+  else
+    alias ls="ls $LS_COLOR_OPTION"
+    alias dir="ls $LS_COLOR_OPTION"
+  fi
 fi
-
 alias ll='ls -l'
 alias la='ls -A'
 alias l='ls -CF'
 alias tmux='tmux -2'
 alias make='make -j'
+alias sudo='sudo '  # let aliases work with sudo
 
 # Fix tmux/screen home/end keys
 if [[ "$TERM" =~ ^tmux || "$TERM" =~ ^screen ]]; then
