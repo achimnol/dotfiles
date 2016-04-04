@@ -81,8 +81,13 @@ if [ "$TERM" != "dumb" ]; then
     else
 	LS_COLOR_OPTION='-G'
     fi
-    alias ls="ls $LS_COLOR_OPTION"
-    alias dir="ls $LS_COLOR_OPTION"
+    if [[ "$TERM" == "tmux-256color" ]]; then
+	alias ls="TERM=xterm-256color ls $LS_COLOR_OPTION"
+	alias dir="TERM=xterm-256color ls $LS_COLOR_OPTION"
+    else
+	alias ls="ls $LS_COLOR_OPTION"
+	alias dir="ls $LS_COLOR_OPTION"
+    fi
 fi
 
 alias ll='ls -l'
