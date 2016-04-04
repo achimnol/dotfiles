@@ -76,7 +76,6 @@ stty start undef
 if [ "$TERM" != "dumb" ]; then
     os_type=`uname -s`
     if [[ "$os_type" == "Linux" ]]; then
-	eval `dircolors ~/.dircolors`
 	LS_COLOR_OPTION='--color=auto'
     else
 	LS_COLOR_OPTION='-G'
