@@ -81,7 +81,7 @@ if has("gui_macvim")  " MacVim
 endif
 
 syntax on
-syntax sync minlines=2000
+autocmd BufWinEnter * syntax sync minlines=200 maxlines=1000 linebreaks=100
 
 if !has("gui_running")  " For terminal vims
   if has("win32")
