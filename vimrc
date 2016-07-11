@@ -81,7 +81,7 @@ if has("gui_macvim")  " MacVim
 endif
 
 syntax on
-autocmd BufWinEnter * syntax sync minlines=200 maxlines=1000 linebreaks=100
+autocmd BufWinEnter * syntax sync minlines=50 maxlines=200 linebreaks=10
 
 if !has("gui_running")  " For terminal vims
   if has("win32")
@@ -130,7 +130,7 @@ set scrolloff=2
 set iminsert=0 imsearch=0
 set backspace=indent,eol,start
 filetype plugin on
-set cursorline
+"set cursorline
 
 function MyHomeKey()
   let l:column = col('.')
