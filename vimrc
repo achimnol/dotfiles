@@ -144,18 +144,6 @@ endfunction
 source $VIMRUNTIME/ftplugin/man.vim
 nmap K :Man <cword><cr>
 
-" Temp directory setup
-if exists("$HOME")
-  let s:home_dir = substitute($HOME, '[/\\]$', '', '')
-  if has("win32")
-    let s:home_dir = s:home_dir . '/_vim'
-  else
-    let s:home_dir = s:home_dir . '/.vim'
-  endif
-  let &dir = s:home_dir . "/tmp" . &dir
-  let &bdir = s:home_dir . "/backup" . &bdir
-endif
-
 set timeout timeoutlen=3000 ttimeoutlen=100
 map j gj
 map k gk
