@@ -156,7 +156,7 @@
         "lab": {
             "_": {
                 "variables": {
-                    "vim_colorscheme": "hybrid",
+                    "vim_colorscheme": "molokai",
                     "vim_textwidth": 75,
                     "term_colorscheme": "xterm-256color",
                     "username": "Joongi Kim",
@@ -183,7 +183,7 @@
         "work": {
             "_": {
                 "variables": {
-                    "vim_colorscheme": "hybrid",
+                    "vim_colorscheme": "molokai",
                     "vim_textwidth": 100,
                     "term_colorscheme": "xterm-256color",
                     "username": "Joongi Kim",
@@ -197,7 +197,7 @@
             },
             "windows": {
                 "variables": {
-                    "vim_colorscheme": "hybrid",
+                    "vim_colorscheme": "molokai",
                     "hg_cacerts": ""
                 }
             },
@@ -210,9 +210,9 @@
         "home": {
             "_": {
                 "variables": {
-                    "vim_colorscheme": "hybrid",
+                    "vim_colorscheme": "molokai",
                     "vim_textwidth": 0,
-                    "term_colorscheme": "hybrid",
+                    "term_colorscheme": "molokai",
                     "username": "Joongi Kim",
                     "email": "me@daybreaker.info"
                 },

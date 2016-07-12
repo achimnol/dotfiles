@@ -49,7 +49,7 @@ Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'nvie/vim-flake8'
 Plugin 'hdima/python-syntax'
-Plugin 'othree/yajs'
+Plugin 'pangloss/vim-javascript'
 
 call vundle#end()
 filetype plugin on
