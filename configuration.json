@@ -82,6 +82,13 @@
                 "windows": "vimfiles/colors/solarized.vim"
             }
         },
+        ".vim/colors/molokai.vim": {
+            "source": "molokai.vim",
+            "compatible_platforms": ["linux", "mac", "windows"],
+            "platform_dependent_paths": {
+                "windows": "vimfiles/colors/molokai.vim"
+            }
+        },
         ".vim/syntax/snakemake.vim": {
             "source": "snakemake.vim",
             "compatible_platforms": ["linux", "mac", "windows"],
