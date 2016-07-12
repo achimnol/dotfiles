@@ -81,7 +81,7 @@ if has("gui_macvim")  " MacVim
 endif
 
 syntax on
-autocmd BufWinEnter * syntax sync minlines=50 maxlines=200 linebreaks=10
+autocmd BufWinEnter * syntax sync minlines=100 maxlines=500 linebreaks=10
 
 if !has("gui_running")  " For terminal vims
   if has("win32")
@@ -101,13 +101,14 @@ if !has("gui_running")  " For terminal vims
   " Note: solarized recommends use of terminal color setting instead of
   " degraded 256-color mode.
 %end
-%if vim_colorscheme == "hybrid":
-  let g:hybrid_use_Xresources = 1
-%end
   if s:tty=~"/pts/" && ($TERM =~ "-256color$" || $TERM == "linux")
-    set t_Co=256
+    if has("nvim")
+      let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+    else
+      set t_Co=256
+    endif
     colorscheme {{vim_colorscheme}}
-    highlight Comment cterm=italic
+    highlight Comment gui=italic cterm=italic
   else
     colorscheme default
   endif
