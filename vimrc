@@ -105,8 +105,9 @@ if !has("gui_running")  " For terminal vims
     if has("nvim")
       let $NVIM_TUI_ENABLE_TRUE_COLOR=1
     else
-      set t_Co=256
+      set t_Co=256 termguicolors term=xterm-256color
     endif
+    set t_ut=
     colorscheme {{vim_colorscheme}}
     highlight Comment gui=italic cterm=italic
   else
