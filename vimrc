@@ -102,12 +102,17 @@ if !has("gui_running")  " For terminal vims
   " degraded 256-color mode.
 %end
   if s:tty=~"/pts/" && ($TERM =~ "-256color$" || $TERM == "linux")
+
     if has("nvim")
       let $NVIM_TUI_ENABLE_TRUE_COLOR=1
     else
       set t_Co=256 termguicolors term=xterm-256color
     endif
+
+    " Disable BCE for 256-color tmux/screen terminals.
+    " More details - https://sunaku.github.io/vim-256color-bce.html
     set t_ut=
+
     colorscheme {{vim_colorscheme}}
     highlight Comment gui=italic cterm=italic
   else
