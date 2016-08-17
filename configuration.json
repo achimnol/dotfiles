@@ -89,6 +89,13 @@
                 "windows": "vimfiles/colors/molokai.vim"
             }
         },
+        ".vim/colors/monochrome.vim": {
+            "source": "monochrome.vim",
+            "compatible_platforms": ["linux", "mac", "windows"],
+            "platform_dependent_paths": {
+                "windows": "vimfiles/colors/monochrome.vim"
+            }
+        },
         ".vim/syntax/snakemake.vim": {
             "source": "snakemake.vim",
             "compatible_platforms": ["linux", "mac", "windows"],
@@ -156,7 +163,7 @@
         "lab": {
             "_": {
                 "variables": {
-                    "vim_colorscheme": "molokai",
+                    "vim_colorscheme": "monochrome",
                     "vim_textwidth": 75,
                     "term_colorscheme": "xterm-256color",
                     "username": "Joongi Kim",
@@ -183,7 +190,7 @@
         "work": {
             "_": {
                 "variables": {
-                    "vim_colorscheme": "molokai",
+                    "vim_colorscheme": "monochrome",
                     "vim_textwidth": 100,
                     "term_colorscheme": "xterm-256color",
                     "username": "Joongi Kim",
@@ -197,7 +204,7 @@
             },
             "windows": {
                 "variables": {
-                    "vim_colorscheme": "molokai",
+                    "vim_colorscheme": "monochrome",
                     "hg_cacerts": ""
                 }
             },
@@ -210,9 +217,9 @@
         "home": {
             "_": {
                 "variables": {
-                    "vim_colorscheme": "molokai",
+                    "vim_colorscheme": "monochrome",
                     "vim_textwidth": 0,
-                    "term_colorscheme": "molokai",
+                    "term_colorscheme": "xterm-256color",
                     "username": "Joongi Kim",
                     "email": "me@daybreaker.info"
                 },

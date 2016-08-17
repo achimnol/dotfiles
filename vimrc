@@ -46,6 +46,7 @@ set laststatus=2  " always show airline
 Plugin 'tpope/vim-vinegar'
 Plugin 'tpope/vim-surround'
 Plugin 'godlygeek/tabular'
+let g:vim_markdown_folding_disabled = 1
 Plugin 'plasticboy/vim-markdown'
 Plugin 'nvie/vim-flake8'
 Plugin 'hdima/python-syntax'
@@ -86,7 +87,7 @@ autocmd BufWinEnter * syntax sync minlines=100 maxlines=500 linebreaks=10
 if !has("gui_running")  " For terminal vims
   if has("win32")
     let s:tty="/dev/pts/0"  " emulate
-  elseif $TERM_PROGRAM == 'Apple_Terminal' || $TERM_PROGRAM =~ "iTerm\.app"
+  elseif $TERM_PROGRAM == 'Apple_Terminal' || $TERM_PROGRAM =~ "iTerm\.app" || $TERM_PROGRAM == 'HyperTerm'
     let s:tty="/dev/pts/0"  " emulate
   else
     " The environment variable TTY is set by the shell (see bashrc).
@@ -137,7 +138,7 @@ set scrolloff=2
 set iminsert=0 imsearch=0
 set backspace=indent,eol,start
 filetype plugin on
-"set cursorline
+set cursorline
 
 function MyHomeKey()
   let l:column = col('.')
