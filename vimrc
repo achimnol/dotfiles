@@ -51,6 +51,9 @@ Plugin 'plasticboy/vim-markdown'
 Plugin 'nvie/vim-flake8'
 Plugin 'hdima/python-syntax'
 Plugin 'pangloss/vim-javascript'
+Plugin 'fatih/vim-go'
+let g:go_highlight_functions = 1
+let g:go_highlight_operators = 1
 
 call vundle#end()
 filetype plugin on
@@ -71,14 +74,13 @@ endif
 if has("gui_macvim")  " MacVim
   set bg=dark
   colorscheme {{vim_colorscheme}}
-  set gfn=Monaco:h12
+  set guifont=Menlo\ for\ Powerline:h12
   set fuopt+=maxvert
   set fuopt+=maxhorz
-  set columns=120 lines=50
+  set columns=122 lines=60
   set go-=T
   set imd
   set transparency=0
-  map t_kD=
 endif
 
 syntax on

@@ -68,11 +68,11 @@
                 "windows": "vimfiles/colors/hybrid.vim"
             }
         },
-        ".vim/colors/jellybeans.vim": {
-            "source": "jellybeans.vim",
+        ".vim/colors/glacier.vim": {
+            "source": "glacier.vim",
             "compatible_platforms": ["linux", "mac", "windows"],
             "platform_dependent_paths": {
-                "windows": "vimfiles/colors/jellybeans.vim"
+                "windows": "vimfiles/colors/glacier.vim"
             }
         },
         ".vim/colors/solarized.vim": {
@@ -163,7 +163,7 @@
         "lab": {
             "_": {
                 "variables": {
-                    "vim_colorscheme": "monochrome",
+                    "vim_colorscheme": "glacier",
                     "vim_textwidth": 75,
                     "term_colorscheme": "xterm-256color",
                     "username": "Joongi Kim",
@@ -177,7 +177,7 @@
             },
             "windows": {
                 "variables": {
-                    "vim_colorscheme": "solarized",
+                    "vim_colorscheme": "glaicer",
                     "hg_cacerts": ""
                 }
             },
@@ -190,7 +190,7 @@
         "work": {
             "_": {
                 "variables": {
-                    "vim_colorscheme": "monochrome",
+                    "vim_colorscheme": "glacier",
                     "vim_textwidth": 100,
                     "term_colorscheme": "xterm-256color",
                     "username": "Joongi Kim",
@@ -204,7 +204,7 @@
             },
             "windows": {
                 "variables": {
-                    "vim_colorscheme": "monochrome",
+                    "vim_colorscheme": "glacier",
                     "hg_cacerts": ""
                 }
             },
@@ -217,7 +217,7 @@
         "home": {
             "_": {
                 "variables": {
-                    "vim_colorscheme": "monochrome",
+                    "vim_colorscheme": "glacier",
                     "vim_textwidth": 0,
                     "term_colorscheme": "xterm-256color",
                     "username": "Joongi Kim",
@@ -232,7 +232,7 @@
             },
             "windows": {
                 "variables": {
-                    "vim_colorscheme": "solarized",
+                    "vim_colorscheme": "glacier",
                     "hg_cacerts": ""
                 }
             },
