@@ -6,26 +6,6 @@ scripte utf-8
 let $LANG='ko_KR.UTF-8'
 set enc=utf-8
 
-%if vim_colorscheme == "solarized":
-let g:solarized_contrast="high"
-%end
-
-if has("gui_running") && has("win32")   " For Windows gVim
-  source $VIMRUNTIME/delmenu.vim
-  set langmenu=ko_kr
-  source $VIMRUNTIME/menu.vim
-
-  " Set the initial state of IME as Englinsh for insert/search mode.
-  set iminsert=0 imsearch=0
-
-  " Theme
-  colorscheme {{vim_colorscheme}}
-  set guifont=Hack:h10:cANSI
-  set guifontwide=NanumGothicCoding:h10:cDEFAULT
-  winsize 120 45
-endif
-
-
 " Vundle package manager
 filetype off
 if has("win32")
@@ -40,16 +20,18 @@ endif
 Plugin 'gmarik/Vundle.vim'
 Plugin 'rust-lang/rust.vim'
 Plugin 'airblade/vim-gitgutter'
-let g:airline_powerline_fonts = 0
+let g:airline_powerline_fonts = 1
 Plugin 'bling/vim-airline'
 set laststatus=2  " always show airline
 Plugin 'tpope/vim-vinegar'
 Plugin 'tpope/vim-surround'
-Plugin 'godlygeek/tabular'
 let g:vim_markdown_folding_disabled = 1
 Plugin 'plasticboy/vim-markdown'
 Plugin 'nvie/vim-flake8'
 Plugin 'hdima/python-syntax'
+let g:python_highlight_exceptions = 1
+"let g:python_highlight_builtin_funcs = 1
+"let g:python_highlight_print_as_function = 1
 Plugin 'pangloss/vim-javascript'
 Plugin 'fatih/vim-go'
 let g:go_highlight_functions = 1
@@ -58,8 +40,15 @@ let g:go_highlight_operators = 1
 call vundle#end()
 filetype plugin on
 
+syntax on
+autocmd BufWinEnter * syntax sync minlines=100 maxlines=500 linebreaks=10
 
-if has("gui_running")   " For general gVim
+%if vim_colorscheme == "solarized":
+let g:solarized_contrast="high"
+%end
+
+" gVim-specific options
+if has("gui_running")
   " Toggle menu/tool bars
   function s:MenuBar()
     if stridx(&guioptions, 'm') == -1
@@ -70,23 +59,34 @@ if has("gui_running")   " For general gVim
   endfunction
   map <silent> <F10> :call <SID>MenuBar()<cr>
   call <SID>MenuBar()
+  winsize 122 60
+  inoremap <ESC> <ESC>:set iminsert=0<CR>
+
+  " Windows-specific options
+  if has("win32")
+    source $VIMRUNTIME/delmenu.vim
+    set langmenu=ko_kr
+    source $VIMRUNTIME/menu.vim
+    colorscheme {{vim_colorscheme}}
+    set guifont=Hack:h10:cANSI
+    set guifontwide=NanumGothicCoding:h10:cDEFAULT
+  endif
 endif
-if has("gui_macvim")  " MacVim
-  set bg=dark
+
+" MacVim-specific options
+if has("gui_macvim")
   colorscheme {{vim_colorscheme}}
   set guifont=Menlo\ for\ Powerline:h12
+  set guifontwide=NanumGothicCoding:h12
   set fuopt+=maxvert
   set fuopt+=maxhorz
   set columns=122 lines=60
   set go-=T
-  set imd
   set transparency=0
 endif
 
-syntax on
-autocmd BufWinEnter * syntax sync minlines=100 maxlines=500 linebreaks=10
-
-if !has("gui_running")  " For terminal vims
+" Terminal-specific options
+if !has("gui_running")
   if has("win32")
     let s:tty="/dev/pts/0"  " emulate
   elseif $TERM_PROGRAM == 'Apple_Terminal' || $TERM_PROGRAM =~ "iTerm\.app" || $TERM_PROGRAM == 'HyperTerm'
@@ -133,13 +133,14 @@ set tenc=utf-8 fencs=utf-8,utf-16le,cp949,latin1 fenc=utf-8
 set ts=8 sw=4 sts=4 noet tw=0
 set hlsearch
 set autoindent copyindent nosmartindent nocindent
+if exists('+breakindent')
+  set breakindent
+endif
 set wmnu nu nuw=5 ruler
 set modeline
 set ignorecase smartcase
 set scrolloff=2
-set iminsert=0 imsearch=0
 set backspace=indent,eol,start
-filetype plugin on
 set cursorline
 
 function MyHomeKey()
