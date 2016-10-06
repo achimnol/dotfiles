@@ -77,7 +77,6 @@ endif
 if has("gui_macvim")
   colorscheme {{vim_colorscheme}}
   set guifont=Menlo\ for\ Powerline:h12
-  set guifontwide=NanumGothicCoding:h12
   set fuopt+=maxvert
   set fuopt+=maxhorz
   set columns=122 lines=60
