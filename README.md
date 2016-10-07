@@ -63,3 +63,12 @@ and then run `:PluginInstall`.
 ```
 ./gen-italics-terminfo.sh
 ```
+
+### Workarounding user font recognition and system clipboard access issues in tmux on macOS
+
+```
+brew install tmux reattach-to-user-namespace
+```
+
+Set your iTerm profile's startup command to use `reattach-to-user-namespace -l zsh`. 
+(Replace zsh with your favorite shell.)
