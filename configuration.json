@@ -110,6 +110,13 @@
                 "windows": "vimfiles/ftplugin/python.vim"
             }
         },
+        ".vim/ftplugin/markdown.vim": {
+            "source": "markdown.vim",
+            "compatible_platforms": ["linux", "mac", "windows"],
+            "platform_dependent_paths": {
+                "windows": "vimfiles/ftplugin/markdown.vim"
+            }
+        },
         ".vim/ftplugin/ruby.vim": {
             "source": "ruby.vim",
             "compatible_platforms": ["linux", "mac", "windows"],

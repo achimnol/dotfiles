@@ -1,5 +1,3 @@
-setlocal ts=4
-setlocal sw=4
-setlocal sts=4
-setlocal expandtab
+setlocal ts=8 sw=4 sts=4 expandtab
 setlocal formatoptions=croql
+setlocal breakindentopt=shift:4
