@@ -49,6 +49,10 @@ let g:solarized_contrast="high"
 
 " gVim-specific options
 if has("gui_running")
+
+  " Hide scroll bars always
+  set go-=r go-=L
+
   " Toggle menu/tool bars
   function s:MenuBar()
     if stridx(&guioptions, 'm') == -1
