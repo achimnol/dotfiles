@@ -33,6 +33,7 @@ let g:python_highlight_exceptions = 1
 "let g:python_highlight_builtin_funcs = 1
 "let g:python_highlight_print_as_function = 1
 Plugin 'pangloss/vim-javascript'
+Plugin 'JuliaLang/julia-vim'
 Plugin 'fatih/vim-go'
 let g:go_highlight_functions = 1
 let g:go_highlight_operators = 1
