@@ -54,32 +54,11 @@
                 "windows": "_vimrc"
             }
         },
-        ".vim/colors/desert256.vim": {
-            "source": "desert256.vim",
-            "compatible_platforms": ["linux", "mac", "windows"],
-            "platform_dependent_paths": {
-                "windows": "vimfiles/colors/desert256.vim"
-            }
-        },
-        ".vim/colors/hybrid.vim": {
-            "source": "hybrid.vim",
-            "compatible_platforms": ["linux", "mac", "windows"],
-            "platform_dependent_paths": {
-                "windows": "vimfiles/colors/hybrid.vim"
-            }
-        },
         ".vim/colors/glacier.vim": {
             "source": "glacier.vim",
             "compatible_platforms": ["linux", "mac", "windows"],
             "platform_dependent_paths": {
                 "windows": "vimfiles/colors/glacier.vim"
-            }
-        },
-        ".vim/colors/solarized.vim": {
-            "source": "solarized.vim",
-            "compatible_platforms": ["linux", "mac", "windows"],
-            "platform_dependent_paths": {
-                "windows": "vimfiles/colors/solarized.vim"
             }
         },
         ".vim/colors/molokai.vim": {
@@ -94,58 +73,6 @@
             "compatible_platforms": ["linux", "mac", "windows"],
             "platform_dependent_paths": {
                 "windows": "vimfiles/colors/monochrome.vim"
-            }
-        },
-        ".vim/syntax/snakemake.vim": {
-            "source": "snakemake.vim",
-            "compatible_platforms": ["linux", "mac", "windows"],
-            "platform_dependent_paths": {
-                "windows": "vimfiles/syntax/snakemake.vim"
-            }
-        },
-        ".vim/ftplugin/python.vim": {
-            "source": "python.vim",
-            "compatible_platforms": ["linux", "mac", "windows"],
-            "platform_dependent_paths": {
-                "windows": "vimfiles/ftplugin/python.vim"
-            }
-        },
-        ".vim/ftplugin/markdown.vim": {
-            "source": "markdown.vim",
-            "compatible_platforms": ["linux", "mac", "windows"],
-            "platform_dependent_paths": {
-                "windows": "vimfiles/ftplugin/markdown.vim"
-            }
-        },
-        ".vim/ftplugin/ruby.vim": {
-            "source": "ruby.vim",
-            "compatible_platforms": ["linux", "mac", "windows"],
-            "platform_dependent_paths": {
-                "windows": "vimfiles/ftplugin/ruby.vim"
-            }
-        },
-        ".vim/ftplugin/c.vim": {
-            "source": "c.vim",
-            "compatible_platforms": ["linux", "mac", "windows"],
-            "template_vars": ["vim_textwidth"],
-            "platform_dependent_paths": {
-                "windows": "vimfiles/ftplugin/c.vim"
-            }
-        },
-        ".vim/ftplugin/cpp.vim": {
-            "source": "cpp.vim",
-            "compatible_platforms": ["linux", "mac", "windows"],
-            "template_vars": ["vim_textwidth"],
-            "platform_dependent_paths": {
-                "windows": "vimfiles/ftplugin/cpp.vim"
-            }
-        },
-        ".vim/ftplugin/cuda.vim": {
-            "source": "cuda.vim",
-            "compatible_platforms": ["linux", "mac", "windows"],
-            "template_vars": ["vim_textwidth"],
-            "platform_dependent_paths": {
-                "windows": "vimfiles/ftplugin/cuda.vim"
             }
         },
         ".config/flake8": {
