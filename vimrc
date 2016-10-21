@@ -19,6 +19,7 @@ endif
 Plugin 'gmarik/Vundle.vim'
 Plugin 'rust-lang/rust.vim'
 Plugin 'airblade/vim-gitgutter'
+Plugin 'ctrlpvim/ctrlp.vim'
 let g:airline_powerline_fonts = 1
 Plugin 'bling/vim-airline'
 set laststatus=2  " always show airline
@@ -125,7 +126,6 @@ set modeline
 " Search
 set hlsearch
 set ignorecase smartcase
-set backspace=indent,eol,start
 
 " Show man pages inside vim like :help command.
 source $VIMRUNTIME/ftplugin/man.vim
@@ -137,18 +137,10 @@ map j gj
 map k gk
 map <Down> gj
 map <Up> gk
-
-function MyHomeKey()
-  let l:column = col('.')
-  execute "normal ^"
-  if l:column == col('.')
-    execute "normal 0"
-  endif
-endfunction
-
-" NOTE: <Home> key may be different on variouse terminals.
-imap <silent> [1~ <C-O>:call MyHomeKey()<cr>
-map <silent> [1~ :call MyHomeKey()<cr>
+set backspace=indent,eol,start
+map <c-l> :bn<CR>
+map <c-h> :bN<CR>
+map <leader>p :CtrlPBuffer<CR>
 
 " prevent removing indents before # when typing # after indents and smartindent is on (mostly occurs in Python)
 inoremap # X#
