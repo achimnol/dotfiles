@@ -65,8 +65,10 @@ function! s:UIMode()
         let s:ArrayBit   = 1
 
         " Force 16 color mode
-        set t_Co=16 
-        set notermguicolors
+        set t_Co=16
+        if exists("+termguicolors")
+            set notermguicolors
+        endif
     endif
 endfunction
 
@@ -74,7 +76,7 @@ call s:UIMode()
 
 " }}
 
-" Semantics {{ 
+" Semantics {{
 
 " Set window background color
 if has("gui_running")
@@ -124,3 +126,5 @@ execute "hi DiffChange "   . s:ColorMode . "fg=" . s:glacier.xterm11[s:ArrayBit]
 " }}
 
 set background=dark
+
+" vim: ts=8 sts=4 sw=4 et

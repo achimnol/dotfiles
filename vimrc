@@ -15,29 +15,31 @@ else
   set rtp+=~/.vim/bundle/Vundle.vim
   call vundle#begin()
 endif
-
 Plugin 'gmarik/Vundle.vim'
-Plugin 'rust-lang/rust.vim'
+
+" Functionality plugins
+let g:airline_powerline_fonts = 1
+set laststatus=2  " always show airline
 Plugin 'airblade/vim-gitgutter'
 Plugin 'ctrlpvim/ctrlp.vim'
-let g:airline_powerline_fonts = 1
 Plugin 'bling/vim-airline'
-set laststatus=2  " always show airline
 Plugin 'tpope/vim-vinegar'
 Plugin 'tpope/vim-surround'
+
+" Syntax plugins
 let g:vim_markdown_folding_disabled = 1
-Plugin 'plasticboy/vim-markdown'
+let g:python_highlight_exceptions = 1
+let g:python_highlight_builtin_funcs = 0
+let g:go_highlight_functions = 1
+let g:go_highlight_operators = 1
 Plugin 'nvie/vim-flake8'
 Plugin 'hdima/python-syntax'
-let g:python_highlight_exceptions = 1
-"let g:python_highlight_builtin_funcs = 1
-"let g:python_highlight_print_as_function = 1
+Plugin 'plasticboy/vim-markdown'
 Plugin 'ibab/vim-snakemake'
+Plugin 'rust-lang/rust.vim'
 Plugin 'pangloss/vim-javascript'
 Plugin 'JuliaLang/julia-vim'
 Plugin 'fatih/vim-go'
-let g:go_highlight_functions = 1
-let g:go_highlight_operators = 1
 
 call vundle#end()
 filetype plugin on
@@ -78,7 +80,10 @@ else
     if has("nvim")
       let $NVIM_TUI_ENABLE_TRUE_COLOR=1
     else
-      set t_Co=256 termguicolors term=xterm-256color
+      set t_Co=256 term=xterm-256color
+      if exists("+termguicolors")
+        set termguicolors
+      endif
     endif
     set t_ut=
   endif
