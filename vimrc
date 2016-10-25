@@ -19,6 +19,10 @@ Plugin 'gmarik/Vundle.vim'
 
 " Functionality plugins
 let g:airline_powerline_fonts = 1
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/](\.(git|hg|svn)|(__pycache__|venv[^\/]*))$',
+  \ 'file': '\v\.(exe|so|dll)$',
+  \ }
 set laststatus=2  " always show airline
 Plugin 'airblade/vim-gitgutter'
 Plugin 'ctrlpvim/ctrlp.vim'
@@ -123,6 +127,7 @@ au FileType json       setl ts=8 sts=2 sw=2 et
 au FileType markdwon   setl ts=8 sts=2 sw=2 et breakindentopt=shift:2
 au FileType tex        setl ts=8 sts=2 sw=2 et
 au FileType sh         setl ts=8 sts=2 sw=2 et
+au FileType yaml       setl ts=8 sts=2 sw=2 et
 au FileType go         setl ts=4 sts=4 sw=4 noet lcs=tab:\ \ ,trail:·
 
 " Per-file settings
