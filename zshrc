@@ -123,3 +123,5 @@ export HGEDITOR=~/hgeditor
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 #
 setopt no_share_history
+
+typeset -U PATH
