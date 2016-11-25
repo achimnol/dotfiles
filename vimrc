@@ -34,6 +34,8 @@ Plugin 'tpope/vim-surround'
 let g:vim_markdown_folding_disabled = 1
 let g:python_highlight_exceptions = 1
 let g:python_highlight_builtin_funcs = 0
+let g:python_highlight_string_formatting = 1
+let g:python_highlight_string_format = 1
 let g:go_highlight_functions = 1
 let g:go_highlight_operators = 1
 Plugin 'nvie/vim-flake8'
