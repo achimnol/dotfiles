@@ -2,6 +2,7 @@
     sslverify = false
 [alias]
     st = status
+    pretty-log = log --branches --graph --tags --oneline --decorate
 [user]
     name = {{username}}
     email = {{email}}
