@@ -20,7 +20,7 @@ Plugin 'gmarik/Vundle.vim'
 " Functionality plugins
 let g:airline_powerline_fonts = 1
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/](\.(git|hg|svn)|(__pycache__|venv[^\/]*))$',
+  \ 'dir':  '\v[\/](\.(git|hg|svn)|(__pycache__|build|dist|venv[^\/]*))$',
   \ 'file': '\v\.(exe|so|dll)$',
   \ }
 set laststatus=2  " always show airline
