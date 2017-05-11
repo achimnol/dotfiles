@@ -96,6 +96,8 @@ alias tmux='tmux -2'
 alias make='make -j'
 alias sudo='sudo '  # let aliases work with sudo
 
+alias rg='rg --colors path:fg:green --colors path:style:bold --colors match:bg:yellow --colors match:fg:black --colors match:style:nobold --context-separator=---- '
+
 # Fix tmux/screen home/end keys
 if [[ "$TERM" =~ ^tmux || "$TERM" =~ ^screen ]]; then
     bindkey '^[[1~' beginning-of-line

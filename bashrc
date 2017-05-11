@@ -84,8 +84,10 @@ fi
 alias ll='ls -l'
 alias la='ls -A'
 alias l='ls -CF'
-alias tmux='TERM=screen-256color-italics tmux -2'
+alias tmux='tmux -2'
 alias sfind='~/sfind.py'
+
+alias rg='rg --colors path:fg:green --colors path:style:bold --colors match:bg:yellow --colors match:fg:black --colors match:style:nobold --context-separator=---- '
 
 case `uname -s` in
     Linux)
