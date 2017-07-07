@@ -29,6 +29,7 @@ Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'bling/vim-airline'
 Plugin 'tpope/vim-vinegar'
 Plugin 'tpope/vim-surround'
+Plugin 'editorconfig/editorconfig-vim'
 
 " Syntax plugins
 let g:vim_markdown_folding_disabled = 1
