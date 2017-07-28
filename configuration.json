@@ -8,6 +8,10 @@
             "source": "zshrc",
             "compatible_platforms": ["linux", "mac"]
         },
+        ".direnvrc": {
+            "source": "direnvrc",
+            "compatible_platforms": ["linux", "mac"]
+        },
         ".oh-my-zsh/themes/achimnol.zsh-theme": {
             "source": "achimnol.zsh-theme",
             "compatible_platforms": ["linux", "mac"]
