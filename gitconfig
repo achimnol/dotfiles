@@ -15,4 +15,7 @@
 %if _platform == "windows":
 [credential]
     helper = wincred
+%elif _platform == "mac":
+[credential]
+    helper = osxkeychain
 %end
