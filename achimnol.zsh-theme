@@ -15,9 +15,9 @@ function pyvenv_info() {
   pe=$(pyenv_prompt_info)
   ve=$(virtualenv_prompt_info)
   if [ ${#ve} != 0 ]; then
-    echo "[py$pe:$ve[2,-2]]"
+    echo "[py:$ve[2,-2]]"
   else
-    echo "[py$pe]"
+    echo "[py:$pe]"
   fi
 }
 
