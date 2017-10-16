@@ -28,17 +28,13 @@ Plugin 'airblade/vim-gitgutter'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'bling/vim-airline'
 Plugin 'tpope/vim-vinegar'
-Plugin 'tpope/vim-surround'
+"Plugin 'tpope/vim-surround'
+let g:EditorConfig_max_line_indicator = "exceeding"
 Plugin 'editorconfig/editorconfig-vim'
 
 " Syntax plugins
 let g:vim_markdown_folding_disabled = 1
-let g:python_highlight_exceptions = 1
-let g:python_highlight_builtins = 1
-let g:python_highlight_builtin_objs = 1
-let g:python_highlight_builtin_funcs = 1
-let g:python_highlight_string_formatting = 1
-let g:python_highlight_string_format = 1
+let g:python_highlight_all = 1
 let g:go_highlight_functions = 1
 let g:go_highlight_operators = 1
 Plugin 'nvie/vim-flake8'
@@ -49,6 +45,10 @@ Plugin 'rust-lang/rust.vim'
 Plugin 'pangloss/vim-javascript'
 Plugin 'JuliaLang/julia-vim'
 Plugin 'fatih/vim-go'
+"Plugin 'mileszs/ack.vim'
+"Plugin 'rizzatti/dash.vim'
+"nmap <silent> <leader>d <Plug>DashSearch
+"Plugin 'jvirtanen/vim-octave'
 
 call vundle#end()
 filetype plugin on
