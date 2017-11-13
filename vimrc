@@ -2,6 +2,8 @@
 " Maintainer: Joongi Kim (me@daybreaker.info)
 
 set nocompatible
+set ttyfast
+set lazyredraw
 scripte utf-8
 set enc=utf-8
 
@@ -52,6 +54,7 @@ Plugin 'fatih/vim-go'
 
 call vundle#end()
 filetype plugin on
+set synmaxcol=200
 syntax on
 
 if has("gui_running")
