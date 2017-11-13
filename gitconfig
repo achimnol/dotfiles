@@ -12,6 +12,7 @@
     autocrlf = false
 [push]
     default = simple
+    followTags = true
 %if _platform == "windows":
 [credential]
     helper = wincred
