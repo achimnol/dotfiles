@@ -1,5 +1,5 @@
 [http]
-    sslverify = false
+    sslverify = true
 [alias]
     st = status
     pretty-log = log --branches --graph --tags --oneline --decorate
@@ -10,6 +10,8 @@
     ui = true
 [core]
     autocrlf = false
+    precomposeunicode = true
+    quotepath = false
 [push]
     default = simple
     followTags = true
