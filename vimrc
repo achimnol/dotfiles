@@ -40,7 +40,8 @@ let g:python_highlight_all = 1
 let g:go_highlight_functions = 1
 let g:go_highlight_operators = 1
 Plugin 'nvie/vim-flake8'
-Plugin 'achimnol/python-syntax'
+"Plugin 'achimnol/python-syntax'
+Plugin 'vim-python/python-syntax'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'ibab/vim-snakemake'
 Plugin 'rust-lang/rust.vim'
