@@ -52,6 +52,15 @@ gpgconf --launch gpg-agent
 ```
 
 Note: Bash on Ubuntu reads `.profile` by default but ZSH does not.
+In this case, add the following to `.zshrc_local`:
+
+```sh
+if [[ -o login ]]; then
+    source $HOME/.profile
+fi
+```
+
+Then, import the PGP key as you need.
 
 ### Initializing pyenv (Linux/Mac)
 
@@ -68,6 +77,21 @@ export PATH="$PYENV_ROOT/bin:$PATH"
 if command -v pyenv 1>/dev/null 2>&1; then
   eval "$(pyenv init -)"
   eval "$(pyenv virtualenv-init -)"
+fi
+```
+
+### Initializing Kryptonite
+
+```console
+$ curl https://krypt.co/kr | sh
+$ kr pair
+```
+
+**`.profile`** or **`.zshrc_local`**:
+```sh
+# kryptonite
+if [[ ! `pgrep krd` ]]; then
+  kr restart
 fi
 ```
 
