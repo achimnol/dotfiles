@@ -1,24 +1,30 @@
 [http]
-    sslverify = true
+	sslverify = true
 [alias]
-    st = status
-    pretty-log = log --branches --graph --tags --oneline --decorate
+	st = status
+	pretty-log = log --branches --graph --tags --oneline --decorate
 [user]
-    name = {{username}}
-    email = {{email}}
+	name = {{username}}
+	email = {{email}}
 [color]
-    ui = true
+	ui = true
 [core]
-    autocrlf = false
-    precomposeunicode = true
-    quotepath = false
+	autocrlf = false
+	precomposeunicode = true
+	quotepath = false
 [push]
-    default = simple
-    followTags = true
+	default = simple
+	followTags = true
 %if _platform == "windows":
 [credential]
-    helper = wincred
+	helper = wincred
 %elif _platform == "mac":
 [credential]
-    helper = osxkeychain
+	helper = osxkeychain
 %end
+%if _platform == "linux":
+[gpg]
+	program = gpg2
+%end
+
+; vim: ft=gitconfig ts=4 sts=4 sw=4 noet
