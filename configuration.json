@@ -38,6 +38,10 @@
             "source": "inputrc",
             "compatible_platforms": ["linux"]
         },
+        ".gnupg/gpg-agent.conf": {
+            "source": "gpg-agent.conf",
+            "compatible_platforms": ["linux"]
+        },
         "hgeditor": {
             "source": "hgeditor",
             "executable": true,
