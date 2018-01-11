@@ -13,20 +13,68 @@ After forking this repository, you need to customize `configuration.json`, in pa
 
 ## Installation
 
+### System Packages (Linux-Ubuntu)
+
+```console
+$ sudo apt install build-essential git-core tmux htop vim
+$ sudo apt install gnupg-agent gnupg2
+$ sudo apt install libssl-dev libreadline-dev libgdbm-dev zlib1g-dev libbz2-dev
+```
+
+### System Packages (Mac)
+
+```console
+$ xcode-select --install
+$ brew install git tmux htop python3
+$ brew install macvim --with-override-system-vim --without-python --with-python3
+$ brew install gpg-agent
+$ brew install openssl sqlite3 readline zlib gdbm tcl-tk
+```
+
 ### Initializing oh-my-zsh (when using zsh, for Linux/Mac only)
 
-```
-wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O - | sh
+```console
+$ wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O - | sh
 ```
 or
-```
-curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh
+```console
+$ curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh
 ```
 
-### Deploying the configurations
+### Initializing GnuPG (Linux)
 
+**`.profile`** or **`.zshrc_local`**:
+```sh
+# gpg-agent setup
+export GPG_TTY=`tty`
+export SSH_AUTH_SOCK="$HOME/.gnupg/S.gpg-agent.ssh"
+gpgconf --launch gpg-agent
 ```
-./deply.py --flavor home
+
+Note: Bash on Ubuntu reads `.profile` by default but ZSH does not.
+
+### Initializing pyenv (Linux/Mac)
+
+```console
+$ git clone https://github.com/pyenv/pyenv.git ~/.pyenv
+$ git clone https://github.com/pyenv/pyenv-virtualenv.git ~/.pyenv/plugins/pyenv-virtualenv
+```
+
+**`.profile`** or **`.zshrc_local`**:
+```sh
+# pyenv setup
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+  eval "$(pyenv virtualenv-init -)"
+fi
+```
+
+### Deploying the static configurations
+
+```console
+$ ./deply.py --flavor home
 ```
 
 If any file already exists, it will ask you whether to overwrite it.
@@ -38,19 +86,19 @@ This repository does not include [Vundle](https://github.com/gmarik/Vundle.vim) 
 For the first time after running `deploy.py`, you must run the followings to get vim to work properly.
 
 On Linux and Mac,
-```
+```console
 $ git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 $ vim +PluginInstall +qall
 ```
 
 On Windows,
-```
+```console
 > git clone https://github.com/gmarik/Vundle.vim.git %USERPROFILE%/vimfiles/bundle/Vundle.vim
 ```
 Run gVim and execute `:PluginInstall`.
 
 If your user name contains non-ASCII characters, make a ASCII symbolic link of your `%USERPROFILE%` directoy as follows:
-```
+```console
 > mklink /d ASCIINAME NONASCIINAME
 > set USERPROFILE=C:\Users\ASCIINAME
 > set HOMEPATH=\Users\ASCIINAME
@@ -60,14 +108,14 @@ and then run `:PluginInstall`.
 
 ### Enabling italics support in terminals (for Linux/Mac only)
 
-```
-./gen-italics-terminfo.sh
+```console
+$ ./gen-italics-terminfo.sh
 ```
 
 ### Workarounding user font recognition and system clipboard access issues in tmux on macOS
 
-```
-brew install tmux reattach-to-user-namespace
+```console
+$ brew install tmux reattach-to-user-namespace
 ```
 
 Set your iTerm profile's startup command to use `reattach-to-user-namespace -l zsh`. 
