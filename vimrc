@@ -164,6 +164,10 @@ map <leader>p :CtrlPBuffer<CR>
 " prevent removing indents before # when typing # after indents and smartindent is on (mostly occurs in Python)
 inoremap # X#
 
+" enable move-to-beginning/end of the line in insert-mode
+inoremap <C-a> <C-o>0
+inoremap <C-e> <C-o>$
+
 " Mouse support
 set mouse=a
 
