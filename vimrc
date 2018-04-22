@@ -49,9 +49,8 @@ Plugin 'pangloss/vim-javascript'
 Plugin 'JuliaLang/julia-vim'
 Plugin 'fatih/vim-go'
 "Plugin 'mileszs/ack.vim'
-"Plugin 'rizzatti/dash.vim'
-"nmap <silent> <leader>d <Plug>DashSearch
 "Plugin 'jvirtanen/vim-octave'
+Plugin 'w0rp/ale'
 
 call vundle#end()
 filetype plugin on
