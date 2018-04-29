@@ -20,12 +20,14 @@ endif
 Plugin 'gmarik/Vundle.vim'
 
 " Functionality plugins
+Plugin 'tmux-plugins/vim-tmux-focus-events'
 let g:airline_powerline_fonts = 1
 let g:ctrlp_custom_ignore = {
   \ 'dir':  '\v[\/](\.(git|hg|svn)|(__pycache__|build|dist|venv[^\/]*))$',
   \ 'file': '\v\.(exe|so|dll)$',
   \ }
 set laststatus=2  " always show airline
+set updatetime=200
 Plugin 'airblade/vim-gitgutter'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'bling/vim-airline'
