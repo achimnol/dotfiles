@@ -38,9 +38,12 @@ Plugin 'editorconfig/editorconfig-vim'
 
 " Syntax plugins
 let g:vim_markdown_folding_disabled = 1
-let g:python_highlight_all = 1
-let g:go_highlight_functions = 1
-let g:go_highlight_operators = 1
+"let g:python_highlight_all = 1
+let g:python_highlight_builtins = 1
+let g:python_highlight_class_vars = 1
+let g:python_highlight_exceptions = 1
+let g:python_highlight_operators = 1
+let g:python_highlight_string_format = 1
 Plugin 'nvie/vim-flake8'
 "Plugin 'achimnol/python-syntax'
 Plugin 'vim-python/python-syntax'
@@ -49,6 +52,8 @@ Plugin 'ibab/vim-snakemake'
 Plugin 'rust-lang/rust.vim'
 Plugin 'pangloss/vim-javascript'
 Plugin 'JuliaLang/julia-vim'
+let g:go_highlight_functions = 1
+let g:go_highlight_operators = 1
 Plugin 'fatih/vim-go'
 "Plugin 'mileszs/ack.vim'
 "Plugin 'jvirtanen/vim-octave'
