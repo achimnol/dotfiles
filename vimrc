@@ -66,6 +66,7 @@ syntax on
 
 if has("gui_running")
   " GUI-specific options
+  set cursorline
 
   " Hide scroll bars always
   set go-=r go-=L
@@ -95,6 +96,7 @@ else
   " Terminal-specific options
 
   set bg=dark
+  set nocursorline
   if $TERM =~ "-256color$" || $TERM == "linux"
     if has("nvim")
       let $NVIM_TUI_ENABLE_TRUE_COLOR=1
@@ -130,7 +132,6 @@ endif
 
 " Editor View
 set wmnu nu nuw=5 ruler
-set cursorline
 set scrolloff=2
 
 " Per-type settings
