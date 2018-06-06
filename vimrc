@@ -107,6 +107,7 @@ else
       endif
     endif
     set t_ut=
+    set cursorline
   endif
   highlight Comment gui=italic cterm=italic
 
