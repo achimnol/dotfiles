@@ -2,8 +2,9 @@
 " Maintainer: Joongi Kim (me@daybreaker.info)
 
 set nocompatible
-set ttyfast
-set lazyredraw
+if !has("nvim")
+  set lazyredraw
+endif
 scripte utf-8
 set enc=utf-8
 
@@ -98,15 +99,15 @@ else
   set bg=dark
   set nocursorline
   if $TERM =~ "-256color$" || $TERM == "linux"
-    if has("nvim")
-      let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-    else
-      set t_Co=256 term=xterm-256color
-      if exists("+termguicolors")
-        set termguicolors
-      endif
+    if !has("nvim")
+      set term=xterm-256color
+    endif
+    set t_Co=256 
+    if exists("+termguicolors")
+      set termguicolors
     endif
     set t_ut=
+    set t_ZH=[3m t_ZR=[23m
     set cursorline
   endif
   highlight Comment gui=italic cterm=italic
