@@ -18,7 +18,7 @@ After forking this repository, you need to customize `configuration.json`, in pa
 ```console
 $ sudo apt install build-essential git-core tmux htop vim
 $ sudo apt install gnupg-agent gnupg2
-$ sudo apt install libssl-dev libreadline-dev libgdbm-dev zlib1g-dev libbz2-dev
+$ sudo apt install libssl-dev libreadline-dev libgdbm-dev zlib1g-dev libbz2-dev libsqlite3-dev libffi-dev
 ```
 
 ### System Packages (Mac)
