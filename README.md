@@ -19,6 +19,9 @@ After forking this repository, you need to customize `configuration.json`, in pa
 $ sudo apt install build-essential git-core tmux htop vim
 $ sudo apt install gnupg-agent gnupg2
 $ sudo apt install libssl-dev libreadline-dev libgdbm-dev zlib1g-dev libbz2-dev libsqlite3-dev libffi-dev
+$ sudo add-apt-repository ppa:jonathonf/vim
+$ sudo apt update
+$ sudo apt install vim
 ```
 
 ### System Packages (Mac)
