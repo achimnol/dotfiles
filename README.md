@@ -20,8 +20,9 @@ $ sudo apt install build-essential git-core tmux htop vim
 $ sudo apt install gnupg-agent gnupg2
 $ sudo apt install libssl-dev libreadline-dev libgdbm-dev zlib1g-dev libbz2-dev libsqlite3-dev libffi-dev
 $ sudo add-apt-repository ppa:jonathonf/vim
+$ sudo add-apt-repository ppa:hnakamur/tmux
 $ sudo apt update
-$ sudo apt install vim
+$ sudo apt install vim tmux
 ```
 
 ### System Packages (Mac)
