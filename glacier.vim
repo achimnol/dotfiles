@@ -109,6 +109,7 @@ execute "hi Optional "     .                                                    
 
 " Set VIM UI colors
 execute "hi LineNr "       . s:ColorMode . "fg=" . s:glacier.xterm0[s:ArrayBit]  . " " . s:ColorModeProp . "=none"
+execute "hi SignColumn "                                                               . s:ColorMode . "bg=" . s:glacier.guibg              . " " . s:ColorModeProp . "=none"
 execute "hi NonText "      . s:ColorMode . "fg=" . s:glacier.xterm0[s:ArrayBit]  . " " . s:ColorModeProp . "=none"
 execute "hi Visual "       . s:ColorMode . "fg=" . s:glacier.xterm7[s:ArrayBit]  . " " . s:ColorMode . "bg=" . s:glacier.xterm5[s:ArrayBit] . " " . s:ColorModeProp . "=none"
 execute "hi Cursor "       . s:ColorMode . "fg=" . s:glacier.xterm15[s:ArrayBit] . " " . s:ColorMode . "bg=" . s:glacier.xterm5[s:ArrayBit] . " " . s:ColorModeProp . "=none"

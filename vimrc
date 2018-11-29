@@ -29,7 +29,8 @@ let g:ctrlp_custom_ignore = {
   \ }
 set laststatus=2  " always show airline
 set updatetime=200
-Plugin 'airblade/vim-gitgutter'
+let g:signify_vcs_list = ['git', 'hg', 'svn']
+Plugin 'mhinz/vim-signify'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'bling/vim-airline'
 Plugin 'tpope/vim-vinegar'
