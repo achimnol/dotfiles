@@ -42,6 +42,8 @@ Plugin 'editorconfig/editorconfig-vim'
 let g:vim_markdown_folding_disabled = 1
 "let g:python_highlight_all = 1
 let g:python_highlight_builtins = 1
+let g:python_highlight_builtin_funcs = 1
+let g:python_highlight_builtin_objs = 1
 let g:python_highlight_class_vars = 1
 let g:python_highlight_exceptions = 1
 let g:python_highlight_operators = 1
