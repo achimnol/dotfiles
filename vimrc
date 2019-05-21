@@ -59,6 +59,7 @@ Plugin 'JuliaLang/julia-vim'
 let g:go_highlight_functions = 1
 let g:go_highlight_operators = 1
 Plugin 'fatih/vim-go'
+Plugin 'cespare/vim-toml'
 "Plugin 'mileszs/ack.vim'
 "Plugin 'jvirtanen/vim-octave'
 Plugin 'w0rp/ale'
