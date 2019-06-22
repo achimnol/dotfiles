@@ -41,14 +41,17 @@ Plugin 'editorconfig/editorconfig-vim'
 " Syntax plugins
 let g:vim_markdown_folding_disabled = 1
 "let g:python_highlight_all = 1
+let g:python_slow_sync = 0
+let g:python_print_as_function = 1
 let g:python_highlight_builtins = 1
 let g:python_highlight_builtin_funcs = 1
 let g:python_highlight_builtin_objs = 1
+let g:python_highlight_builtin_types = 1
 let g:python_highlight_class_vars = 1
 let g:python_highlight_exceptions = 1
 let g:python_highlight_operators = 1
 let g:python_highlight_string_format = 1
-Plugin 'nvie/vim-flake8'
+"Plugin 'nvie/vim-flake8'
 "Plugin 'achimnol/python-syntax'
 Plugin 'vim-python/python-syntax'
 Plugin 'plasticboy/vim-markdown'
