@@ -25,6 +25,11 @@
             "source": "ackrc",
             "compatible_platforms": ["linux", "mac"]
         },
+        ".docker/config.json": {
+            "source": "docker.json",
+            "merge_if_exists": true,
+            "compatible_platforms": ["linux", "mac"]
+        },
         "sfind.py": {
             "source": "sfind.py",
             "executable": true,

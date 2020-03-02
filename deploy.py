@@ -7,6 +7,7 @@
 #   (e.g., executing the registry editor on .reg files)
 
 from __future__ import print_function
+from functools import reduce
 import os, sys, codecs, tempfile, shutil, stat
 import json
 from optparse import OptionParser
@@ -27,24 +28,58 @@ def simple_dialog(msg, answers, indent=''):
         else:
             answer = input(indent + '  Please answer in one of ' + list_of_answers + ': ').strip()
 
+def merge_json_files(json_files):
+    data = []
+    result = {}
+    for fname in json_files:
+        with open(fname, 'r') as f:
+            data.append(json.load(f))
+    for item in data:
+        if not isinstance(item, dict):
+            raise ValueError('Cannot merge non-object JSON data.')
+
+    def merge_dict(src, update):
+        result = {**src}
+        for k, v in update.items():
+            if isinstance(v, dict):
+                if k in result:
+                    result[k] = merge_dict(result[k], v)
+                else:
+                    result[k] = {**v}
+            elif isinstance(v, list):
+                if k in result:
+                    result[k].extend(v)
+                else:
+                    result[k] = [*v]
+            else:
+                result[k] = v
+        return result
+
+    return reduce(merge_dict, data)
+
 def populate_file(dotfile, flavor, opts):
     print('Generating "{0}"...'.format(dotfile['source']))
     tmp_path = None
     source = ''
     encoding = dotfile.get('encoding', 'utf8')
+    merge_if_exists = dotfile.get('merge_if_exists', False)
     with codecs.open(dotfile['source'], 'r', encoding=encoding) as srcfile:
         source = srcfile.read()
     with tempfile.NamedTemporaryFile(prefix='dotfiles-', delete=False) as tmp:
         tmp_path = tmp.name
         EncodedWriter= codecs.getwriter(encoding)
         tmp_writer = EncodedWriter(tmp)
-        source = template(source, _platform=PLATFORM, **flavor['variables'])
+        if dotfile.get('template_vars', []):
+            source = template(source, _platform=PLATFORM, **flavor['variables'])
         tmp_writer.write(source)
 
     skip = False
     progress_printed = False
     if os.path.isfile(dotfile['dest']):
-        if opts.force:
+        if merge_if_exists:
+            print('  Merging with "{0}"...'.format(dotfile['dest']))
+            progress_printed = True
+        elif opts.force:
             print('  Overwriting "{0}"...'.format(dotfile['dest']))
             progress_printed = True
         else:
@@ -57,7 +92,20 @@ def populate_file(dotfile, flavor, opts):
             print('  Writing to "{0}"...'.format(dotfile['dest']))
         if not os.path.isdir(os.path.dirname(dotfile['dest'])):
             os.makedirs(os.path.dirname(dotfile['dest']))
-        shutil.copyfile(tmp_path, dotfile['dest'])
+        if merge_if_exists:
+            if os.path.splitext(dotfile['dest'])[1] == '.json':
+                with tempfile.NamedTemporaryFile(prefix='dotfiles.merge-') as merge_tmp:
+                    EncodedWriter= codecs.getwriter(encoding)
+                    merge_tmp_writer = EncodedWriter(merge_tmp)
+                    merge_tmp_writer.write(
+                        json.dumps(merge_json_files([dotfile['dest'], tmp_path]), indent=4)
+                    )
+                    merge_tmp_writer.flush()
+                    shutil.copyfile(merge_tmp.name, dotfile['dest'])
+            else:
+                raise ValueError('Merging is only possible with json format.')
+        else:
+            shutil.copyfile(tmp_path, dotfile['dest'])
         if dotfile.get('executable', False):
             os.chmod(dotfile['dest'], stat.S_IRWXU | stat.S_IRGRP | stat.S_IXGRP | stat.S_IROTH)
     os.unlink(tmp_path)
