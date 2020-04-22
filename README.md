@@ -31,7 +31,7 @@ Some network debugging utilities:
 $ sudo apt install dnsutils iproute2
 ```
 
-### System Packages (Mac)
+### System Packages (macOS with Homebrew)
 
 ```console
 $ xcode-select --install
@@ -40,6 +40,7 @@ $ brew install macvim --with-override-system-vim --without-python --with-python3
 $ brew install gpg-agent
 $ brew install ncurses  # for gen-italics-terminfo.sh
 $ brew install openssl sqlite3 readline zlib gdbm tcl-tk
+$ brew install exa fd hexyl  # modern cli utils
 ```
 
 Some network debugging utilities:
