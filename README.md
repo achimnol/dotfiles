@@ -24,6 +24,7 @@ $ sudo add-apt-repository ppa:jonathonf/vim
 $ sudo add-apt-repository ppa:hnakamur/tmux
 $ sudo apt update
 $ sudo apt install vim tmux
+$ sudo apt install fd hexyl bat  # modern cli utils (Ubuntu 19.10+) / exa should be installed via Rust Cargo
 ```
 
 Some network debugging utilities:
@@ -40,7 +41,7 @@ $ brew install macvim --with-override-system-vim --without-python --with-python3
 $ brew install gpg-agent
 $ brew install ncurses  # for gen-italics-terminfo.sh
 $ brew install openssl sqlite3 readline zlib gdbm tcl-tk
-$ brew install exa fd hexyl  # modern cli utils
+$ brew install exa fd hexyl bat  # modern cli utils
 ```
 
 Some network debugging utilities:
