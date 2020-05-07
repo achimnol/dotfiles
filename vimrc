@@ -186,5 +186,10 @@ inoremap <C-e> <C-o>$
 
 " Mouse support
 set mouse=a
+if has("mouse_sgr")
+  set ttymouse=sgr
+else
+  set ttymouse=xterm2
+end
 
 " vim: ts=8 sts=2 sw=2 et
