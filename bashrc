@@ -118,3 +118,6 @@ export HGEDITOR=~/hgeditor
 if [ -f ~/.bashrc_local ]; then
 	. ~/.bashrc_local
 fi
+
+# macOS Catalina
+export BASH_SILENCE_DEPRECATION_WARNING=1
