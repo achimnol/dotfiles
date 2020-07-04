@@ -148,6 +148,10 @@ If your user name contains non-ASCII characters, make a ASCII symbolic link of y
 ```
 and then run `:PluginInstall`.
 
+### Language Server configurations for Vim
+
+Run `:LspInstallServer` after opening a source file in a project working directory.
+
 ### Enabling italics support in terminals (for Linux/Mac only)
 
 ```console
@@ -160,5 +164,5 @@ $ ./gen-italics-terminfo.sh
 $ brew install tmux reattach-to-user-namespace
 ```
 
-Set your iTerm profile's startup command to use `reattach-to-user-namespace -l zsh`. 
+Set your iTerm profile's startup command to use `reattach-to-user-namespace -l zsh`.
 (Replace zsh with your favorite shell.)

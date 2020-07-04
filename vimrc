@@ -38,9 +38,15 @@ Plugin 'tpope/vim-vinegar'
 let g:EditorConfig_max_line_indicator = "exceeding"
 Plugin 'editorconfig/editorconfig-vim'
 
+" LSP plugins
+Plugin 'prabirshrestha/vim-lsp'
+Plugin 'mattn/vim-lsp-settings'
+Plugin 'prabirshrestha/asyncomplete.vim'
+Plugin 'prabirshrestha/asyncomplete-lsp.vim'
+let g:lsp_diagnostics_enabled = 0  " disable diagnostics support
+
 " Syntax plugins
 let g:vim_markdown_folding_disabled = 1
-"let g:python_highlight_all = 1
 let g:python_slow_sync = 0
 let g:python_print_as_function = 1
 let g:python_highlight_builtins = 1
@@ -109,7 +115,7 @@ else
     if !has("nvim")
       set term=xterm-256color
     endif
-    set t_Co=256 
+    set t_Co=256
     if exists("+termguicolors")
       set termguicolors
     endif
@@ -191,5 +197,29 @@ if has("mouse_sgr")
 else
   set ttymouse=xterm2
 end
+
+" LSP configurations
+function! s:on_lsp_buffer_enabled() abort
+  setlocal omnifunc=lsp#complete
+  "setlocal signcolumn=yes
+  if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
+  nmap <buffer> gd <plug>(lsp-definition)
+  nmap <buffer> gr <plug>(lsp-references)
+  nmap <buffer> gi <plug>(lsp-implementation)
+  nmap <buffer> gt <plug>(lsp-type-definition)
+  nmap <buffer> <leader>rn <plug>(lsp-rename)
+  nmap <buffer> [g <Plug>(lsp-previous-diagnostic)
+  nmap <buffer> ]g <Plug>(lsp-next-diagnostic)
+  nmap <buffer> K <plug>(lsp-hover)
+endfunction
+
+augroup lsp_install
+  au!
+  " call s:on_lsp_buffer_enabled only for languages that has the server registered.
+  autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+augroup END
+
+let g:lsp_fold_enabled = 0
+
 
 " vim: ts=8 sts=2 sw=2 et
