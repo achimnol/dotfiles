@@ -3,6 +3,9 @@
 [alias]
 	st = status
 	pretty-log = log --branches --graph --tags --oneline --decorate
+	unchanged = update-index --assume-unchanged
+	changed = update-index --no-assume-unchanged
+	show-unchanged = !"git ls-files -v | sed -e 's/^[a-z] //p; d'"
 [user]
 	name = {{username}}
 	email = {{email}}
