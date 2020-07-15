@@ -18,6 +18,8 @@
 [push]
 	default = simple
 	followTags = true
+[pull]
+	rebase = true
 %if _platform == "windows":
 [credential]
 	helper = wincred
