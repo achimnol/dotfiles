@@ -129,6 +129,9 @@ execute "hi DiffDelete "   . s:ColorMode . "fg=" . s:glacier.xterm9[s:ArrayBit] 
 execute "hi DiffAdd "      . s:ColorMode . "fg=" . s:glacier.xterm10[s:ArrayBit] . " " . s:ColorMode . "bg=" . s:glacier.bg3[s:ArrayBit]    . " " . s:ColorModeProp . "=none"
 execute "hi DiffChange "   . s:ColorMode . "fg=" . s:glacier.xterm11[s:ArrayBit] . " " . s:ColorMode . "bg=" . s:glacier.bg2[s:ArrayBit]    . " " . s:ColorModeProp . "=none"
 
+execute "hi Pmenu "        . s:ColorMode . "fg=" . s:glacier.fg3[s:ArrayBit]     . " " . s:ColorMode . "bg=" . s:glacier.bg2[s:ArrayBit]
+execute "hi PmenuSel "     . s:ColorMode . "fg=" . s:glacier.fg1[s:ArrayBit]     . " " . s:ColorMode . "bg=" . s:glacier.bg4[s:ArrayBit]
+
 " }}
 
 set background=dark
