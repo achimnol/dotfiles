@@ -32,8 +32,11 @@ def merge_json_files(json_files):
     data = []
     result = {}
     for fname in json_files:
-        with open(fname, 'r') as f:
-            data.append(json.load(f))
+        try:
+            with open(fname, 'r') as f:
+                data.append(json.load(f))
+        except FileNotFoundError:
+            pass
     for item in data:
         if not isinstance(item, dict):
             raise ValueError('Cannot merge non-object JSON data.')
