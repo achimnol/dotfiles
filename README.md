@@ -85,6 +85,7 @@ Then, import the PGP key as you need.
 ```console
 $ git clone https://github.com/pyenv/pyenv.git ~/.pyenv
 $ git clone https://github.com/pyenv/pyenv-virtualenv.git ~/.pyenv/plugins/pyenv-virtualenv
+$ git clone https://github.com/pyenv/pyenv-update.git ~/.pyenv/plugins/pyenv-update
 ```
 
 **`.profile`** or **`.zshrc_local`**:
