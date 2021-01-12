@@ -176,6 +176,13 @@ Run `:LspInstallServer` after opening a source file in a project working directo
 $ ./gen-italics-terminfo.sh
 ```
 
+To check if the italic font rednering works in your terminal, try:
+```console
+$ echo -e "\e[3mfoo\e[23m"
+```
+
+[A good guide is here.](https://www.reddit.com/r/vim/comments/24g8r8/italics_in_terminal_vim_and_tmux/)
+
 ### Workarounding user font recognition and system clipboard access issues in tmux on macOS
 
 ```console
