@@ -149,6 +149,17 @@ If your user name contains non-ASCII characters, make a ASCII symbolic link of y
 ```
 and then run `:PluginInstall`.
 
+### Installing the latest mobile-shell (mosh)
+
+```console
+$ git clone https://github.com/mobile-shell/mosh
+$ cd mosh
+$ brew install automake
+$ ./autogen.sh
+$ ./configure --prefix=/usr/local
+$ make && sudo make install
+```
+
 ### Language Server configurations for Vim
 
 Run `:LspInstallServer` after opening a source file in a project working directory.
