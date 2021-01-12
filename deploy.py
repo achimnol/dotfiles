@@ -147,8 +147,8 @@ if __name__ == '__main__':
         print('The current system\'s platform is not supported.', file=sys.stderr)
         sys.exit(1)
 
-    with open('configuration.json', 'r') as fp:
-        conf = json.load(fp, encoding='utf-8')
+    with open('configuration.json', 'r', encoding='utf8') as fp:
+        conf = json.load(fp)
 
     # Validate options and configurations.
     if opts.flavor not in conf['flavors']:

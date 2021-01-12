@@ -1,8 +1,8 @@
 #! /bin/bash
 set -e
 if [[ `uname -s` == "Darwin" ]]; then
-  INFOCMP="/usr/local/Cellar/ncurses/6.0_4/bin/infocmp"
-  TIC="/usr/local/Cellar/ncurses/6.0_4/bin/tic"
+  INFOCMP="/opt/homebrew/Cellar/ncurses/6.2/bin/infocmp"
+  TIC="/opt/homebrew/Cellar/ncurses/6.2/bin/tic"
   if [[ ! -f $INFOCMP ]]; then
     echo "Install ncurses via homebrew and check its version in /usr/local/Cellar/ncurses."
     exit 1
