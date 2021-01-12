@@ -40,7 +40,7 @@ $ brew install git tmux htop python3
 $ brew install macvim --with-override-system-vim --without-python --with-python3
 $ brew install gpg-agent
 $ brew install ncurses  # for gen-italics-terminfo.sh
-$ brew install openssl sqlite3 readline zlib gdbm tcl-tk
+$ brew install openssl sqlite3 readline zlib xz gdbm tcl-tk
 $ brew install exa fd hexyl bat  # modern cli utils
 ```
 
@@ -97,6 +97,12 @@ if [ -z "$PYENV_ROOT" ]; then
   eval "$(pyenv init -)"
   eval "$(pyenv virtualenv-init -)"
 fi
+```
+
+When building Python with pyenv on macOS, `lzma` module may not be properly built.
+Set the following environment variables:
+```console
+$ source pyenv-build-flags-homebrew.sh
 ```
 
 ### Initializing Kryptonite
