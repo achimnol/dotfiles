@@ -6,6 +6,8 @@
 	unchanged = update-index --assume-unchanged
 	changed = update-index --no-assume-unchanged
 	show-unchanged = !"git ls-files -v | sed -e 's/^[a-z] //p; d'"
+[init]
+	defaultBranch = main
 [user]
 	name = {{username}}
 	email = {{email}}
