@@ -125,3 +125,6 @@ typeset -U PATH
 if [ -f "$(which direnv)" ]; then
     eval "$(direnv hook zsh)"
 fi
+
+export PAGER='less -RFX'
+export GH_PAGER='less -RFX'
