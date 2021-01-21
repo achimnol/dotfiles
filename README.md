@@ -191,3 +191,11 @@ $ brew install tmux reattach-to-user-namespace
 
 Set your iTerm profile's startup command to use `reattach-to-user-namespace -l zsh`.
 (Replace zsh with your favorite shell.)
+
+### Making macOS key repeat faster
+
+Run the followings in the terminal and logout/login again.
+```console
+$ defaults write -g InitialKeyRepeat -int 10  # normal minimum is 15 (225 ms)
+$ defaults write -g KeyRepeat -int 1          # normal minimum is 2 (30 ms)
+```
