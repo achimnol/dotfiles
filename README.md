@@ -192,6 +192,13 @@ $ brew install tmux reattach-to-user-namespace
 Set your iTerm profile's startup command to use `reattach-to-user-namespace -l zsh`.
 (Replace zsh with your favorite shell.)
 
+### Enabling macOS key repeats
+
+Run the following in the terminal and restart any apps to apply:
+```console
+$ defaults write -g ApplePressAndHoldEnabled -bool false
+```
+
 ### Making macOS key repeat faster
 
 Run the followings in the terminal and logout/login again.
