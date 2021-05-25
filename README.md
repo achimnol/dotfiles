@@ -17,14 +17,34 @@ After forking this repository, you need to customize `configuration.json`, in pa
 ### System Packages (Linux-Ubuntu)
 
 ```console
-$ sudo apt install build-essential git-core tmux htop vim
+$ sudo apt install build-essential pkg-config autoconf automake git-core tmux htop vim
 $ sudo apt install gnupg-agent gnupg2
 $ sudo apt install libssl-dev libreadline-dev libgdbm-dev zlib1g-dev libbz2-dev liblzma-dev libsqlite3-dev libffi-dev
 $ sudo add-apt-repository ppa:jonathonf/vim
-$ sudo add-apt-repository ppa:hnakamur/tmux
 $ sudo apt update
 $ sudo apt install vim tmux
 $ sudo apt install fd hexyl bat  # modern cli utils (Ubuntu 19.10+) / exa should be installed via Rust Cargo
+```
+
+For latest tmux (3.0+):
+```
+$ git clone https://github.com/tmux/tmux /tmp/tmux
+$ cd /tmp/tmux
+$ sudo apt install libevent-dev libncurses5-dev bison byacc
+$ ./autogen.sh
+$ ./configure --prefix=/usr/local && make && sudo make install
+$ hash -r
+```
+
+For latest mosh:
+Clone and build :
+```
+$ git clone https://github.com/mobile-shell/mosh /tmp/mosh
+$ cd /tmp/mosh
+$ sudo apt install libprotobuf-dev protobuf-compiler
+$ ./autogen.sh
+$ ./configure --prefix=/usr/local && make && sudo make install
+$ hash -r
 ```
 
 Some network debugging utilities:
