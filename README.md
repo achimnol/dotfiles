@@ -107,6 +107,8 @@ $ git clone https://github.com/pyenv/pyenv-virtualenv.git ~/.pyenv/plugins/pyenv
 $ git clone https://github.com/pyenv/pyenv-update.git ~/.pyenv/plugins/pyenv-update
 ```
 
+#### pyenv 1.x
+
 **`.profile`** or **`.zshrc_local`**:
 ```sh
 # pyenv setup
@@ -117,6 +119,21 @@ if [ -z "$PYENV_ROOT" ]; then
   eval "$(pyenv virtualenv-init -)"
 fi
 ```
+
+#### pyenv 2.0+
+**`.zprofile`** and **`.profile`** (depending on the content of `.profile`, you may symlink `.zprofile` to `.profile`)
+```sh
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+```
+
+**`.zshrc_local`**
+```sh
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+```
+
+#### extra for macOS
 
 When building Python with pyenv on macOS, `lzma` module may not be properly built.
 Set the following environment variables:
