@@ -22,7 +22,7 @@ $ sudo apt install gnupg-agent gnupg2
 $ sudo apt install libssl-dev libreadline-dev libgdbm-dev zlib1g-dev libbz2-dev liblzma-dev libsqlite3-dev libffi-dev
 $ sudo add-apt-repository ppa:jonathonf/vim
 $ sudo apt update
-$ sudo apt install vim tmux
+$ sudo apt install vim
 $ sudo apt install fd hexyl bat  # modern cli utils (Ubuntu 19.10+) / exa should be installed via Rust Cargo
 ```
 
