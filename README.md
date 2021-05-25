@@ -37,7 +37,6 @@ $ hash -r
 ```
 
 For latest mosh:
-Clone and build :
 ```
 $ git clone https://github.com/mobile-shell/mosh /tmp/mosh
 $ cd /tmp/mosh
