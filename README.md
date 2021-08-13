@@ -160,7 +160,7 @@ fi
 ### Deploying the static configurations
 
 ```console
-$ ./deply.py --flavor home
+$ ./deploy.py --flavor home
 ```
 
 If any file already exists, it will ask you whether to overwrite it.

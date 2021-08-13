@@ -7,17 +7,20 @@
 #   (e.g., executing the registry editor on .reg files)
 
 from __future__ import print_function
-from functools import reduce
-import os, sys, codecs, tempfile, shutil, stat
-import json
-from optparse import OptionParser
-from bottle_template import template
+import sys
 
 # For compatibility
 if sys.version_info < (3,0):
-    input = raw_input
-else:
-    unicode = str
+    print("Auto-configuration is not supported with Python 2.x")
+    sys.exit(1)
+
+import argparse
+from functools import reduce
+import subprocess
+import os, sys, codecs, tempfile, shutil, stat
+import json
+
+from bottle_template import template
 
 def simple_dialog(msg, answers, indent=''):
     list_of_answers = '[' + '/'.join(answers) + ']'
@@ -60,7 +63,7 @@ def merge_json_files(json_files):
 
     return reduce(merge_dict, data)
 
-def populate_file(dotfile, flavor, opts):
+def populate_file(dotfile, flavor, args):
     print('Generating "{0}"...'.format(dotfile['source']))
     tmp_path = None
     source = ''
@@ -82,7 +85,7 @@ def populate_file(dotfile, flavor, opts):
         if merge_if_exists:
             print('  Merging with "{0}"...'.format(dotfile['dest']))
             progress_printed = True
-        elif opts.force:
+        elif args.force:
             print('  Overwriting "{0}"...'.format(dotfile['dest']))
             progress_printed = True
         else:
@@ -90,7 +93,7 @@ def populate_file(dotfile, flavor, opts):
                                    ('y', 'n'), indent='  ')
             skip = (answer == 'n')
 
-    if not skip and not opts.dryrun:
+    if not skip and not args.dryrun:
         if not progress_printed:
             print('  Writing to "{0}"...'.format(dotfile['dest']))
         if not os.path.isdir(os.path.dirname(dotfile['dest'])):
@@ -113,7 +116,14 @@ def populate_file(dotfile, flavor, opts):
             os.chmod(dotfile['dest'], stat.S_IRWXU | stat.S_IRGRP | stat.S_IXGRP | stat.S_IROTH)
     os.unlink(tmp_path)
 
+def run_scripts(scripts, envs):
+    for script in scripts:
+        subprocess.run(script, env={**os.environ, **envs}, shell=True, check=True)
+
+
 def get_platform():
+    if os.environ.get("GITHUB_CODESPACE_TOKEN"):
+        return "codespace"
     if sys.platform.startswith('linux'):
         return 'linux'
     if sys.platform.startswith('win'):
@@ -129,20 +139,20 @@ if __name__ == '__main__':
     PLATFORM = get_platform()
 
     # Read options and configurations.
-    oparser = OptionParser()
-    oparser.add_option('-f', '--flavor', dest='flavor', type='string', default='standard',
-                       help='Specifies the flavor to replace template variables. (default: standard)')
-    oparser.add_option('--force', dest='force', action='store_true', default=False,
-                       help='Do not ask even if the target file already exists. This will overwrite everything without prompt. (default: no)')
-    oparser.add_option('-p', '--platform', dest='platform', default=None,
-                       help='Override the platform. Use it only for testing. (default: None)')
-    oparser.add_option('-y', '--dryrun', dest='dryrun', action='store_true', default=False,
-                       help='Does not write anything but only show the running output. (default: no)')
-    oparser.add_option('-b', '--base-path', dest='base_path', type='string', default=HOME_DIR,
-                       help='Specifies the base directory. (default: your home directory)')
-    opts, args = oparser.parse_args()
-    if opts.platform:
-        PLATFORM = opts.platform
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-f', '--flavor', dest='flavor', type='string', default='standard',
+                        help='Specifies the flavor to replace template variables. (default: standard)')
+    parser.add_argument('--force', dest='force', action='store_true', default=False,
+                        help='Do not ask even if the target file already exists. This will overwrite everything without prompt. (default: no)')
+    parser.add_argument('-p', '--platform', dest='platform', default=None,
+                        help='Override the platform. Use it only for testing. (default: None)')
+    parser.add_argument('-y', '--dryrun', dest='dryrun', action='store_true', default=False,
+                        help='Does not write anything but only show the running output. (default: no)')
+    parser.add_argument('-b', '--base-path', dest='base_path', type='string', default=HOME_DIR,
+                        help='Specifies the base directory. (default: your home directory)')
+    args = parser.parse_args()
+    if args.platform:
+        PLATFORM = args.platform
     if PLATFORM == 'others':
         print('The current system\'s platform is not supported.', file=sys.stderr)
         sys.exit(1)
@@ -151,25 +161,30 @@ if __name__ == '__main__':
         conf = json.load(fp)
 
     # Validate options and configurations.
-    if opts.flavor not in conf['flavors']:
-        print('No such flavor: "{0}".'.format(opts.flavor), file=sys.stderr)
+    if args.flavor not in conf['flavors']:
+        print('No such flavor: "{0}".'.format(args.flavor), file=sys.stderr)
         sys.exit(1)
-    raw_flavor = conf['flavors'][opts.flavor]
-    flavor = {'variables': {}, 'excludes': []}
-    for key in flavor.keys():
+    base_flavor = conf['flavors']['_']
+    concrete_flavor = conf['flavors'][args.flavor]
+    flavor = {'variables': {}, 'excludes': [], 'scripts': []}
+    for key, value in flavor.items():
         # Apply default values first and
         # update them with platform-specific values.
-        if isinstance(flavor[key], dict):
-            flavor[key].update(raw_flavor['_'].get(key, {}))
-            flavor[key].update(raw_flavor[PLATFORM].get(key, {}))
-        elif isinstance(flavor[key], list):
-            flavor[key].extend(raw_flavor['_'].get(key, []))
-            flavor[key].extend(raw_flavor[PLATFORM].get(key, []))
+        if isinstance(value, dict):
+            value.update(base_flavor['_'].get(key, {}))
+            value.update(base_flavor[PLATFORM].get(key, {}))
+            value.update(concrete_flavor['_'].get(key, {}))
+            value.update(concrete_flavor[PLATFORM].get(key, {}))
+        elif isinstance(value, list):
+            value.extend(base_flavor['_'].get(key, []))
+            value.extend(base_flavor[PLATFORM].get(key, []))
+            value.extend(concrete_flavor['_'].get(key, []))
+            value.extend(concrete_flavor[PLATFORM].get(key, []))
         else:
             raise NotImplementedError('Unsupported data type for value inheritance.')
 
     print('Detected platform: {0}'.format(PLATFORM))
-    if opts.dryrun:
+    if args.dryrun:
         print('  << dry-run mode >>')
 
     dotfiles = []
@@ -192,7 +207,7 @@ if __name__ == '__main__':
         else:
             ppath = key
         ppath = ppath.replace('/', os.sep)
-        data['dest'] = os.path.join(opts.base_path, ppath)
+        data['dest'] = os.path.join(args.base_path, ppath)
         dotfiles.append(data)
         if 'template_vars' in data:
             for var_name in data['template_vars']:
@@ -210,8 +225,13 @@ if __name__ == '__main__':
 
     try:
         for dotfile in dotfiles:
-            populate_file(dotfile, flavor, opts)
+            populate_file(dotfile, flavor, args)
     except (KeyboardInterrupt, EOFError):
         print('\nAborted.')
+    
+    print('Running bootstrap scripts ...')
+    run_scripts(flavor['scripts'], envs={
+        'PLATFORM': PLATFORM,
+    })
 
 # vim: ft=python

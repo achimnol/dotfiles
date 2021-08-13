@@ -10,7 +10,7 @@
         },
         ".direnvrc": {
             "source": "direnvrc",
-            "compatible_platforms": ["linux", "mac"]
+            "compatible_platforms": ["linux", "mac", "codespace"]
         },
         ".oh-my-zsh/themes/achimnol.zsh-theme": {
             "source": "achimnol.zsh-theme",
@@ -23,25 +23,20 @@
         },
         ".ackrc": {
             "source": "ackrc",
-            "compatible_platforms": ["linux", "mac"]
+            "compatible_platforms": ["linux", "mac", "codespace"]
         },
         ".docker/config.json": {
             "source": "docker.json",
             "merge_if_exists": true,
-            "compatible_platforms": ["linux", "mac"]
-        },
-        "sfind.py": {
-            "source": "sfind.py",
-            "executable": true,
-            "compatible_platforms": ["linux", "mac"]
+            "compatible_platforms": ["linux", "mac", "codespace"]
         },
         ".tmux.conf": {
             "source": "tmux.conf",
-            "compatible_platforms": ["linux", "mac"]
+            "compatible_platforms": ["linux", "mac", "codespace"]
         },
         ".inputrc": {
             "source": "inputrc",
-            "compatible_platforms": ["linux"]
+            "compatible_platforms": ["linux", "codespace"]
         },
         ".gnupg/gpg-agent.conf": {
             "source": "gpg-agent.conf",
@@ -52,24 +47,24 @@
             "executable": true,
             "compatible_platforms": ["linux", "mac"]
         },
-	".emacs": {
+	    ".emacs": {
             "source": "emacs",
-            "compatible_platforms": ["linux", "mac", "windows"],
+            "compatible_platforms": ["linux", "mac", "windows", "codespace"],
             "platform_dependent_paths": {
                 "windows": ["%appdata%", ".emacs"]
             }
-	},
+	    },
         ".vimrc": {
             "source": "vimrc",
             "template_vars": ["vim_colorscheme"],
-            "compatible_platforms": ["linux", "mac", "windows"],
+            "compatible_platforms": ["linux", "mac", "windows", "codespace"],
             "platform_dependent_paths": {
                 "windows": "_vimrc"
             }
         },
         ".vim/colors/glacier.vim": {
             "source": "glacier.vim",
-            "compatible_platforms": ["linux", "mac", "windows"],
+            "compatible_platforms": ["linux", "mac", "windows", "codespace"],
             "platform_dependent_paths": {
                 "windows": "vimfiles/colors/glacier.vim"
             }
@@ -90,7 +85,7 @@
         },
         ".config/flake8": {
             "source": "flake8.config",
-            "compatible_platforms": ["linux", "mac", "windows"]
+            "compatible_platforms": ["linux", "mac", "windows", "codespace"]
         },
         ".hgrc": {
             "source": "hgrc",
@@ -102,18 +97,56 @@
         },
         ".gitconfig": {
             "source": "gitconfig",
-            "compatible_platforms": ["linux", "mac", "windows"],
+            "compatible_platforms": ["linux", "mac", "windows", "codespace"],
             "template_vars": ["username", "email"]
         }
     },
     "flavors": {
-        "lab": {
-            "_": {
+        "_": {
+            "linux": {
                 "variables": {
                     "vim_colorscheme": "glacier",
                     "vim_textwidth": 75,
                     "term_colorscheme": "xterm-256color",
-                    "username": "Joongi Kim",
+                    "username": "Joongi Kim"
+                },
+                "scripts": [
+                    "sudo apt install -y htop vim git-core",
+                    "sudo apt install -y build-essential automake autoconf pkg-config",
+                    "sudo apt install -y libssl-dev libreadline-dev libgdbm-dev zlib1g-dev libbz2-dev liblzma-dev libsqlite3-dev libffi-dev",
+                    "sudo apt install dnsutils iproute2",
+                    "bash ./scripts/install-ripgrep.sh",
+                    "bash ./scripts/install-tmux.sh",
+                    "bash ./scripts/install-mosh.sh",
+                    "git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim",
+                    "vim +PluginInstall +qall"
+                ]
+            },
+            "mac": {
+                "scripts": [
+                    "xcode-select --install",
+                    "brew install git tmux htop python3",
+                    "brew install macvim --with-override-system-vim --without-python --with-python3",
+                    "brew install ncurses",
+                    "brew install openssl sqlite3 readline zlib xz gdbm tcl-tk",
+                    "brew install exa fd hexyl bat",
+                    "bash ./scripts/install-ripgrep.sh",
+                    "git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim",
+                    "vim +PluginInstall +qall"
+                ]
+            },
+            "codespace": {
+                "scripts": [
+                    "bash ./scripts/install-ripgrep.sh",
+                    "bash ./scripts/install-tmux.sh",
+                    "git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim",
+                    "vim +PluginInstall +qall"
+                ]
+            }
+        },
+        "lab": {
+            "_": {
+                "variables": {
                     "email": "joongi@an.kaist.ac.kr"
                 }
             },
@@ -137,10 +170,6 @@
         "work": {
             "_": {
                 "variables": {
-                    "vim_colorscheme": "glacier",
-                    "vim_textwidth": 100,
-                    "term_colorscheme": "xterm-256color",
-                    "username": "Joongi Kim",
                     "email": "joongi@lablup.com"
                 }
             },
@@ -164,10 +193,6 @@
         "home": {
             "_": {
                 "variables": {
-                    "vim_colorscheme": "glacier",
-                    "vim_textwidth": 0,
-                    "term_colorscheme": "xterm-256color",
-                    "username": "Joongi Kim",
                     "email": "me@daybreaker.info"
                 },
                 "excludes": [".vim/ftplugin/c.vim", ".vim/ftplugin/cpp.vim", ".vim/ftplugin/cuda.vim"]
