@@ -42,18 +42,13 @@
             "source": "gpg-agent.conf",
             "compatible_platforms": ["linux"]
         },
-        "hgeditor": {
-            "source": "hgeditor",
-            "executable": true,
-            "compatible_platforms": ["linux", "mac"]
-        },
-	    ".emacs": {
+        ".emacs": {
             "source": "emacs",
             "compatible_platforms": ["linux", "mac", "windows", "codespace"],
             "platform_dependent_paths": {
                 "windows": ["%appdata%", ".emacs"]
             }
-	    },
+        },
         ".vimrc": {
             "source": "vimrc",
             "template_vars": ["vim_colorscheme"],
@@ -87,14 +82,6 @@
             "source": "flake8.config",
             "compatible_platforms": ["linux", "mac", "windows", "codespace"]
         },
-        ".hgrc": {
-            "source": "hgrc",
-            "compatible_platforms": ["linux", "mac", "windows"],
-            "platform_dependent_paths": {
-                "windows": "mercurial.ini"
-            },
-            "template_vars": ["username", "email", "hg_cacerts"]
-        },
         ".gitconfig": {
             "source": "gitconfig",
             "compatible_platforms": ["linux", "mac", "windows", "codespace"],
@@ -103,13 +90,15 @@
     },
     "flavors": {
         "_": {
-            "linux": {
+            "_": {
                 "variables": {
                     "vim_colorscheme": "glacier",
                     "vim_textwidth": 75,
                     "term_colorscheme": "xterm-256color",
                     "username": "Joongi Kim"
-                },
+		}
+	    },
+            "linux": {
                 "scripts": [
                     "sudo apt install -y htop vim git-core",
                     "sudo apt install -y build-essential automake autoconf pkg-config",
@@ -119,7 +108,8 @@
                     "bash ./scripts/install-tmux.sh",
                     "bash ./scripts/install-mosh.sh",
                     "git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim",
-                    "vim +PluginInstall +qall"
+                    "vim +PluginInstall +qall",
+                    "./gen-italics-terminfo.sh"
                 ]
             },
             "mac": {
@@ -132,7 +122,8 @@
                     "brew install exa fd hexyl bat",
                     "bash ./scripts/install-ripgrep.sh",
                     "git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim",
-                    "vim +PluginInstall +qall"
+                    "vim +PluginInstall +qall",
+                    "./gen-italics-terminfo.sh"
                 ]
             },
             "codespace": {
@@ -150,22 +141,10 @@
                     "email": "joongi@an.kaist.ac.kr"
                 }
             },
-            "linux": {
-                "variables": {
-                    "hg_cacerts": ""
-                }
-            },
-            "windows": {
-                "variables": {
-                    "vim_colorscheme": "glaicer",
-                    "hg_cacerts": ""
-                }
-            },
-            "mac": {
-                "variables": {
-                    "hg_cacerts": "~/dummycert.pem"
-                }
-            }
+            "linux": {},
+            "windows": {},
+            "mac": {},
+	    "codespace": {}
         },
         "work": {
             "_": {
@@ -173,22 +152,10 @@
                     "email": "joongi@lablup.com"
                 }
             },
-            "linux": {
-                "variables": {
-                    "hg_cacerts": ""
-                }
-            },
-            "windows": {
-                "variables": {
-                    "vim_colorscheme": "glacier",
-                    "hg_cacerts": ""
-                }
-            },
-            "mac": {
-                "variables": {
-                    "hg_cacerts": "~/dummycert.pem"
-                }
-            }
+            "linux": {},
+            "windows": {},
+            "mac": {},
+	    "codespace": {}
         },
         "home": {
             "_": {
@@ -197,22 +164,10 @@
                 },
                 "excludes": [".vim/ftplugin/c.vim", ".vim/ftplugin/cpp.vim", ".vim/ftplugin/cuda.vim"]
             },
-            "linux": {
-                "variables": {
-                    "hg_cacerts": ""
-                }
-            },
-            "windows": {
-                "variables": {
-                    "vim_colorscheme": "glacier",
-                    "hg_cacerts": ""
-                }
-            },
-            "mac": {
-                "variables": {
-                    "hg_cacerts": "~/dummycert.pem"
-                }
-            }
+            "linux": {},
+            "windows": {},
+            "mac": {},
+	    "codespace": {}
         }
     }
 }

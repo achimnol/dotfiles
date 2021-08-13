@@ -140,7 +140,7 @@ if __name__ == '__main__':
 
     # Read options and configurations.
     parser = argparse.ArgumentParser()
-    parser.add_argument('-f', '--flavor', dest='flavor', type='string', default='standard',
+    parser.add_argument('-f', '--flavor', dest='flavor', default='standard',
                         help='Specifies the flavor to replace template variables. (default: standard)')
     parser.add_argument('--force', dest='force', action='store_true', default=False,
                         help='Do not ask even if the target file already exists. This will overwrite everything without prompt. (default: no)')
@@ -148,8 +148,10 @@ if __name__ == '__main__':
                         help='Override the platform. Use it only for testing. (default: None)')
     parser.add_argument('-y', '--dryrun', dest='dryrun', action='store_true', default=False,
                         help='Does not write anything but only show the running output. (default: no)')
-    parser.add_argument('-b', '--base-path', dest='base_path', type='string', default=HOME_DIR,
+    parser.add_argument('-b', '--base-path', dest='base_path', default=HOME_DIR,
                         help='Specifies the base directory. (default: your home directory)')
+    parser.add_argument('config_files', metavar='FILES', nargs='*',
+                        help='One or more config files to deploy. (default: all compatible config files)')
     args = parser.parse_args()
     if args.platform:
         PLATFORM = args.platform
@@ -192,7 +194,7 @@ if __name__ == '__main__':
 
     for key, data in conf['dotfiles'].items():
         data = data.copy()
-        if len(args) > 0 and data['source'] not in args:
+        if len(args.config_files) > 0 and data['source'] not in args.config_files:
             continue
         if PLATFORM not in data['compatible_platforms']:
             continue

@@ -12,7 +12,7 @@ case "${PLATFORM}" in
     case "${LINUX_TYPE}" in
       "debian")
         DEB_NAME="ripgrep_${VERSION}_${DEB_HOST_ARCH}.deb"
-        curl "https://github.com/BurntSushi/ripgrep/releases/download/${VERSION}/ripgrep_${VERSION}_${DEB_HOST_ARCH}.deb" \
+        curl -L "https://github.com/BurntSushi/ripgrep/releases/download/${VERSION}/ripgrep_${VERSION}_${DEB_HOST_ARCH}.deb" \
           -o "$DEB_NAME"
         sudo dpkg -i "$DEB_NAME"
         rm "$DEB_NAME"
