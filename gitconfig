@@ -2,6 +2,7 @@
 	sslverify = true
 [alias]
 	st = status
+	sw = switch
 	pretty-log = log --branches --graph --tags --oneline --decorate
 	unchanged = update-index --assume-unchanged
 	changed = update-index --no-assume-unchanged
