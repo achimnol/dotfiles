@@ -50,6 +50,7 @@ plugins=(git pyenv virtualenv svn mercurial)
 # User configuration
 # export PATH="/Users/daybreaker/.rvm/bin:/usr/local/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr/texbin"
 # export MANPATH="/usr/local/man:$MANPATH"
+setopt no_share_history
 if [ -f ~/.zshrc_local ]; then
   source ~/.zshrc_local
 fi
