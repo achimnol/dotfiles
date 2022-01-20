@@ -221,5 +221,7 @@ augroup END
 
 let g:lsp_fold_enabled = 0
 
+" github cli editor
+autocmd BufRead,BufNewFile /tmp/*.md setlocal noeol binary
 
 " vim: ts=8 sts=2 sw=2 et
