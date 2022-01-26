@@ -4,6 +4,7 @@
 	st = status
 	sw = switch
 	pretty-log = log --branches --graph --tags --oneline --decorate
+	changelog = log --pretty=format:'%C(yellow)%h %Cred%ad%Cgreen%d %Creset%s' --date=short
 	unchanged = update-index --assume-unchanged
 	changed = update-index --no-assume-unchanged
 	show-unchanged = !"git ls-files -v | sed -e 's/^[a-z] //p; d'"
