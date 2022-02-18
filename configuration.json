@@ -107,6 +107,7 @@
                     "bash ./scripts/install-ripgrep.sh",
                     "bash ./scripts/install-tmux.sh",
                     "bash ./scripts/install-mosh.sh",
+                    "bash ./scripts/install-gh.sh",
                     "git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim",
                     "vim +PluginInstall +qall",
                     "./gen-italics-terminfo.sh"
@@ -120,6 +121,7 @@
                     "brew install ncurses",
                     "brew install openssl sqlite3 readline zlib xz gdbm tcl-tk",
                     "brew install exa fd hexyl bat",
+                    "brew install gh",
                     "bash ./scripts/install-ripgrep.sh",
                     "git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim",
                     "vim +PluginInstall +qall",
@@ -144,7 +146,7 @@
             "linux": {},
             "windows": {},
             "mac": {},
-	    "codespace": {}
+            "codespace": {}
         },
         "work": {
             "_": {
@@ -155,7 +157,7 @@
             "linux": {},
             "windows": {},
             "mac": {},
-	    "codespace": {}
+            "codespace": {}
         },
         "home": {
             "_": {
@@ -167,7 +169,7 @@
             "linux": {},
             "windows": {},
             "mac": {},
-	    "codespace": {}
+            "codespace": {}
         }
     }
 }
