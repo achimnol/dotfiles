@@ -144,6 +144,8 @@ if __name__ == '__main__':
                         help='Specifies the flavor to replace template variables. (default: standard)')
     parser.add_argument('--force', dest='force', action='store_true', default=False,
                         help='Do not ask even if the target file already exists. This will overwrite everything without prompt. (default: no)')
+    parser.add_argument('--skip-scripts', dest='skip_scripts', action='store_true', default=False,
+                        help='Skip running the bootstrap scripts. (default: no)')
     parser.add_argument('-p', '--platform', dest='platform', default=None,
                         help='Override the platform. Use it only for testing. (default: None)')
     parser.add_argument('-y', '--dryrun', dest='dryrun', action='store_true', default=False,
@@ -231,9 +233,10 @@ if __name__ == '__main__':
     except (KeyboardInterrupt, EOFError):
         print('\nAborted.')
     
-    print('Running bootstrap scripts ...')
-    run_scripts(flavor['scripts'], envs={
-        'PLATFORM': PLATFORM,
-    })
+    if not args.skip_scripts:
+        print('Running bootstrap scripts ...')
+        run_scripts(flavor['scripts'], envs={
+            'PLATFORM': PLATFORM,
+        })
 
 # vim: ft=python
