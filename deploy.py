@@ -75,7 +75,7 @@ def populate_file(dotfile, flavor, args):
         tmp_path = tmp.name
         EncodedWriter= codecs.getwriter(encoding)
         tmp_writer = EncodedWriter(tmp)
-        if dotfile.get('template_vars', []):
+        if dotfile.get('template_vars', None) is not None:
             source = template(source, _platform=PLATFORM, **flavor['variables'])
         tmp_writer.write(source)
 

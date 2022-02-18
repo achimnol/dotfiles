@@ -32,7 +32,8 @@
         },
         ".tmux.conf": {
             "source": "tmux.conf",
-            "compatible_platforms": ["linux", "mac", "codespace"]
+            "compatible_platforms": ["linux", "mac", "codespace"],
+            "template_vars": []
         },
         ".inputrc": {
             "source": "inputrc",
@@ -96,8 +97,8 @@
                     "vim_textwidth": 75,
                     "term_colorscheme": "xterm-256color",
                     "username": "Joongi Kim"
-		}
-	    },
+                }
+            },
             "linux": {
                 "scripts": [
                     "sudo apt install -y htop vim git-core",
