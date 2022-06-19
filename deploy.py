@@ -153,7 +153,7 @@ if __name__ == '__main__':
     parser.add_argument('-b', '--base-path', dest='base_path', default=HOME_DIR,
                         help='Specifies the base directory. (default: your home directory)')
     parser.add_argument('config_files', metavar='FILES', nargs='*',
-                        help='One or more config files to deploy. (default: all compatible config files)')
+                        help='One or more config files to deploy. If prefixed with "@" it is interpreted as a config group name. (default: all compatible config files)')
     args = parser.parse_args()
     if args.platform:
         PLATFORM = args.platform
@@ -190,18 +190,31 @@ if __name__ == '__main__':
     print('Detected platform: {0}'.format(PLATFORM))
     if args.dryrun:
         print('  << dry-run mode >>')
+        args.skip_scripts = True
 
     dotfiles = []
     used_variables = set()
+    active_dotfiles = {}
 
+    # Calculate which dotfiles to populate.
+    if len(args.config_files) == 0:
+        active_dotfiles = {key: data for key, data in conf['dotfiles'].items()}
+    else:
+        for key, data in conf['dotfiles'].items():
+            group = data.get('group', None)
+            if group is not None and f"@{group}" in args.config_files:
+                active_dotfiles[key] = data
+            if data['source'] in args.config_files:
+                active_dotfiles[key] = data
+    # Filter out incompatible/excluded dotfiles
     for key, data in conf['dotfiles'].items():
-        data = data.copy()
-        if len(args.config_files) > 0 and data['source'] not in args.config_files:
-            continue
         if PLATFORM not in data['compatible_platforms']:
-            continue
+            active_dotfiles.pop(key, None)
         if 'excludes' in flavor and key in flavor['excludes']:
-            continue
+            active_dotfiles.pop(key, None)
+
+    for key, data in active_dotfiles.items():
+        data = data.copy()
         assert os.path.isfile(data['source']), \
                'The source file "{0}" does not exist.'.format(data['source'])
         if 'platform_dependent_paths' in data:
@@ -232,8 +245,10 @@ if __name__ == '__main__':
             populate_file(dotfile, flavor, args)
     except (KeyboardInterrupt, EOFError):
         print('\nAborted.')
-    
-    if not args.skip_scripts:
+
+    if args.skip_scripts:
+        print('Skipped running bootstrap scripts.')
+    else:
         print('Running bootstrap scripts ...')
         run_scripts(flavor['scripts'], envs={
             'PLATFORM': PLATFORM,

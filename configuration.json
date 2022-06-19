@@ -52,6 +52,7 @@
         },
         ".vimrc": {
             "source": "vimrc",
+	    "group": "vim",
             "template_vars": ["vim_colorscheme"],
             "compatible_platforms": ["linux", "mac", "windows", "codespace"],
             "platform_dependent_paths": {
@@ -60,6 +61,7 @@
         },
         ".vim/colors/glacier.vim": {
             "source": "glacier.vim",
+	    "group": "vim",
             "compatible_platforms": ["linux", "mac", "windows", "codespace"],
             "platform_dependent_paths": {
                 "windows": "vimfiles/colors/glacier.vim"
@@ -67,6 +69,7 @@
         },
         ".vim/colors/molokai.vim": {
             "source": "molokai.vim",
+	    "group": "vim",
             "compatible_platforms": ["linux", "mac", "windows"],
             "platform_dependent_paths": {
                 "windows": "vimfiles/colors/molokai.vim"
@@ -74,10 +77,21 @@
         },
         ".vim/colors/monochrome.vim": {
             "source": "monochrome.vim",
+	    "group": "vim",
             "compatible_platforms": ["linux", "mac", "windows"],
             "platform_dependent_paths": {
                 "windows": "vimfiles/colors/monochrome.vim"
             }
+        },
+        ".config/nvim/init.vim": {
+            "source": "nvim/init.vim",
+	    "group": "neovim",
+            "compatible_platforms": ["linux", "mac", "codespace"]
+        },
+        ".config/nvim/lua/config.vim": {
+            "source": "nvim/lua/config.lua",
+	    "group": "neovim",
+            "compatible_platforms": ["linux", "mac", "codespace"]
         },
         ".config/flake8": {
             "source": "flake8.config",
