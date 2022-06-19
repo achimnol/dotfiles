@@ -13,8 +13,20 @@ require("nvim-tree").setup {
 require('telescope').setup {
 }
 
-require('onedark').setup {
-  style = 'cool',
-  transparent = true,
+require('lualine').setup()
+
+require('material').setup {
+  disable = {
+    background = true,
+  },
+  italics = {
+    comments = true,
+  },
+  lualine_style = "stealth",
+  custom_highlights = {
+    CursorLine = { bg = '#11293A', gui = 'underline' },
+    Visual = { fg = '#FFFFFF', bg = '#0060DD' },
+  },
 }
-require('onedark').load()
+
+-- vim: set sts=2 sw=2 et
