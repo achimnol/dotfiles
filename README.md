@@ -192,6 +192,15 @@ If your user name contains non-ASCII characters, make a ASCII symbolic link of y
 ```
 and then run `:PluginInstall`.
 
+### Initializing Neovim Plug
+
+Follow the instructions from [the official GitHub README](https://github.com/junegunn/vim-plug).
+```console
+$ sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+>        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+$ nvim +PlugInstall
+```
+
 ### Installing the latest mobile-shell (mosh)
 
 ```console
