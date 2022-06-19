@@ -1,6 +1,7 @@
 set enc=utf-8
 set sts=4 sw=4 et
 set autoindent copyindent
+set nu cursorline scrolloff=2
 
 if (has("termguicolors"))
  set termguicolors
@@ -12,6 +13,7 @@ Plug 'nvim-telescope/telescope.nvim'
 Plug 'kyazdani42/nvim-web-devicons' " optional, for file icons
 Plug 'kyazdani42/nvim-tree.lua'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'navarasu/onedark.nvim'
 call plug#end()
 
 syntax enable

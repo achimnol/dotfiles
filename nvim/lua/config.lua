@@ -4,3 +4,9 @@ require'nvim-treesitter.configs'.setup {
 }
 
 require("nvim-tree").setup()
+
+require('onedark').setup {
+    style = 'cool',
+    transparent = true,
+}
+require('onedark').load()
