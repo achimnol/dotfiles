@@ -192,6 +192,15 @@ If your user name contains non-ASCII characters, make a ASCII symbolic link of y
 ```
 and then run `:PluginInstall`.
 
+### Neovim on Linux arm64/aarch64
+
+Many Neovim plugins require luajit instead of Lua 5.1 to work properly.
+We can install Neovim using Snap (`sudo snap install nvim --classic`) but this version is built with Lua 5.1
+and plugins like Telescope breaks.
+
+To build Neovim by yourself, install a few prerequisite and make it from source.
+[Check out the official build instructions.](https://github.com/neovim/neovim/wiki/Building-Neovim)
+
 ### Initializing Neovim Plug
 
 Follow the instructions from [the official GitHub README](https://github.com/junegunn/vim-plug).
