@@ -1,4 +1,6 @@
 set enc=utf-8
+set sts=4 sw=4 et
+set autoindent copyindent
 
 if (has("termguicolors"))
  set termguicolors
