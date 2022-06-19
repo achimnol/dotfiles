@@ -14,6 +14,7 @@ Plug 'kyazdani42/nvim-web-devicons' " optional, for file icons
 Plug 'kyazdani42/nvim-tree.lua'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'navarasu/onedark.nvim'
+Plug 'gpanders/editorconfig.nvim'
 call plug#end()
 
 syntax enable
