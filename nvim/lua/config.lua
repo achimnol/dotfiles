@@ -24,6 +24,12 @@ require('material').setup {
   },
   lualine_style = "stealth",
   custom_highlights = {
+    Normal = { fg = '#BEC9E8' },
+    VertSplit = { fg = '#2A383C' },
+    WinSeparator = { fg = '#2A383C' },
+    TelescopeBorder = { fg = '#2A383C' },
+    NormalFloat = { fg = '#2A383C' },
+    FloatBorder = { fg = '#2A383C' },
     CursorLine = { bg = '#11293A', gui = 'underline' },
     Visual = { fg = '#FFFFFF', bg = '#0060DD' },
   },
