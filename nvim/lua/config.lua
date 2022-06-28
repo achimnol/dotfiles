@@ -1,20 +1,3 @@
-require'nvim-treesitter.configs'.setup {
-  -- A list of parser names, or "all"
-  ensure_installed = { "python", "c", "lua", "javascript", "rust" },
-}
-
-require("nvim-tree").setup {
-  update_focused_file = {
-    enable = true,
-    update_cwd = true,
-  },
-}
-
-require('telescope').setup {
-}
-
-require('lualine').setup()
-
 require('material').setup {
   disable = {
     background = true,
@@ -24,14 +7,39 @@ require('material').setup {
   },
   lualine_style = "stealth",
   custom_highlights = {
-    Normal = { fg = '#BEC9E8' },
-    VertSplit = { fg = '#2A383C' },
-    WinSeparator = { fg = '#2A383C' },
-    TelescopeBorder = { fg = '#2A383C' },
-    NormalFloat = { fg = '#2A383C' },
-    FloatBorder = { fg = '#2A383C' },
-    CursorLine = { bg = '#11293A', gui = 'underline' },
-    Visual = { fg = '#FFFFFF', bg = '#0060DD' },
+    Normal = { fg = '#bec9e8' },
+    VertSplit = { fg = '#2b434a' },
+    WinSeparator = { fg = '#2b434a' },
+    NormalFloat = { fg = '#2b434a' },
+    FloatBorder = { fg = '#2b434a', bg = 'NONE' },
+    CursorLine = { bg = '#11293a', gui = 'underline' },
+    Visual = { fg = '#ffffff', bg = '#0060dd' },
+    Search = { fg = '#ffffff', bg = '#1b5d7e' },
+    TelescopeBorder = { fg = '#2b434a' },
+    TelescopePreviewBorder = { fg = '#2b434a' },
+    TelescopePromptBorder = { fg = '#2b434a' },
+    TelescopeResultsBorder = { fg = '#2b434a' },
+    TelescopeMatching = { bg = '#11293a' },
+  },
+}
+vim.g.material_style = 'deep ocean'
+vim.cmd 'colorscheme material'
+
+require('color-picker').setup()
+
+require('lualine').setup()
+
+require'nvim-treesitter.configs'.setup {
+  -- A list of parser names, or "all"
+  ensure_installed = { "python", "c", "lua", "javascript", "rust" },
+}
+
+require('telescope').setup()
+
+require('nvim-tree').setup {
+  update_focused_file = {
+    enable = true,
+    update_cwd = true,
   },
 }
 
