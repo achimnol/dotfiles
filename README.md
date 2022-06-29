@@ -201,6 +201,24 @@ and plugins like Telescope breaks.
 To build Neovim by yourself, install a few prerequisite and make it from source.
 [Check out the official build instructions.](https://github.com/neovim/neovim/wiki/Building-Neovim)
 
+#### Setting Neovim as the default vi
+
+To let Neovim serve the default `vi` command on Ubuntu-like distributions,
+first put the following script as `/usr/local/bin/nvim` if *not* installed via Snap:
+```bash
+#! /bin/bash
+/usr/bin/snap run nvim "$@"
+```
+If you have built and installed Neovim by yourself, `/usr/local/bin/nvim` is already the actual executable.
+
+Then, execute this following command:
+```console
+$ sudo update-alternatives --install /usr/bin/editor editor /usr/local/bin/nvim 50
+$ sudo update-alternatives --config editor
+$ sudo update-alternatives --install /usr/bin/vi vi /usr/local/bin/nvim 50
+$ sudo update-alternatives --config vi
+```
+
 ### Initializing Neovim Plug
 
 Follow the instructions from [the official GitHub README](https://github.com/junegunn/vim-plug).
