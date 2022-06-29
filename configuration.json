@@ -123,8 +123,8 @@
                     "bash ./scripts/install-tmux.sh",
                     "bash ./scripts/install-mosh.sh",
                     "bash ./scripts/install-gh.sh",
-                    "git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim",
-                    "vim +PluginInstall +qall",
+                    "bash ./scripts/config-vim.sh",
+                    "bash ./scripts/config-nvim.sh",
                     "./gen-italics-terminfo.sh"
                 ]
             },
@@ -138,8 +138,8 @@
                     "brew install exa fd hexyl bat",
                     "brew install gh",
                     "bash ./scripts/install-ripgrep.sh",
-                    "git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim",
-                    "vim +PluginInstall +qall",
+                    "bash ./scripts/config-vim.sh",
+                    "bash ./scripts/config-nvim.sh",
                     "./gen-italics-terminfo.sh"
                 ]
             },
@@ -147,8 +147,8 @@
                 "scripts": [
                     "bash ./scripts/install-ripgrep.sh",
                     "bash ./scripts/install-tmux.sh",
-                    "git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim",
-                    "vim +PluginInstall +qall"
+                    "bash ./scripts/config-vim.sh",
+                    "bash ./scripts/config-nvim.sh"
                 ]
             }
         },
