@@ -204,7 +204,7 @@ To build Neovim by yourself, install a few prerequisite and make it from source.
 #### Setting Neovim as the default vi
 
 To let Neovim serve the default `vi` command on Ubuntu-like distributions,
-first put the following script as `/usr/local/bin/nvim` if *not* installed via Snap:
+first put the following script as `/usr/local/bin/nvim` *if installed via Snap*:
 ```bash
 #! /bin/bash
 /usr/bin/snap run nvim "$@"
