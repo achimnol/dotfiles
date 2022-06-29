@@ -1,8 +1,8 @@
 #! /bin/bash
 set -e
 if [[ `uname -s` == "Darwin" ]]; then
-  INFOCMP="/opt/homebrew/Cellar/ncurses/6.2/bin/infocmp"
-  TIC="/opt/homebrew/Cellar/ncurses/6.2/bin/tic"
+  INFOCMP="/opt/homebrew/Cellar/ncurses/6.3/bin/infocmp"
+  TIC="/opt/homebrew/Cellar/ncurses/6.3/bin/tic"
   if [[ ! -f $INFOCMP ]]; then
     echo "Install ncurses via homebrew and check its version in /usr/local/Cellar/ncurses."
     exit 1
@@ -21,9 +21,9 @@ for term in "${terms[@]}"; do
       -e 's/%?%p1%t;3%/%?%p1%t;7%/' \
       -e 's/smso=[^,]*,/smso=\\E[7m,/' \
       -e 's/rmso=[^,]*,/rmso=\\E[27m,/' \
-      -e '$s/$/ sitm=\\E[3m, ritm=\\E[23m,/' > /tmp/screen.terminfo
-    $TIC /tmp/screen.terminfo
-    rm /tmp/screen.terminfo
+      -e '$s/$/ sitm=\\E[3m, ritm=\\E[23m,/' > /tmp/$term.terminfo
+    $TIC /tmp/$term.terminfo
+    rm /tmp/$term.terminfo
 done
 
 cat <<EOF > /tmp/tmux.terminfo
