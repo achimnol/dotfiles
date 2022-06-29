@@ -88,8 +88,8 @@ alias rg='rg --colors path:fg:green --colors path:style:bold --colors match:bg:y
 
 # Fix tmux/screen home/end keys
 if [[ "$TERM" =~ ^tmux || "$TERM" =~ ^screen ]]; then
-    bindkey '^[[1~' beginning-of-line
-    bindkey '^[[4~' end-of-line
+  bindkey '^[[1~' beginning-of-line
+  bindkey '^[[4~' end-of-line
 fi
 
 export TTY=$(tty)
@@ -112,8 +112,10 @@ unsetopt auto_cd
 typeset -U PATH
 
 if [ -f "$(which direnv)" ]; then
-    eval "$(direnv hook zsh)"
+  eval "$(direnv hook zsh)"
 fi
 
 export PAGER='less -RFX'
 export GH_PAGER='less -RFX'
+
+# vim: sts=2 sw=2 et
