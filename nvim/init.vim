@@ -13,6 +13,7 @@ endif
 
 syntax enable
 
+" Plugins are installed at ~/.local/share/nvim/plugged
 call plug#begin()
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
