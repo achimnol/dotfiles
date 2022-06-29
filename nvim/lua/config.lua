@@ -12,7 +12,7 @@ require('material').setup {
     WinSeparator = { fg = '#2b434a' },
     NormalFloat = { fg = '#2b434a' },
     FloatBorder = { fg = '#2b434a', bg = 'NONE' },
-    CursorLine = { bg = '#11293a', gui = 'underline' },
+    CursorLine = { bg = '#11293a', },
     Visual = { fg = '#ffffff', bg = '#0060dd' },
     Search = { fg = '#ffffff', bg = '#1b5d7e' },
     TelescopeBorder = { fg = '#2b434a' },
