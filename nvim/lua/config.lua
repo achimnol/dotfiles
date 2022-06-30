@@ -42,6 +42,9 @@ require('nvim-tree').setup {
     enable = true,
     update_cwd = true,
   },
+  git = {
+    ignore = false,
+  },
 }
 
 -- vim: set sts=2 sw=2 et
