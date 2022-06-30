@@ -15,6 +15,7 @@ require('material').setup {
     CursorLine = { bg = '#11293a', },
     Visual = { fg = '#ffffff', bg = '#0060dd' },
     Search = { fg = '#ffffff', bg = '#1b5d7e' },
+    Comment = { fg = '#4e5f6d', italic = true },
     TelescopeBorder = { fg = '#2b434a' },
     TelescopePreviewBorder = { fg = '#2b434a' },
     TelescopePromptBorder = { fg = '#2b434a' },
