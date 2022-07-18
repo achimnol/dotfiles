@@ -11,8 +11,6 @@ if (has("termguicolors"))
  set termguicolors
 endif
 
-syntax enable
-
 " Plugins are installed at ~/.local/share/nvim/plugged
 call plug#begin()
 Plug 'nvim-lua/plenary.nvim'
@@ -24,6 +22,7 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'marko-cerovac/material.nvim'
 Plug 'gpanders/editorconfig.nvim'
 Plug 'ziontee113/color-picker.nvim'
+Plug 'dense-analysis/ale'
 call plug#end()
 
 " Load lua-based configurations
