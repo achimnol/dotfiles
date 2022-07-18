@@ -36,3 +36,5 @@ nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 nnoremap <leader>c <cmd>PickColor<cr>
 nnoremap - <cmd>NvimTreeToggle<cr>
+
+set exrc secure
