@@ -35,7 +35,17 @@ require'nvim-treesitter.configs'.setup {
   ensure_installed = { "python", "c", "lua", "javascript", "rust" },
 }
 
-require('telescope').setup()
+require('telescope').setup {
+  pickers = {
+    buffers = {
+      mappings = {
+        i = {
+          ["<c-d>"] = "delete_buffer",
+        },
+      },
+    },
+  },
+}
 
 require('nvim-tree').setup {
   update_focused_file = {
