@@ -24,6 +24,7 @@ Plug 'gpanders/editorconfig.nvim'
 Plug 'ziontee113/color-picker.nvim'
 " Plug 'dense-analysis/ale'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'HiPhish/jinja.vim'
 call plug#end()
 
 " Load lua-based configurations
