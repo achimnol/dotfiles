@@ -67,4 +67,6 @@ xmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)
 command! -nargs=0 Format :call CocActionAsync('format')
 
+au BufReadCmd *.whl call zip#Browse(expand("<amatch>"))
+
 set exrc secure
