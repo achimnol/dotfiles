@@ -37,7 +37,7 @@ nnoremap <leader>fr <cmd>Telescope registers<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 nnoremap <leader>c <cmd>PickColor<cr>
-nnoremap - <cmd>NvimTreeToggle<cr>
+nnoremap - <cmd>NvimTreeFocus<cr>
 
 " [ Coc key mappings ]
 " Use `[g` and `]g` to navigate diagnostics
