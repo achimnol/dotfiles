@@ -32,7 +32,7 @@ require('lualine').setup()
 
 require'nvim-treesitter.configs'.setup {
   -- A list of parser names, or "all"
-  ensure_installed = { "python", "c", "lua", "javascript", "rust" },
+  ensure_installed = { "python", "c", "cpp", "lua", "javascript", "rust" },
 }
 
 require('telescope').setup {
