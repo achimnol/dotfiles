@@ -2,8 +2,8 @@ require('material').setup {
   disable = {
     background = true,
   },
-  italics = {
-    comments = true,
+  styles = {
+    comments = { italic = true },
   },
   lualine_style = "stealth",
   custom_highlights = {
