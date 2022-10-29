@@ -12,10 +12,17 @@ else
   TIC="tic"
 fi
 
-# Patch xterm-256color in place
-$INFOCMP xterm-256color | python patch-italics-terminfo.py > ./xterm-256color-patched.terminfo
-$TIC -x ./xterm-256color-patched.terminfo
-rm ./xterm-256color-patched.terminfo
+# The latest terminfo can be downloaded by:
+# curl -LO https://invisible-island.net/datafiles/current/terminfo.src.gz
 
-# Combine xterm-256color and screen-256color to generate tmux-256color
-$TIC -x ./tmux-256color.terminfo
+gunzip -c terminfo.src.gz > terminfo.src
+# $TIC -xe screen-256color terminfo/terminfo.src
+$TIC -xe tmux-256color terminfo.src
+
+## # Patch xterm-256color in place
+## $INFOCMP xterm-256color | python patch-italics-terminfo.py > ./xterm-256color-patched.terminfo
+## $TIC -x ./xterm-256color-patched.terminfo
+## rm ./xterm-256color-patched.terminfo
+## 
+## # Combine xterm-256color and screen-256color to generate tmux-256color
+## $TIC -x ./tmux-256color.terminfo

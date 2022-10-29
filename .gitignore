@@ -3,3 +3,4 @@
 .swp
 .DS_Store
 __pycache__/
+/terminfo.src
