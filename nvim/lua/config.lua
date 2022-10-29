@@ -2,6 +2,10 @@ require('material').setup {
   disable = {
     background = true,
   },
+  plugins = {
+    "nvim-tree",
+    "telescope",
+  },
   styles = {
     comments = { italic = true },
   },
