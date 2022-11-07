@@ -16,7 +16,8 @@ call plug#begin()
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'kyazdani42/nvim-web-devicons' " optional, for file icons
-Plug 'kyazdani42/nvim-tree.lua'
+" Plug 'kyazdani42/nvim-tree.lua'
+Plug 'tpope/vim-vinegar'
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'marko-cerovac/material.nvim'
@@ -37,7 +38,6 @@ nnoremap <leader>fr <cmd>Telescope registers<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 nnoremap <leader>c <cmd>PickColor<cr>
-nnoremap - <cmd>NvimTreeFocus<cr>
 
 " [ Coc key mappings ]
 " Use `[g` and `]g` to navigate diagnostics
