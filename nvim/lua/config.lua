@@ -39,28 +39,6 @@ require('lualine').setup()
 require'nvim-treesitter.configs'.setup {
   -- A list of parser names, or "all"
   ensure_installed = { "python", "c", "cpp", "lua", "javascript", "rust" },
-}
-
-require('telescope').setup {
-  pickers = {
-    buffers = {
-      mappings = {
-        i = {
-          ["<c-d>"] = "delete_buffer",
-        },
-      },
-    },
-  },
-}
-
-require('indent_blankline').setup {
-    show_current_context = true,
-    show_current_context_start = false,
-    show_trailing_blankline_indent = false,
-    use_treesitter = true,
-}
-
-require("nvim-treesitter.configs").setup {
   rainbow = {
     enable = true,
     -- disable = { "jsx", "cpp" }, list of languages you want to disable the plugin for
@@ -83,6 +61,27 @@ require("nvim-treesitter.configs").setup {
         'Brown',
     },
   }
+}
+
+require('telescope').setup {
+  pickers = {
+    buffers = {
+      mappings = {
+        i = {
+          ["<c-d>"] = "delete_buffer",
+        },
+      },
+    },
+  },
+}
+
+require('indent_blankline').setup {
+    char = '┆',
+    show_current_context = true,
+    show_current_context_start = false,
+    show_trailing_blankline_indent = false,
+    use_treesitter = true,
+    max_indent_increase = 1,
 }
 
 -- vim: set sts=2 sw=2 et
