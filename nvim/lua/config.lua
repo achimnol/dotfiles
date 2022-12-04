@@ -68,7 +68,7 @@ require("nvim-treesitter.configs").setup {
     max_file_lines = nil, -- Do not enable for files with more than n lines, int
     colors = {
         '#ffffff',
-        '#ffff99',
+        '#ffff00',
         '#ff99ff',
         '#66ffff',
         '#66ff66',
