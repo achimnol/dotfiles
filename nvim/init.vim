@@ -27,6 +27,7 @@ Plug 'ziontee113/color-picker.nvim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'HiPhish/jinja.vim'
 Plug 'lukas-reineke/indent-blankline.nvim'
+Plug 'p00f/nvim-ts-rainbow'
 call plug#end()
 
 " Load lua-based configurations

@@ -26,6 +26,7 @@ require('material').setup {
     TelescopePromptBorder = { fg = '#2b434a' },
     TelescopeResultsBorder = { fg = '#2b434a' },
     TelescopeMatching = { bg = '#11293a' },
+    MatchParen = { fg = 'white', bg = '#4f88b0', bold = true },
   },
 }
 vim.g.material_style = 'deep ocean'
@@ -57,6 +58,31 @@ require('indent_blankline').setup {
     show_current_context = true,
     -- show_current_context_start = true,
     use_treesitter = true,
+}
+
+require("nvim-treesitter.configs").setup {
+  rainbow = {
+    enable = true,
+    -- disable = { "jsx", "cpp" }, list of languages you want to disable the plugin for
+    extended_mode = false, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
+    max_file_lines = nil, -- Do not enable for files with more than n lines, int
+    colors = {
+        '#ffffff',
+        '#ffff99',
+        '#ff99ff',
+        '#66ffff',
+        '#66ff66',
+        '#ffcc33',
+    },
+    termcolors = {
+        'White',
+        'Yellow',
+        'Cyan',
+        'Magenta',
+        'Green',
+        'Brown',
+    },
+  }
 }
 
 -- vim: set sts=2 sw=2 et
