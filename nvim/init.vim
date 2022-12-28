@@ -28,7 +28,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'HiPhish/jinja.vim'
 Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'p00f/nvim-ts-rainbow'
-Plug 'liuchengxu/vista.vim'
+Plug 'stevearc/aerial.nvim'
 call plug#end()
 
 " Load lua-based configurations
@@ -75,8 +75,5 @@ inoremap <expr> <Tab> coc#pum#visible() ? coc#pum#next(1) : "\<Tab>"
 inoremap <expr> <S-Tab> coc#pum#visible() ? coc#pum#prev(1) : "\<S-Tab>"
 
 au BufReadCmd *.whl call zip#Browse(expand("<amatch>"))
-
-" Vista config
-let g:vista_default_executive = 'coc'
 
 set exrc secure
