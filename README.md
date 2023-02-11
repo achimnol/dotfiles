@@ -142,21 +142,6 @@ Set the following environment variables:
 $ source pyenv-build-flags-homebrew.sh
 ```
 
-### Initializing Kryptonite
-
-```console
-$ curl https://krypt.co/kr | sh
-$ kr pair
-```
-
-**`.profile`** or **`.zshrc_local`**:
-```sh
-# kryptonite
-if [[ ! `pgrep krd` ]]; then
-  kr restart
-fi
-```
-
 ### Deploying the static configurations
 
 ```console

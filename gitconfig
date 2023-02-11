@@ -13,6 +13,9 @@
 [user]
 	name = {{username}}
 	email = {{email}}
+%if _platform != "windows":
+	signingkey = ""  ; configure with public key string or private key path
+%end
 [color]
 	ui = true
 [core]
@@ -33,7 +36,16 @@
 %end
 %if _platform == "linux":
 [gpg]
-	program = gpg2
+	format = ssh
+[commit]
+	gpgsign = true
+%elif _platform == "mac":
+[gpg]
+	format = ssh
+[gpg "ssh"]
+	program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
+[commit]
+	gpgsign = true
 %end
 
 ; vim: ft=gitconfig ts=4 sts=4 sw=4 noet
