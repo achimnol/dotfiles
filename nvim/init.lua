@@ -9,7 +9,8 @@ vim.o.cursorline = true
 vim.o.scrolloff = 2
 vim.o.exrc = true
 vim.o.secure = true
-vim.o.updatetime = 2000
+vim.o.updatetime = 1200
+vim.o.modeline = true
 if vim.fn.has('nvim') == 1 then
   vim.cmd("let $NVIM_TUI_ENABLE_TRUE_COLOR=1")
 end
@@ -62,7 +63,8 @@ require('material').setup {
     Visual = { fg = '#ffffff', bg = '#0060dd' },
     Search = { fg = '#ffffff', bg = '#1b5d7e' },
     Comment = { fg = '#4e5f6d', italic = true },
-    CocInlayHint = { fg = '#4e5f6d', italic = true },
+    CocInlayHint = { fg = '#2b434a', italic = true },
+    CocHighlightText = { bg = '#1b4767' },
     TelescopeBorder = { fg = '#2b434a' },
     TelescopePreviewBorder = { fg = '#2b434a' },
     TelescopePromptBorder = { fg = '#2b434a' },
@@ -87,20 +89,20 @@ require'nvim-treesitter.configs'.setup {
     extended_mode = false, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
     max_file_lines = nil, -- Do not enable for files with more than n lines, int
     colors = {
-        '#ffffff',
-        '#ffff00',
-        '#ff99ff',
-        '#66ffff',
-        '#66ff66',
-        '#ffcc33',
+      '#ffffff',
+      '#ffff00',
+      '#ff99ff',
+      '#66ffff',
+      '#66ff66',
+      '#ffcc33',
     },
     termcolors = {
-        'White',
-        'Yellow',
-        'Cyan',
-        'Magenta',
-        'Green',
-        'Brown',
+      'White',
+      'Yellow',
+      'Cyan',
+      'Magenta',
+      'Green',
+      'Brown',
     },
   }
 }
@@ -122,15 +124,16 @@ vim.keymap.set('n', '<leader>fg', '<cmd>Telescope live_grep<cr>', { noremap = tr
 vim.keymap.set('n', '<leader>fr', '<cmd>Telescope registers<cr>', { noremap = true })
 vim.keymap.set('n', '<leader>fb', '<cmd>Telescope buffers<cr>', { noremap = true })
 vim.keymap.set('n', '<leader>fh', '<cmd>Telescope help_tags<cr>', { noremap = true })
-vim.keymap.set('n', '<leader>c', '<cmd>PickColor<cr>', { noremap = true })
+vim.keymap.set('n', '<leader>c', '<cmd>PickColor<cr>', { silent = true, noremap = true })
+vim.keymap.set('i', '<C-c>', '<cmd>PickColorInsert<cr>', { silent = true, noremap = true })
 
 require('indent_blankline').setup {
-    char = '┆',
-    show_current_context = true,
-    show_current_context_start = false,
-    show_trailing_blankline_indent = false,
-    use_treesitter = true,
-    max_indent_increase = 1,
+  char = '┆',
+  show_current_context = true,
+  show_current_context_start = false,
+  show_trailing_blankline_indent = false,
+  use_treesitter = true,
+  max_indent_increase = 1,
 }
 
 require('aerial').setup({
@@ -161,14 +164,14 @@ vim.keymap.set('i', '<Tab>', 'coc#pum#visible() ? coc#pum#next(1) : "<Tab>"', { 
 vim.keymap.set('i', '<S-Tab>', 'coc#pum#visible() ? coc#pum#prev(1) : "<S-Tab>"', { silent = true, noremap = true })
 
 function _G.show_docs()
-    local cw = vim.fn.expand('<cword>')
-    if vim.fn.index({'vim', 'help'}, vim.bo.filetype) >= 0 then
-        vim.api.nvim_command('h ' .. cw)
-    elseif vim.api.nvim_eval('coc#rpc#ready()') then
-        vim.fn.CocActionAsync('doHover')
-    else
-        vim.api.nvim_command('!' .. vim.o.keywordprg .. ' ' .. cw)
-    end
+  local cw = vim.fn.expand('<cword>')
+  if vim.fn.index({'vim', 'help'}, vim.bo.filetype) >= 0 then
+    vim.api.nvim_command('h ' .. cw)
+  elseif vim.api.nvim_eval('coc#rpc#ready()') then
+    vim.fn.CocActionAsync('doHover')
+  else
+    vim.api.nvim_command('!' .. vim.o.keywordprg .. ' ' .. cw)
+  end
 end
 vim.keymap.set("n", "K", '<CMD>lua _G.show_docs()<CR>', { silent = true })
 
@@ -176,12 +179,15 @@ vim.api.nvim_create_user_command('Format',
   "call CocActionSync('format')",
   { nargs = 0 }
 )
-vim.api.nvim_create_autocmd("CursorHold", {
+vim.api.nvim_create_augroup("CocGroup", {})
+vim.api.nvim_create_autocmd("CursorHold", {  -- Need to run `:CocInstall coc-highlight`
+  group = "CocGroup",
   command = "silent call CocActionAsync('highlight')",
 })
 vim.api.nvim_create_autocmd('BufReadCmd', {
+  group = "CocGroup",
   pattern = {'*.whl'},
   command = 'call zip#Browse(expand("<amatch>"))'
 })
 
--- vim: set sts=2 sw=2 et
+-- vim: sts=2 sw=2 et
