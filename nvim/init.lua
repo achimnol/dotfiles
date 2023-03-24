@@ -9,7 +9,7 @@ vim.o.cursorline = true
 vim.o.scrolloff = 2
 vim.o.exrc = true
 vim.o.secure = true
-vim.o.updatetime = 1200
+vim.o.updatetime = 300
 vim.o.modeline = true
 if vim.fn.has('nvim') == 1 then
   vim.cmd("let $NVIM_TUI_ENABLE_TRUE_COLOR=1")
