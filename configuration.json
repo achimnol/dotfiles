@@ -83,7 +83,7 @@
                 "windows": "vimfiles/colors/monochrome.vim"
             }
         },
-        ".config/nvim/init.vim": {
+        ".config/nvim/init.lua": {
             "source": "nvim/init.lua",
             "group": "neovim",
             "compatible_platforms": ["linux", "mac", "codespace"]
