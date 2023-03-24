@@ -107,6 +107,7 @@ require'nvim-treesitter.configs'.setup {
   }
 }
 
+require('telescope').load_extension('aerial')
 require('telescope').setup {
   pickers = {
     buffers = {
@@ -117,8 +118,18 @@ require('telescope').setup {
       },
     },
   },
+  extensions = {
+    aerial = {
+      show_nesting = {
+        ['_'] = false,
+        json = true,
+        yaml = true,
+      },
+    },
+  },
 }
 vim.keymap.set('n', '<C-p>', '<cmd>Telescope find_files<cr>', { noremap = true })
+vim.keymap.set('n', '<leader>fa', '<cmd>Telescope aerial<cr>', { noremap = true })
 vim.keymap.set('n', '<leader>ff', '<cmd>Telescope find_files<cr>', { noremap = true })
 vim.keymap.set('n', '<leader>fg', '<cmd>Telescope live_grep<cr>', { noremap = true })
 vim.keymap.set('n', '<leader>fr', '<cmd>Telescope registers<cr>', { noremap = true })
