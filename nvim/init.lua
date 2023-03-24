@@ -1,20 +1,20 @@
 -- Basic Vim options
-vim.api.nvim_set_option('enc', 'utf-8')
-vim.api.nvim_set_option('sts', 4)
-vim.api.nvim_set_option('sw', 4)
-vim.api.nvim_set_option('expandtab', true)
-vim.api.nvim_set_option('autoindent', true)
-vim.api.nvim_set_option('nu', true)
-vim.api.nvim_set_option('cursorline', true)
-vim.api.nvim_set_option('scrolloff', 2)
-vim.api.nvim_set_option('exrc', true)
-vim.api.nvim_set_option('secure', true)
-vim.api.nvim_set_option('updatetime', 2000)
+vim.o.enc = 'utf-8'
+vim.o.sts = 4
+vim.o.sw = 4
+vim.o.expandtab = true
+vim.o.autoindent = true
+vim.o.nu = true
+vim.o.cursorline = true
+vim.o.scrolloff = 2
+vim.o.exrc = true
+vim.o.secure = true
+vim.o.updatetime = 2000
 if vim.fn.has('nvim') == 1 then
   vim.cmd("let $NVIM_TUI_ENABLE_TRUE_COLOR=1")
 end
 if vim.fn.has('termguicolors') == 1 then
-  vim.api.nvim_set_option('termguicolors', true)
+  vim.o.termguicolors = true
 end
 
 
