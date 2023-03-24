@@ -213,6 +213,11 @@ $ sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plu
 $ nvim +PlugInstall
 ```
 
+Also install the CoC plugins after initialization CoC itself.
+```
+:CocInstall coc-pyright coc-rust-analyzer coc-highlight
+```
+
 ### Installing the latest mobile-shell (mosh)
 
 ```console
