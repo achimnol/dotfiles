@@ -159,9 +159,9 @@ vim.keymap.set('n', '<leader>rn', '<Plug>(coc-rename)')
 vim.keymap.set({'x', 'n'}, '<leader>f', '<Plug>(coc-format-selected)')
 vim.keymap.set('n', '<leader>f', '<Plug>(coc-format-selected)')
 -- CoC: Tab-based auto completion
-vim.keymap.set('i', '<CR>', 'coc#pum#visible() ? coc#pum#confirm() : "<CR>"', { silent = true ,noremap = true })
-vim.keymap.set('i', '<Tab>', 'coc#pum#visible() ? coc#pum#next(1) : "<Tab>"', { silent = true ,noremap = true })
-vim.keymap.set('i', '<S-Tab>', 'coc#pum#visible() ? coc#pum#prev(1) : "<S-Tab>"', { silent = true, noremap = true })
+vim.keymap.set('i', '<CR>', 'coc#pum#visible() ? coc#pum#confirm() : "<CR>"', { silent = true, noremap = true, expr = true })
+vim.keymap.set('i', '<Tab>', 'coc#pum#visible() ? coc#pum#next(1) : "<Tab>"', { silent = true, noremap = true, expr = true })
+vim.keymap.set('i', '<S-Tab>', 'coc#pum#visible() ? coc#pum#prev(1) : "<S-Tab>"', { silent = true, noremap = true, expr = true })
 
 function _G.show_docs()
   local cw = vim.fn.expand('<cword>')
