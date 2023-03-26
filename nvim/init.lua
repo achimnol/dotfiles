@@ -121,7 +121,6 @@ require('telescope').setup {
 }
 vim.keymap.set('n', '<C-p>', '<cmd>Telescope find_files<cr>', { noremap = true })
 vim.keymap.set('n', '<leader>fa', '<cmd>Telescope aerial<cr>', { noremap = true })
-vim.keymap.set('n', '<leader>ff', '<cmd>Telescope find_files<cr>', { noremap = true })
 vim.keymap.set('n', '<leader>fg', '<cmd>Telescope live_grep<cr>', { noremap = true })
 vim.keymap.set('n', '<leader>fr', '<cmd>Telescope registers<cr>', { noremap = true })
 vim.keymap.set('n', '<leader>fb', '<cmd>Telescope buffers<cr>', { noremap = true })
@@ -160,8 +159,8 @@ vim.keymap.set('n', 'gr', '<Plug>(coc-references)', { silent = true })
 -- CoC: Symbol renaming.
 vim.keymap.set('n', '<leader>rn', '<Plug>(coc-rename)')
 -- CoC: Formatting selected code.
-vim.keymap.set({'x', 'n'}, '<leader>f', '<Plug>(coc-format-selected)')
-vim.keymap.set('n', '<leader>f', '<Plug>(coc-format-selected)')
+vim.keymap.set({'x', 'n'}, '<leader>ff', '<Plug>(coc-format-selected)')
+vim.keymap.set('n', '<leader>ff', '<Plug>(coc-format-selected)')
 -- CoC: Tab-based auto completion
 vim.keymap.set('i', '<CR>', 'coc#pum#visible() ? coc#pum#confirm() : "<CR>"', { silent = true, noremap = true, expr = true })
 vim.keymap.set('i', '<Tab>', 'coc#pum#visible() ? coc#pum#next(1) : "<Tab>"', { silent = true, noremap = true, expr = true })
