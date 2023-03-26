@@ -35,9 +35,10 @@ Plug 'ziontee113/color-picker.nvim'
 -- Plug 'dense-analysis/ale'
 Plug('neoclide/coc.nvim', { branch = 'release' })
 Plug 'HiPhish/jinja.vim'
+Plug 'HiPhish/nvim-ts-rainbow2'
 Plug 'lukas-reineke/indent-blankline.nvim'
-Plug 'p00f/nvim-ts-rainbow'
 Plug 'stevearc/aerial.nvim'
+Plug 'pwntester/octo.nvim'
 vim.call('plug#end')
 
 
@@ -64,13 +65,20 @@ require('material').setup {
     Search = { fg = '#ffffff', bg = '#1b5d7e' },
     Comment = { fg = '#4e5f6d', italic = true },
     CocInlayHint = { fg = '#2b434a', italic = true },
-    CocHighlightText = { bg = '#1b4767' },
+    CocHighlightText = { bg = '#1c4865' },
     TelescopeBorder = { fg = '#2b434a' },
     TelescopePreviewBorder = { fg = '#2b434a' },
     TelescopePromptBorder = { fg = '#2b434a' },
     TelescopeResultsBorder = { fg = '#2b434a' },
     TelescopeMatching = { bg = '#11293a' },
     MatchParen = { fg = 'white', bg = '#4f88b0', bold = true },
+    TSRainbowRed    = { fg = '#ffffff' },
+    TSRainbowYellow = { fg = '#ffff00' },
+    TSRainbowBlue   = { fg = '#ff99ff' },
+    TSRainbowOrange = { fg = '#66ffff' },
+    TSRainbowGreen  = { fg = '#66ff66' },
+    TSRainbowViolet = { fg = '#ffcc33' },
+    TSRainbowCyan   = { fg = '#ff6600' },
   },
 }
 vim.g.material_style = 'deep ocean'
@@ -82,28 +90,11 @@ require('lualine').setup()
 
 require'nvim-treesitter.configs'.setup {
   -- A list of parser names, or "all"
-  ensure_installed = { "python", "c", "cpp", "lua", "javascript", "rust" },
+  ensure_installed = { "python", "c", "cpp", "lua", "javascript", "typescript", "rust", "bash", "json", "toml", "yaml", "css", "html", "markdown", "rst" },
   rainbow = {
     enable = true,
     -- disable = { "jsx", "cpp" }, list of languages you want to disable the plugin for
     extended_mode = false, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
-    max_file_lines = nil, -- Do not enable for files with more than n lines, int
-    colors = {
-      '#ffffff',
-      '#ffff00',
-      '#ff99ff',
-      '#66ffff',
-      '#66ff66',
-      '#ffcc33',
-    },
-    termcolors = {
-      'White',
-      'Yellow',
-      'Cyan',
-      'Magenta',
-      'Green',
-      'Brown',
-    },
   }
 }
 
@@ -155,6 +146,8 @@ require('aerial').setup({
 })
 vim.keymap.set('n', '<leader>a', '<cmd>AerialToggle!<CR>')
 
+require('octo').setup()
+
 -- Use `[g` and `]g` to navigate diagnostics
 -- Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
 vim.keymap.set('n', '[g', '<Plug>(coc-diagnostic-prev)', { silent = true })
@@ -187,7 +180,7 @@ end
 vim.keymap.set("n", "K", '<CMD>lua _G.show_docs()<CR>', { silent = true })
 
 vim.api.nvim_create_user_command('Format',
-  "call CocActionSync('format')",
+  "call CocActionAsync('format')",
   { nargs = 0 }
 )
 vim.api.nvim_create_augroup("CocGroup", {})

@@ -216,7 +216,6 @@ $ nvim +PlugInstall
 Also install the CoC and treesitter plugins after initialization CoC itself.
 ```
 :CocInstall coc-pyright coc-rust-analyzer coc-highlight
-:TSInstall c cpp python rust javascript typescript toml yaml json bash markdown rst css html
 ```
 
 ### Installing the latest mobile-shell (mosh)
