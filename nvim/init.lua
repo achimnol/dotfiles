@@ -95,7 +95,10 @@ require'nvim-treesitter.configs'.setup {
     enable = true,
     -- disable = { "jsx", "cpp" }, list of languages you want to disable the plugin for
     extended_mode = false, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
-  }
+  },
+  indent = {
+    enable = true,
+  },
 }
 
 require('telescope').load_extension('aerial')
