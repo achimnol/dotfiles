@@ -90,7 +90,7 @@ require('lualine').setup()
 
 require'nvim-treesitter.configs'.setup {
   -- A list of parser names, or "all"
-  ensure_installed = { "python", "c", "cpp", "lua", "javascript", "typescript", "rust", "bash", "json", "toml", "yaml", "css", "html", "markdown", "rst" },
+  ensure_installed = { "python", "c", "cpp", "lua", "javascript", "typescript", "rust", "bash", "json", "toml", "yaml", "css", "html", "markdown", "rst", "gitcommit" },
   rainbow = {
     enable = true,
     -- disable = { "jsx", "cpp" }, list of languages you want to disable the plugin for
