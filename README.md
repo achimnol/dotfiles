@@ -112,6 +112,7 @@ $ git clone https://github.com/pyenv/pyenv-update.git ~/.pyenv/plugins/pyenv-upd
 **`.profile`** or **`.zshrc_local`**:
 ```sh
 # pyenv setup
+exprot PYENV_VIRTUALENV_DISABLE_PROMPT=1
 if [ -z "$PYENV_ROOT" ]; then
   export PYENV_ROOT="$HOME/.pyenv"
   export PATH="$PYENV_ROOT/bin:$PATH"
