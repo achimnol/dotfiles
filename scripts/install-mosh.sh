@@ -1,7 +1,7 @@
 #! /bin/bash
 
 echo "===> Building latest mosh"
-git clone https://github.com/mobile-shell/mosh /tmp/mosh
+git clone --branch 'mosh-1.4.0' https://github.com/mobile-shell/mosh /tmp/mosh
 cd /tmp/mosh
 sudo apt install -y libprotobuf-dev protobuf-compiler
 ./autogen.sh
