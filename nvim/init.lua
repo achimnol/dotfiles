@@ -36,35 +36,54 @@ end
 
 require("lazy").setup({
   'nvim-lua/plenary.nvim',
-  'nvim-tree/nvim-web-devicons', -- optional, for file icons
-  'tpope/vim-vinegar',
+  'nvim-tree/nvim-web-devicons',
+  {
+    'tpope/vim-vinegar',
+    lazy = false,
+  },
   'gpanders/editorconfig.nvim',
   'ziontee113/color-picker.nvim',
   'HiPhish/jinja.vim',
-  'HiPhish/nvim-ts-rainbow2',
+  {
+    'HiPhish/nvim-ts-rainbow2',
+    dependencies = {
+      'nvim-treesitter/nvim-treesitter',
+    },
+  },
   'pwntester/octo.nvim',
   {
     'nvim-lualine/lualine.nvim',
     dependencies = {
+      'marko-cerovac/material.nvim',
       'nvim-tree/nvim-web-devicons',
     },
     event = "VeryLazy",
   },
   {
     'stevearc/aerial.nvim',
+    dependencies = {
+      'nvim-treesitter/nvim-treesitter',
+      'nvim-tree/nvim-web-devicons',
+      'nvim-telescope/telescope.nvim',
+    },
+    cmd = { "AerialToggle" },
     opts = {
+      attach_mode = 'global',
       on_attach = function(bufnr)
         vim.keymap.set('n', '{', '<cmd>AerialPrev<CR>', { buffer = bufnr })
         vim.keymap.set('n', '}', '<cmd>AerialNext<CR>', { buffer = bufnr })
-      end
+      end,
     },
+    config = function(plugin, opts)
+      require('aerial').setup(opts)
+      require('telescope').load_extension('aerial')
+    end,
   },
   {
     'nvim-telescope/telescope.nvim',
     dependencies = {
       'nvim-lua/plenary.nvim',
       'nvim-tree/nvim-web-devicons',
-      'stevearc/aerial.nvim',
     },
     opts = {
       pickers = {
@@ -101,9 +120,9 @@ require("lazy").setup({
   },
   {
     'nvim-treesitter/nvim-treesitter',
-    dependencies = {
-      'HiPhish/nvim-ts-rainbow2',
-    },
+    -- dependencies = {
+    --   'HiPhish/nvim-ts-rainbow2',
+    -- },
     build = ":TSUpdate",
     opts = {
       ensure_installed = {
@@ -133,6 +152,21 @@ require("lazy").setup({
         enable = true,
       },
     },
+    config = function(_, opts)
+      -- ref: https://www.lazyvim.org/plugins/treesitter
+      if type(opts.ensure_installed) == "table" then
+        ---@type table<string, boolean>
+        local added = {}
+        opts.ensure_installed = vim.tbl_filter(function(lang)
+          if added[lang] then
+            return false
+          end
+          added[lang] = true
+          return true
+        end, opts.ensure_installed)
+      end
+      require('nvim-treesitter.configs').setup(opts)
+    end,
   },
   {
     'marko-cerovac/material.nvim',
@@ -184,6 +218,7 @@ require("lazy").setup({
   },
   {
     'neoclide/coc.nvim', branch = 'release',
+    lazy = false,
     init = function()
       -- Use `[g` and `]g` to navigate diagnostics
       -- Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
