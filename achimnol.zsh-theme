@@ -2,9 +2,10 @@
 # A little bit customized for achimnol
 
 function git_prompt_info() {
-  ref=$(command git symbolic-ref HEAD 2> /dev/null) || \
-  ref=$(command git rev-parse --short HEAD 2> /dev/null) || return 0
-  echo "$(parse_git_dirty)$ZSH_THEME_GIT_PROMPT_PREFIX${ref#refs/heads/}$ZSH_THEME_GIT_PROMPT_SUFFIX"
+  ref=$(git_current_branch)
+  if [ -z ${ref} ]; then return 0; fi
+  echo -n "$(parse_git_dirty)$ZSH_THEME_GIT_PROMPT_PREFIX${ref}$ZSH_THEME_GIT_PROMPT_SUFFIX"
+  echo -n " $fg_bold[default][author:$(git_current_user_email)]$reset_color"
 }
 
 function get_pwd() {
