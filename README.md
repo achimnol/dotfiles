@@ -78,47 +78,12 @@ or
 $ curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh
 ```
 
-### Initializing GnuPG (Linux)
-
-**`.profile`** or **`.zshrc_local`**:
-```sh
-# gpg-agent setup
-export GPG_TTY=`tty`
-export SSH_AUTH_SOCK="$HOME/.gnupg/S.gpg-agent.ssh"
-gpgconf --launch gpg-agent
-```
-
-Note: Bash on Ubuntu reads `.profile` by default but ZSH does not.
-In this case, add the following to `.zshrc_local`:
-
-```sh
-if [[ -o login ]]; then
-    source $HOME/.profile
-fi
-```
-
-Then, import the PGP key as you need.
-
 ### Initializing pyenv (Linux/Mac)
 
 ```console
 $ git clone https://github.com/pyenv/pyenv.git ~/.pyenv
 $ git clone https://github.com/pyenv/pyenv-virtualenv.git ~/.pyenv/plugins/pyenv-virtualenv
 $ git clone https://github.com/pyenv/pyenv-update.git ~/.pyenv/plugins/pyenv-update
-```
-
-#### pyenv 1.x
-
-**`.profile`** or **`.zshrc_local`**:
-```sh
-# pyenv setup
-exprot PYENV_VIRTUALENV_DISABLE_PROMPT=1
-if [ -z "$PYENV_ROOT" ]; then
-  export PYENV_ROOT="$HOME/.pyenv"
-  export PATH="$PYENV_ROOT/bin:$PATH"
-  eval "$(pyenv init -)"
-  eval "$(pyenv virtualenv-init -)"
-fi
 ```
 
 #### pyenv 2.0+
@@ -152,6 +117,128 @@ $ ./deploy.py --flavor home
 If any file already exists, it will ask you whether to overwrite it.
 To overwrite always, add `--force`.
 
+### NeoVim on Linux arm64/aarch64
+
+Many NeoVim plugins require luajit instead of Lua 5.1 to work properly.
+We can install NeoVim using Snap (`sudo snap install nvim --classic`) but this version is built with Lua 5.1
+and plugins like Telescope breaks.
+
+To build NeoVim by yourself, install a few prerequisite and make it from source.
+[Check out the official build instructions.](https://github.com/neovim/neovim/wiki/Building-NeoVim)
+
+#### Setting NeoVim as the default editor/vi
+
+To let NeoVim serve the default `vi` command on Ubuntu-like distributions,
+first put the following script as `/usr/local/bin/nvim` *if installed via Snap*:
+```bash
+#! /bin/bash
+/usr/bin/snap run nvim "$@"
+```
+If you have built and installed NeoVim by yourself, `/usr/local/bin/nvim` is already the actual executable.
+
+Then, execute this following command:
+```console
+$ sudo update-alternatives --install /usr/bin/editor editor /usr/local/bin/nvim 50
+$ sudo update-alternatives --config editor
+$ sudo update-alternatives --install /usr/bin/vi vi /usr/local/bin/nvim 50
+$ sudo update-alternatives --config vi
+```
+
+### Initializing NeoVim Plug
+
+Follow the instructions from [the official GitHub README](https://github.com/junegunn/vim-plug).
+```console
+$ sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+>        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+$ nvim +PlugInstall
+```
+
+Also install the CoC and treesitter plugins after initialization CoC itself.
+```
+:CocInstall coc-pyright coc-rust-analyzer coc-highlight
+```
+
+### NodeJS for NeoVim CoC and npm packages
+
+Follow the instructions from [the nodesource distribution repository](https://github.com/nodesource/distributions).
+
+### Language Server configurations for Vim
+
+Run `:LspInstallServer` after opening a source file in a project working directory.
+
+### Enabling italics support in terminals (for Linux/Mac only)
+
+```console
+$ ./gen-italics-terminfo.sh
+```
+
+To check if the italic font rednering works in your terminal, try:
+```console
+$ echo -e "\e[3mfoo\e[23m"
+```
+
+[A good guide is here.](https://www.reddit.com/r/vim/comments/24g8r8/italics_in_terminal_vim_and_tmux/)
+
+### Setting up Git commit signing with the SSH keypair
+
+```console
+$ git config --global user.signingkey ~/.ssh/id_rsa
+```
+
+### Installing the GitHub CLI (Ubuntu/Debian Linux)
+
+```shell
+type -p curl >/dev/null || (sudo apt update && sudo apt install curl -y)
+curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg \
+&& sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg \
+&& echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
+&& sudo apt update \
+&& sudo apt install gh -y
+```
+
+```console
+$ gh auth login
+```
+
+### Installing the latest mobile-shell (mosh) (Optional)
+
+```console
+$ git clone https://github.com/mobile-shell/mosh
+$ cd mosh
+$ brew install automake
+$ ./autogen.sh
+$ ./configure --prefix=/usr/local
+$ make && sudo make install
+```
+
+### Workarounding user font recognition and system clipboard access issues in tmux on macOS
+
+```console
+$ brew install tmux reattach-to-user-namespace
+```
+
+Set your iTerm profile's startup command to use `reattach-to-user-namespace -l zsh`.
+(Replace zsh with your favorite shell.)
+
+### Enabling macOS key repeats
+
+Run the following in the terminal and restart any apps to apply:
+```console
+$ defaults write -g ApplePressAndHoldEnabled -bool false
+```
+
+### Making macOS key repeat faster
+
+Run the followings in the terminal and logout/login again.
+```console
+$ defaults write -g InitialKeyRepeat -int 10  # normal minimum is 15 (225 ms)
+$ defaults write -g KeyRepeat -int 1          # normal minimum is 2 (30 ms)
+```
+
+
+
+## Archived instructions (not used currently)
+
 ### Initializing Vim Vundle
 
 This repository does not include [Vundle](https://github.com/gmarik/Vundle.vim) and other vim plugins.
@@ -178,95 +265,23 @@ If your user name contains non-ASCII characters, make a ASCII symbolic link of y
 ```
 and then run `:PluginInstall`.
 
-### Neovim on Linux arm64/aarch64
+### Initializing GnuPG (Linux)
 
-Many Neovim plugins require luajit instead of Lua 5.1 to work properly.
-We can install Neovim using Snap (`sudo snap install nvim --classic`) but this version is built with Lua 5.1
-and plugins like Telescope breaks.
-
-To build Neovim by yourself, install a few prerequisite and make it from source.
-[Check out the official build instructions.](https://github.com/neovim/neovim/wiki/Building-Neovim)
-
-#### Setting Neovim as the default vi
-
-To let Neovim serve the default `vi` command on Ubuntu-like distributions,
-first put the following script as `/usr/local/bin/nvim` *if installed via Snap*:
-```bash
-#! /bin/bash
-/usr/bin/snap run nvim "$@"
-```
-If you have built and installed Neovim by yourself, `/usr/local/bin/nvim` is already the actual executable.
-
-Then, execute this following command:
-```console
-$ sudo update-alternatives --install /usr/bin/editor editor /usr/local/bin/nvim 50
-$ sudo update-alternatives --config editor
-$ sudo update-alternatives --install /usr/bin/vi vi /usr/local/bin/nvim 50
-$ sudo update-alternatives --config vi
+**`.profile`** or **`.zshrc_local`**:
+```sh
+# gpg-agent setup
+export GPG_TTY=`tty`
+export SSH_AUTH_SOCK="$HOME/.gnupg/S.gpg-agent.ssh"
+gpgconf --launch gpg-agent
 ```
 
-### Initializing Neovim Plug
+Note: Bash on Ubuntu reads `.profile` by default but ZSH does not.
+In this case, add the following to `.zshrc_local`:
 
-Follow the instructions from [the official GitHub README](https://github.com/junegunn/vim-plug).
-```console
-$ sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
->        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-$ nvim +PlugInstall
+```sh
+if [[ -o login ]]; then
+    source $HOME/.profile
+fi
 ```
 
-Also install the CoC and treesitter plugins after initialization CoC itself.
-```
-:CocInstall coc-pyright coc-rust-analyzer coc-highlight
-```
-
-### Installing the latest mobile-shell (mosh)
-
-```console
-$ git clone https://github.com/mobile-shell/mosh
-$ cd mosh
-$ brew install automake
-$ ./autogen.sh
-$ ./configure --prefix=/usr/local
-$ make && sudo make install
-```
-
-### Language Server configurations for Vim
-
-Run `:LspInstallServer` after opening a source file in a project working directory.
-
-### Enabling italics support in terminals (for Linux/Mac only)
-
-```console
-$ ./gen-italics-terminfo.sh
-```
-
-To check if the italic font rednering works in your terminal, try:
-```console
-$ echo -e "\e[3mfoo\e[23m"
-```
-
-[A good guide is here.](https://www.reddit.com/r/vim/comments/24g8r8/italics_in_terminal_vim_and_tmux/)
-
-### Workarounding user font recognition and system clipboard access issues in tmux on macOS
-
-```console
-$ brew install tmux reattach-to-user-namespace
-```
-
-Set your iTerm profile's startup command to use `reattach-to-user-namespace -l zsh`.
-(Replace zsh with your favorite shell.)
-
-### Enabling macOS key repeats
-
-Run the following in the terminal and restart any apps to apply:
-```console
-$ defaults write -g ApplePressAndHoldEnabled -bool false
-```
-
-### Making macOS key repeat faster
-
-Run the followings in the terminal and logout/login again.
-```console
-$ defaults write -g InitialKeyRepeat -int 10  # normal minimum is 15 (225 ms)
-$ defaults write -g KeyRepeat -int 1          # normal minimum is 2 (30 ms)
-```
+Then, import the PGP key as you need.
