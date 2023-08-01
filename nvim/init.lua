@@ -35,6 +35,41 @@ end
 
 
 require("lazy").setup({
+  {
+    "catppuccin/nvim",
+    name = "catppuccin",
+    priority = 1000,
+    opts = {
+      integrations = {
+        treesitter = true,
+        ts_rainbow2 = true,
+        telescope = {
+          enabled = true,
+        },
+        indent_blankline = {
+          enabled = true,
+          colored_indent_levels = false,
+        },
+      },
+      custom_highlights = function(colors)
+        return {
+          TSRainbowRed    = { fg = '#ffffff' },
+          TSRainbowYellow = { fg = '#ffff00' },
+          TSRainbowBlue   = { fg = '#ff99ff' },
+          TSRainbowOrange = { fg = '#66ffff' },
+          TSRainbowGreen  = { fg = '#66ff66' },
+          TSRainbowViolet = { fg = '#ffcc33' },
+          TSRainbowCyan   = { fg = '#ff6600' },
+          CocInlayHint    = { fg = colors.overlay0, italic = true },
+          CocHighlightText = { bg = colors.surface1 },
+          MatchParen      = { fg = colors.text, bg = colors.surface2, bold = true },
+        }
+      end
+    },
+    init = function()
+      vim.cmd 'colorscheme catppuccin-mocha'
+    end
+  },
   'nvim-lua/plenary.nvim',
   'nvim-tree/nvim-web-devicons',
   {
@@ -53,6 +88,9 @@ require("lazy").setup({
   'pwntester/octo.nvim',
   {
     'nvim-lualine/lualine.nvim',
+    opts = {
+      theme = "catppuccin",
+    },
     dependencies = {
       'marko-cerovac/material.nvim',
       'nvim-tree/nvim-web-devicons',
@@ -168,54 +206,54 @@ require("lazy").setup({
       require('nvim-treesitter.configs').setup(opts)
     end,
   },
-  {
-    'marko-cerovac/material.nvim',
-    lazy = false,
-    priority = 100,
-    opts = {
-      disable = {
-        background = true,
-      },
-      plugins = {
-        -- "nvim-tree",
-        "telescope",
-      },
-      styles = {
-        comments = { italic = true },
-      },
-      lualine_style = "stealth",
-      custom_highlights = {
-        Normal = { fg = '#bec9e8' },
-        VertSplit = { fg = '#2b434a' },
-        WinSeparator = { fg = '#2b434a' },
-        NormalFloat = { fg = '#2b434a' },
-        FloatBorder = { fg = '#2b434a', bg = 'NONE' },
-        CursorLine = { bg = '#11293a', },
-        Visual = { fg = '#ffffff', bg = '#0060dd' },
-        Search = { fg = '#ffffff', bg = '#1b5d7e' },
-        Comment = { fg = '#4e5f6d', italic = true },
-        CocInlayHint = { fg = '#2b434a', italic = true },
-        CocHighlightText = { bg = '#1c4865' },
-        TelescopeBorder = { fg = '#2b434a' },
-        TelescopePreviewBorder = { fg = '#2b434a' },
-        TelescopePromptBorder = { fg = '#2b434a' },
-        TelescopeResultsBorder = { fg = '#2b434a' },
-        TelescopeMatching = { bg = '#11293a' },
-        MatchParen = { fg = 'white', bg = '#4f88b0', bold = true },
-        TSRainbowRed    = { fg = '#ffffff' },
-        TSRainbowYellow = { fg = '#ffff00' },
-        TSRainbowBlue   = { fg = '#ff99ff' },
-        TSRainbowOrange = { fg = '#66ffff' },
-        TSRainbowGreen  = { fg = '#66ff66' },
-        TSRainbowViolet = { fg = '#ffcc33' },
-        TSRainbowCyan   = { fg = '#ff6600' },
-      },
-    },
-    init = function()
-      vim.g.material_style = 'deep ocean'
-      vim.cmd 'colorscheme material'
-    end,
-  },
+  -- {
+  --   'marko-cerovac/material.nvim',
+  --   lazy = false,
+  --   priority = 100,
+  --   opts = {
+  --     disable = {
+  --       background = true,
+  --     },
+  --     plugins = {
+  --       -- "nvim-tree",
+  --       "telescope",
+  --     },
+  --     styles = {
+  --       comments = { italic = true },
+  --     },
+  --     lualine_style = "stealth",
+  --     custom_highlights = {
+  --       Normal = { fg = '#bec9e8' },
+  --       VertSplit = { fg = '#2b434a' },
+  --       WinSeparator = { fg = '#2b434a' },
+  --       NormalFloat = { fg = '#2b434a' },
+  --       FloatBorder = { fg = '#2b434a', bg = 'NONE' },
+  --       CursorLine = { bg = '#11293a', },
+  --       Visual = { fg = '#ffffff', bg = '#0060dd' },
+  --       Search = { fg = '#ffffff', bg = '#1b5d7e' },
+  --       Comment = { fg = '#4e5f6d', italic = true },
+  --       CocInlayHint = { fg = '#2b434a', italic = true },
+  --       CocHighlightText = { bg = '#1c4865' },
+  --       TelescopeBorder = { fg = '#2b434a' },
+  --       TelescopePreviewBorder = { fg = '#2b434a' },
+  --       TelescopePromptBorder = { fg = '#2b434a' },
+  --       TelescopeResultsBorder = { fg = '#2b434a' },
+  --       TelescopeMatching = { bg = '#11293a' },
+  --       MatchParen = { fg = 'white', bg = '#4f88b0', bold = true },
+  --       TSRainbowRed    = { fg = '#ffffff' },
+  --       TSRainbowYellow = { fg = '#ffff00' },
+  --       TSRainbowBlue   = { fg = '#ff99ff' },
+  --       TSRainbowOrange = { fg = '#66ffff' },
+  --       TSRainbowGreen  = { fg = '#66ff66' },
+  --       TSRainbowViolet = { fg = '#ffcc33' },
+  --       TSRainbowCyan   = { fg = '#ff6600' },
+  --     },
+  --   },
+  --   init = function()
+  --     vim.g.material_style = 'deep ocean'
+  --     vim.cmd 'colorscheme material'
+  --   end,
+  -- },
   {
     'neoclide/coc.nvim', branch = 'release',
     lazy = false,
