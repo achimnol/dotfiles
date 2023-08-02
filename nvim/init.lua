@@ -53,13 +53,6 @@ require("lazy").setup({
       },
       custom_highlights = function(colors)
         return {
-          TSRainbowRed    = { fg = '#ffffff' },
-          TSRainbowYellow = { fg = '#ffff00' },
-          TSRainbowBlue   = { fg = '#ff99ff' },
-          TSRainbowOrange = { fg = '#66ffff' },
-          TSRainbowGreen  = { fg = '#66ff66' },
-          TSRainbowViolet = { fg = '#ffcc33' },
-          TSRainbowCyan   = { fg = '#ff6600' },
           CocInlayHint    = { fg = colors.overlay0, italic = true },
           CocHighlightText = { bg = colors.surface1 },
           MatchParen      = { fg = colors.text, bg = colors.surface2, bold = true },
