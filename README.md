@@ -198,6 +198,7 @@ curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo 
 
 ```console
 $ gh auth login
+$ gh extension install seachicken/gh-poi  # extension to clean up local branches
 ```
 
 ### Installing the latest mobile-shell (mosh) (Optional)
