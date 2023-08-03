@@ -12,7 +12,6 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-
 -- Basic Vim options
 vim.o.enc = 'utf-8'
 vim.o.sts = 4
@@ -32,6 +31,31 @@ end
 if vim.fn.has('termguicolors') == 1 then
   vim.o.termguicolors = true
 end
+
+local function apply_ripgreprc(config_table)
+  local ripgrep_config_path = vim.fn.getcwd() .. "/.ripgreprc"
+  local f = io.open(ripgrep_config_path, "r")
+  if f == nil then
+    return
+  end
+  for line in f:lines() do
+    if not line:match("^%s*#") and not line:match("^%s*$") then
+      table.insert(config_table, line)
+    end
+  end
+  f:close()
+end
+
+local ripgrep_config = {
+  "rg",
+  "--color=never",
+  "--no-heading",
+  "--with-filename",
+  "--line-number",
+  "--column",
+  "--smart-case",
+}
+apply_ripgreprc(ripgrep_config)
 
 
 require("lazy").setup({
@@ -135,6 +159,7 @@ require("lazy").setup({
           },
         },
       },
+      vimgrep_arguments = ripgrep_config,
     },
     init = function()
       require('telescope').load_extension('aerial')
