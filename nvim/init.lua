@@ -13,6 +13,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 -- Basic Vim options
+vim.o.bg = 'dark'
 vim.o.enc = 'utf-8'
 vim.o.sts = 4
 vim.o.sw = 4
@@ -60,31 +61,24 @@ apply_ripgreprc(ripgrep_config)
 
 require("lazy").setup({
   {
-    "catppuccin/nvim",
-    name = "catppuccin",
+    "projekt0n/github-nvim-theme",
+    lazy = false,
     priority = 1000,
-    opts = {
-      integrations = {
-        treesitter = true,
-        ts_rainbow2 = true,
-        telescope = {
-          enabled = true,
+    config = function()
+      require('github-theme').setup({
+        groups = {
+          all = {
+            CursorLine = { bg = '#1a222b' },
+          },
         },
-        indent_blankline = {
-          enabled = true,
-          colored_indent_levels = false,
-        },
-      },
-      custom_highlights = function(colors)
-        return {
-          CocInlayHint    = { fg = colors.overlay0, italic = true },
-          CocHighlightText = { bg = colors.surface1 },
-          MatchParen      = { fg = colors.text, bg = colors.surface2, bold = true },
+        options = {
+          transparent = true,
+          styles = {
+            comments = 'italic',
+          },
         }
-      end
-    },
-    init = function()
-      vim.cmd 'colorscheme catppuccin-mocha'
+      })
+      vim.cmd 'colorscheme github_dark'
     end
   },
   'nvim-lua/plenary.nvim',
@@ -94,7 +88,14 @@ require("lazy").setup({
     lazy = false,
   },
   'gpanders/editorconfig.nvim',
-  'ziontee113/color-picker.nvim',
+  {
+    'ziontee113/color-picker.nvim',
+    config = function()
+      local opts = { noremap = true, silent = true }
+      vim.keymap.set("n", "<C-c>", "<cmd>PickColor<cr>", opts)
+      vim.keymap.set("i", "<C-c>", "<cmd>PickColorInsert<cr>", opts)
+    end
+  },
   'HiPhish/jinja.vim',
   {
     'HiPhish/nvim-ts-rainbow2',
@@ -106,10 +107,12 @@ require("lazy").setup({
   {
     'nvim-lualine/lualine.nvim',
     opts = {
-      theme = "catppuccin",
+      -- theme = "catppuccin",
+      -- theme = "onedark",
     },
     dependencies = {
-      'marko-cerovac/material.nvim',
+      -- 'marko-cerovac/material.nvim',
+      'projekt0n/github-nvim-theme',
       'nvim-tree/nvim-web-devicons',
     },
     event = "VeryLazy",
@@ -139,6 +142,7 @@ require("lazy").setup({
     dependencies = {
       'nvim-lua/plenary.nvim',
       'nvim-tree/nvim-web-devicons',
+      'ziontee113/color-picker.nvim',
     },
     opts = {
       pickers = {
@@ -176,9 +180,6 @@ require("lazy").setup({
   },
   {
     'nvim-treesitter/nvim-treesitter',
-    -- dependencies = {
-    --   'HiPhish/nvim-ts-rainbow2',
-    -- },
     build = ":TSUpdate",
     opts = {
       ensure_installed = {
@@ -227,7 +228,7 @@ require("lazy").setup({
   -- {
   --   'marko-cerovac/material.nvim',
   --   lazy = false,
-  --   priority = 100,
+  --   priority = 1000,
   --   opts = {
   --     disable = {
   --       background = true,
