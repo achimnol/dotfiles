@@ -68,7 +68,10 @@ require("lazy").setup({
       require('github-theme').setup({
         groups = {
           all = {
-            CursorLine = { bg = '#1a222b' },
+            CursorLine = { bg = '#21262d' },
+            CocInlayHint = { fg = '#38404d', italic = true },
+            CocHighlightText = { bg = '#38404d' },
+            AerialLine = { bg = '#38404d' },
           },
         },
         options = {
@@ -107,11 +110,8 @@ require("lazy").setup({
   {
     'nvim-lualine/lualine.nvim',
     opts = {
-      -- theme = "catppuccin",
-      -- theme = "onedark",
     },
     dependencies = {
-      -- 'marko-cerovac/material.nvim',
       'projekt0n/github-nvim-theme',
       'nvim-tree/nvim-web-devicons',
     },
