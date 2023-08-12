@@ -155,7 +155,8 @@ $ nvim +PlugInstall
 
 Also install the CoC and treesitter plugins after initialization CoC itself.
 ```
-:CocInstall coc-pyright coc-rust-analyzer coc-highlight
+:CocInstall coc-pyright coc-rust-analyzer coc-highlight @yaegassy/coc-ruff
+:CocCommand ruff.builtin.installServer
 ```
 
 ### NodeJS for NeoVim CoC and npm packages

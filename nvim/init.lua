@@ -58,7 +58,6 @@ local ripgrep_config = {
 }
 apply_ripgreprc(ripgrep_config)
 
-
 require("lazy").setup({
   {
     "projekt0n/github-nvim-theme",
@@ -90,7 +89,6 @@ require("lazy").setup({
     'tpope/vim-vinegar',
     lazy = false,
   },
-  'gpanders/editorconfig.nvim',
   {
     'ziontee113/color-picker.nvim',
     config = function()
@@ -209,7 +207,7 @@ require("lazy").setup({
         enable = true,
       },
     },
-    config = function(_, opts)
+    config = function(opts)
       -- ref: https://www.lazyvim.org/plugins/treesitter
       if type(opts.ensure_installed) == "table" then
         ---@type table<string, boolean>
@@ -225,54 +223,6 @@ require("lazy").setup({
       require('nvim-treesitter.configs').setup(opts)
     end,
   },
-  -- {
-  --   'marko-cerovac/material.nvim',
-  --   lazy = false,
-  --   priority = 1000,
-  --   opts = {
-  --     disable = {
-  --       background = true,
-  --     },
-  --     plugins = {
-  --       -- "nvim-tree",
-  --       "telescope",
-  --     },
-  --     styles = {
-  --       comments = { italic = true },
-  --     },
-  --     lualine_style = "stealth",
-  --     custom_highlights = {
-  --       Normal = { fg = '#bec9e8' },
-  --       VertSplit = { fg = '#2b434a' },
-  --       WinSeparator = { fg = '#2b434a' },
-  --       NormalFloat = { fg = '#2b434a' },
-  --       FloatBorder = { fg = '#2b434a', bg = 'NONE' },
-  --       CursorLine = { bg = '#11293a', },
-  --       Visual = { fg = '#ffffff', bg = '#0060dd' },
-  --       Search = { fg = '#ffffff', bg = '#1b5d7e' },
-  --       Comment = { fg = '#4e5f6d', italic = true },
-  --       CocInlayHint = { fg = '#2b434a', italic = true },
-  --       CocHighlightText = { bg = '#1c4865' },
-  --       TelescopeBorder = { fg = '#2b434a' },
-  --       TelescopePreviewBorder = { fg = '#2b434a' },
-  --       TelescopePromptBorder = { fg = '#2b434a' },
-  --       TelescopeResultsBorder = { fg = '#2b434a' },
-  --       TelescopeMatching = { bg = '#11293a' },
-  --       MatchParen = { fg = 'white', bg = '#4f88b0', bold = true },
-  --       TSRainbowRed    = { fg = '#ffffff' },
-  --       TSRainbowYellow = { fg = '#ffff00' },
-  --       TSRainbowBlue   = { fg = '#ff99ff' },
-  --       TSRainbowOrange = { fg = '#66ffff' },
-  --       TSRainbowGreen  = { fg = '#66ff66' },
-  --       TSRainbowViolet = { fg = '#ffcc33' },
-  --       TSRainbowCyan   = { fg = '#ff6600' },
-  --     },
-  --   },
-  --   init = function()
-  --     vim.g.material_style = 'deep ocean'
-  --     vim.cmd 'colorscheme material'
-  --   end,
-  -- },
   {
     'neoclide/coc.nvim', branch = 'release',
     lazy = false,
@@ -288,18 +238,21 @@ require("lazy").setup({
       vim.keymap.set('n', 'gr', '<Plug>(coc-references)', { silent = true })
       -- CoC: Symbol renaming.
       vim.keymap.set('n', '<leader>rn', '<Plug>(coc-rename)')
-      -- CoC: Formatting selected code.
-      vim.keymap.set({'x', 'n'}, '<leader>ff', '<Plug>(coc-format-selected)')
-      vim.keymap.set('n', '<leader>ff', '<Plug>(coc-format-selected)')
+      -- CoC: Show code actions
+      vim.keymap.set('n', '<leader>ac', '<Plug>(coc-codeaction-cursor)')
+      vim.keymap.set('n', '<leader>as', '<Plug>(coc-codeaction-source)')
       -- CoC: Tab-based auto completion
       vim.keymap.set('i', '<CR>', 'coc#pum#visible() ? coc#pum#confirm() : "<CR>"', { silent = true, noremap = true, expr = true })
       vim.keymap.set('i', '<Tab>', 'coc#pum#visible() ? coc#pum#next(1) : "<Tab>"', { silent = true, noremap = true, expr = true })
       vim.keymap.set('i', '<S-Tab>', 'coc#pum#visible() ? coc#pum#prev(1) : "<S-Tab>"', { silent = true, noremap = true, expr = true })
 
+      -- CoC: Formatting selected code.
       vim.api.nvim_create_user_command('Format',
         "call CocActionAsync('format')",
         { nargs = 0 }
       )
+      vim.keymap.set({'v', 'n'}, '<leader>sf', '<Plug>(coc-format-selected)')
+
       vim.api.nvim_create_augroup("CocGroup", {})
       vim.api.nvim_create_autocmd("CursorHold", {  -- Need to run `:CocInstall coc-highlight`
         group = "CocGroup",
