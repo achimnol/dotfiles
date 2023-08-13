@@ -51,7 +51,7 @@
             }
         },
         ".vimrc": {
-            "source": "vimrc",
+            "source": "vim/vimrc",
             "group": "vim",
             "template_vars": ["vim_colorscheme"],
             "compatible_platforms": ["linux", "mac", "windows", "codespace"],
@@ -60,15 +60,23 @@
             }
         },
         ".vim/colors/glacier.vim": {
-            "source": "glacier.vim",
+            "source": "vim/glacier.vim",
             "group": "vim",
             "compatible_platforms": ["linux", "mac", "windows", "codespace"],
             "platform_dependent_paths": {
                 "windows": "vimfiles/colors/glacier.vim"
             }
         },
+        ".vim/colors/solarized.vim": {
+            "source": "vim/solarized.vim",
+            "group": "vim",
+            "compatible_platforms": ["linux", "mac", "windows"],
+            "platform_dependent_paths": {
+                "windows": "vimfiles/colors/solarized.vim"
+            }
+        },
         ".vim/colors/molokai.vim": {
-            "source": "molokai.vim",
+            "source": "vim/molokai.vim",
             "group": "vim",
             "compatible_platforms": ["linux", "mac", "windows"],
             "platform_dependent_paths": {
@@ -76,7 +84,7 @@
             }
         },
         ".vim/colors/monochrome.vim": {
-            "source": "monochrome.vim",
+            "source": "vim/monochrome.vim",
             "group": "vim",
             "compatible_platforms": ["linux", "mac", "windows"],
             "platform_dependent_paths": {
