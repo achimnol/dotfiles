@@ -237,11 +237,11 @@ require("lazy").setup({
         sources = {
           -- formatting
           null_ls.builtins.formatting.ruff.with({
-            prefer_local = "/home/joongi/bai-edgedist/export/python/virtualenvs/ruff/3.11.4/bin",
+            prefer_local = "./dist/export/python/virtualenvs/ruff/3.11.4/bin",
             -- command = "/home/joongi/bai-edge/dist/export/python/virtualenvs/ruff/3.11.4/bin",
           }),
           null_ls.builtins.formatting.black.with({
-            prefer_local = "/home/joongi/bai-edgedist/export/python/virtualenvs/black/3.11.4/bin",
+            prefer_local = "./dist/export/python/virtualenvs/black/3.11.4/bin",
             -- command = "/home/joongi/bai-edge/dist/export/python/virtualenvs/black/3.11.4/bin",
           }),
           -- diagnostics
