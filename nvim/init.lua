@@ -224,57 +224,166 @@ require("lazy").setup({
     end,
   },
   {
-    'neoclide/coc.nvim', branch = 'release',
+    "folke/neoconf.nvim",
     lazy = false,
-    init = function()
-      -- Use `[g` and `]g` to navigate diagnostics
-      -- Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
-      vim.keymap.set('n', '[g', '<Plug>(coc-diagnostic-prev)', { silent = true })
-      vim.keymap.set('n', ']g', '<Plug>(coc-diagnostic-next)', { silent = true })
-      -- CoC: GoTo code navigation.
-      vim.keymap.set('n', 'gd', '<Plug>(coc-definition)', { silent = true })
-      vim.keymap.set('n', 'gy', '<Plug>(coc-type-definition)', { silent = true })
-      vim.keymap.set('n', 'gi', '<Plug>(coc-implementation)', { silent = true })
-      vim.keymap.set('n', 'gr', '<Plug>(coc-references)', { silent = true })
-      -- CoC: Symbol renaming.
-      vim.keymap.set('n', '<leader>rn', '<Plug>(coc-rename)')
-      -- CoC: Show code actions
-      vim.keymap.set('n', '<leader>ac', '<Plug>(coc-codeaction-cursor)')
-      vim.keymap.set('n', '<leader>as', '<Plug>(coc-codeaction-source)')
-      -- CoC: Tab-based auto completion
-      vim.keymap.set('i', '<CR>', 'coc#pum#visible() ? coc#pum#confirm() : "<CR>"', { silent = true, noremap = true, expr = true })
-      vim.keymap.set('i', '<Tab>', 'coc#pum#visible() ? coc#pum#next(1) : "<Tab>"', { silent = true, noremap = true, expr = true })
-      vim.keymap.set('i', '<S-Tab>', 'coc#pum#visible() ? coc#pum#prev(1) : "<S-Tab>"', { silent = true, noremap = true, expr = true })
-
-      -- CoC: Formatting selected code.
-      vim.api.nvim_create_user_command('Format',
-        "call CocActionAsync('format')",
-        { nargs = 0 }
-      )
-      vim.keymap.set({'v', 'n'}, '<leader>sf', '<Plug>(coc-format-selected)')
-
-      vim.api.nvim_create_augroup("CocGroup", {})
-      vim.api.nvim_create_autocmd("CursorHold", {  -- Need to run `:CocInstall coc-highlight`
-        group = "CocGroup",
-        command = "silent call CocActionAsync('highlight')",
+    config = true,
+  },
+  {
+    'jose-elias-alvarez/null-ls.nvim',
+    config = function()
+      local null_ls = require("null-ls")
+      local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+      null_ls.setup({
+        sources = {
+          -- formatting
+          null_ls.builtins.formatting.ruff.with({
+            prefer_local = "/home/joongi/bai-edgedist/export/python/virtualenvs/ruff/3.11.4/bin",
+            -- command = "/home/joongi/bai-edge/dist/export/python/virtualenvs/ruff/3.11.4/bin",
+          }),
+          null_ls.builtins.formatting.black.with({
+            prefer_local = "/home/joongi/bai-edgedist/export/python/virtualenvs/black/3.11.4/bin",
+            -- command = "/home/joongi/bai-edge/dist/export/python/virtualenvs/black/3.11.4/bin",
+          }),
+          -- diagnostics
+          null_ls.builtins.diagnostics.ruff,
+        },
+        on_attach = function(client, bufnr)
+          if client.supports_method("textDocument/formatting") then
+            vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+            vim.api.nvim_create_autocmd("BufWritePre", {
+              group = augroup,
+              buffer = bufnr,
+              callback = function()
+                vim.lsp.buf.format({ bufnr = bufnr })
+              end,
+            })
+          end
+        end,
       })
-      vim.api.nvim_create_autocmd('BufReadCmd', {
-        group = "CocGroup",
-        pattern = {'*.whl'},
-        command = 'call zip#Browse(expand("<amatch>"))'
-      })
+    end,
+  },
+  {
+    "williamboman/mason.nvim",
+    config = true,
+  },
+  {
+    "williamboman/mason-lspconfig.nvim",
+    config = true,
+  },
+  {
+    "hrsh7th/cmp-nvim-lsp",
+    config = true,
+  },
+  {
+    "hrsh7th/nvim-cmp",
+    dependencies = {
+      "hrsh7th/cmp-nvim-lsp",
+    },
+    config = function()
+      local has_words_before = function()
+        unpack = unpack or table.unpack
+        local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+        return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+      end
 
-      function _G.show_docs()
-        local cw = vim.fn.expand('<cword>')
-        if vim.fn.index({'vim', 'help'}, vim.bo.filetype) >= 0 then
-          vim.api.nvim_command('h ' .. cw)
-        elseif vim.api.nvim_eval('coc#rpc#ready()') then
-          vim.fn.CocActionAsync('doHover')
-        else
-          vim.api.nvim_command('!' .. vim.o.keywordprg .. ' ' .. cw)
+      local cmp = require('cmp')
+
+      cmp.setup({
+        completion = {
+          autocomplete = false
+        },
+        mapping = cmp.mapping.preset.insert({
+          ["<Tab>"] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+              cmp.select_next_item()
+            elseif has_words_before() then
+              cmp.complete()
+            else
+              fallback()
+            end
+          end, { "i", "s" }),
+          ["<s-Tab>"] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+              cmp.select_prev_item()
+            else
+              fallback()
+            end
+          end, { "i", "s" }),
+          ["<c-e>"] = cmp.mapping.abort(),
+          ["<CR>"] = cmp.mapping.confirm({ select = true }),
+        }),
+        sources = {
+          { name = "nvim_lsp" },
+        }
+      })
+    end
+  },
+  {
+    "neovim/nvim-lspconfig",
+    cmd = { "LspInfo" },
+    event = { "BufReadPre", "BufNewFile" },
+    dependencies = {
+      "folke/neoconf.nvim",
+      "williamboman/mason.nvim",
+      "williamboman/mason-lspconfig.nvim",
+      "hrsh7th/nvim-cmp",
+    },
+    opts = {},
+    config = function(opts)
+      local on_attach = function(client, bufnr)
+        if client.server_capabilities.documentHighlightProvider then
+          vim.api.nvim_create_autocmd('CursorHold', { callback = function() vim.lsp.buf.document_highlight() end })
+          vim.api.nvim_create_autocmd('CursorHoldI', { callback = function() vim.lsp.buf.document_highlight() end })
+          vim.api.nvim_create_autocmd('CursorMoved', { callback = function() vim.lsp.buf.clear_references() end })
         end
       end
-      vim.keymap.set("n", "K", '<CMD>lua _G.show_docs()<CR>', { silent = true })
+
+      local lspconfig = require("lspconfig")
+      lspconfig.pyright.setup { on_attach = on_attach }
+      lspconfig.rust_analyzer.setup { on_attach = on_attach }
+      lspconfig.ruff_lsp.setup { on_attach = on_attach }
+      lspconfig.lua_ls.setup { on_attach = on_attach }
+      lspconfig.tailwindcss.setup { on_attach = on_attach }
+
+      -- Global mappings.
+      -- See `:help vim.diagnostic.*` for documentation on any of the below functions
+      vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
+      vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
+      vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
+      vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
+
+      -- vim.api.nvim_create_autocmd('BufWritePre',
+      --   { callback = function() vim.lsp.buf.format({ async = false }) end })
+      -- Use LspAttach autocommand to only map the following keys
+      -- after the language server attaches to the current buffer
+      vim.api.nvim_create_autocmd('LspAttach', {
+        group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+        callback = function(ev)
+          -- Enable completion triggered by <c-x><c-o>
+          vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
+
+          -- Buffer local mappings.
+          -- See `:help vim.lsp.*` for documentation on any of the below functions
+          local opts = { buffer = ev.buf }
+          vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
+          vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+          vim.keymap.set('n', 'gy', vim.lsp.buf.type_definition, opts)
+          vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+          vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
+          vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+          vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
+          -- vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
+          -- vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
+          -- vim.keymap.set('n', '<space>wl', function()
+          --   print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+          -- end, opts)
+          vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
+          vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
+          vim.keymap.set('n', '<leader>f', function()
+            vim.lsp.buf.format { async = true }
+          end, opts)
+        end,
+      })
     end,
   },
   {
