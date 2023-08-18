@@ -195,7 +195,7 @@ require("lazy").setup({
         "css",
         "html",
         "markdown",
-        "rst",
+        --- "rst",  -- unstable; infinite recursion issue with git-merge-conflicted rst files
         "gitcommit",
       },
       rainbow = {
