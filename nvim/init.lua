@@ -226,7 +226,7 @@ require("lazy").setup({
   {
     'neoclide/coc.nvim', branch = 'release',
     lazy = false,
-    init = function()
+    config = function(opts)
       -- Use `[g` and `]g` to navigate diagnostics
       -- Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
       vim.keymap.set('n', '[g', '<Plug>(coc-diagnostic-prev)', { silent = true })
@@ -290,8 +290,9 @@ require("lazy").setup({
   },
   {
     'ojroques/nvim-osc52',
-    init = function()
+    config = function(opts)
       local plugin = require('osc52')
+      plugin.setup(opts)
       vim.keymap.set('n', '<leader>c', plugin.copy_operator, {expr = true})
       vim.keymap.set('v', '<leader>c', plugin.copy_visual)
     end
