@@ -288,6 +288,14 @@ require("lazy").setup({
       max_indent_increase = 1,
     },
   },
+  {
+    'ojroques/nvim-osc52',
+    init = function()
+      local plugin = require('osc52')
+      vim.keymap.set('n', '<leader>c', plugin.copy_operator, {expr = true})
+      vim.keymap.set('v', '<leader>c', plugin.copy_visual)
+    end
+  },
 })
 
 -- vim: sts=2 sw=2 et
