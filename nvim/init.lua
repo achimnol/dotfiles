@@ -92,9 +92,10 @@ require("lazy").setup({
   {
     'ziontee113/color-picker.nvim',
     config = function()
-      local opts = { noremap = true, silent = true }
-      vim.keymap.set("n", "<C-c>", "<cmd>PickColor<cr>", opts)
-      vim.keymap.set("i", "<C-c>", "<cmd>PickColorInsert<cr>", opts)
+      require('color-picker').setup()
+      local keymap_opts = { noremap = true, silent = true }
+      vim.keymap.set("n", "<C-c>", "<cmd>PickColor<cr>", keymap_opts)
+      vim.keymap.set("i", "<C-c>", "<cmd>PickColorInsert<cr>", keymap_opts)
     end
   },
   'HiPhish/jinja.vim',
