@@ -25,12 +25,7 @@ __version__ = '0.11.dev'
 __license__ = 'MIT'
 
 
-import base64, cgi, email.utils, functools, hmac, imp, itertools, mimetypes,\
-        os, re, subprocess, sys, tempfile, threading, time, urllib, warnings
-
-from datetime import date as datedate, datetime, timedelta
-from tempfile import TemporaryFile
-from traceback import format_exc, print_exc
+import functools, os, re, sys, threading, warnings
 
 try: from json import dumps as json_dumps, loads as json_lds
 except ImportError: # pragma: no cover
