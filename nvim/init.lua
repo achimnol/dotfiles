@@ -281,13 +281,12 @@ require("lazy").setup({
   },
   {
     'lukas-reineke/indent-blankline.nvim',
+    main = "ibl",
     opts = {
-      char = '┆',
-      show_current_context = true,
-      show_current_context_start = false,
-      show_trailing_blankline_indent = false,
-      use_treesitter = true,
-      max_indent_increase = 1,
+      indent = { char = '┆' },
+      scope = { show_start = false, show_end = false },
+      -- use_treesitter = true,
+      -- max_indent_increase = 1,
     },
   },
   {
