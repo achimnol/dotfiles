@@ -65,7 +65,7 @@ require("lazy").setup({
     "projekt0n/github-nvim-theme",
     lazy = false,
     priority = 1000,
-    config = function()
+    config = function(plugin, opts)
       require('github-theme').setup({
         groups = {
           all = {
@@ -93,7 +93,7 @@ require("lazy").setup({
   },
   {
     'ziontee113/color-picker.nvim',
-    config = function()
+    config = function(_, opts)
       require('color-picker').setup()
       local keymap_opts = { noremap = true, silent = true }
       vim.keymap.set("n", "<C-c>", "<cmd>PickColor<cr>", keymap_opts)
@@ -211,7 +211,7 @@ require("lazy").setup({
         enable = true,
       },
     },
-    config = function(opts)
+    config = function(plugin, opts)
       -- ref: https://www.lazyvim.org/plugins/treesitter
       if type(opts.ensure_installed) == "table" then
         ---@type table<string, boolean>
@@ -230,7 +230,7 @@ require("lazy").setup({
   {
     'neoclide/coc.nvim', branch = 'release',
     lazy = false,
-    config = function(opts)
+    config = function(plugin, opts)
       -- Use `[g` and `]g` to navigate diagnostics
       -- Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
       vim.keymap.set('n', '[g', '<Plug>(coc-diagnostic-prev)', { silent = true })
@@ -293,7 +293,7 @@ require("lazy").setup({
   },
   {
     'ojroques/nvim-osc52',
-    config = function(opts)
+    config = function(_, opts)
       local plugin = require('osc52')
       plugin.setup(opts)
       vim.keymap.set('n', '<leader>c', plugin.copy_operator, {expr = true})
@@ -302,7 +302,7 @@ require("lazy").setup({
   },
   {
     'lewis6991/gitsigns.nvim',
-    config = function(opts)
+    config = function(plugin, opts)
       require('gitsigns').setup({
         on_attach = function(bufnr)
           local gs = package.loaded.gitsigns
