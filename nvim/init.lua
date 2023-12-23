@@ -173,6 +173,8 @@ require("lazy").setup({
       vim.keymap.set('n', '<C-p>', '<cmd>Telescope find_files<cr>', { noremap = true })
       vim.keymap.set('n', '<leader>fa', '<cmd>Telescope aerial<cr>', { noremap = true })
       vim.keymap.set('n', '<leader>fg', '<cmd>Telescope live_grep<cr>', { noremap = true })
+      vim.keymap.set('n', '<leader>fc', '<cmd>Telescope commands<cr>', { noremap = true })
+      vim.keymap.set('n', '<leader>fk', '<cmd>Telescope keymaps<cr>', { noremap = true })
       vim.keymap.set('n', '<leader>fr', '<cmd>Telescope registers<cr>', { noremap = true })
       vim.keymap.set('n', '<leader>fb', '<cmd>Telescope buffers<cr>', { noremap = true })
       vim.keymap.set('n', '<leader>fh', '<cmd>Telescope help_tags<cr>', { noremap = true })
