@@ -301,6 +301,13 @@ require("lazy").setup({
     end
   },
   {
+    'akinsho/toggleterm.nvim',
+    version = "*",
+    opts = {
+        open_mapping = [[<c-\>]],
+    }
+  },
+  {
     'lewis6991/gitsigns.nvim',
     config = function(plugin, opts)
       require('gitsigns').setup({
