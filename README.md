@@ -16,74 +16,52 @@ After forking this repository, you need to customize `configuration.json`, in pa
 
 ### System Packages (Linux-Ubuntu)
 
-```console
-$ sudo apt install build-essential pkg-config autoconf automake git-core tmux htop vim
-$ sudo apt install gnupg-agent gnupg2
-$ sudo apt install libssl-dev libreadline-dev libgdbm-dev zlib1g-dev libbz2-dev liblzma-dev libsqlite3-dev libffi-dev
-$ sudo add-apt-repository ppa:jonathonf/vim
-$ sudo apt update
-$ sudo apt install vim
-$ sudo apt install fd hexyl bat  # modern cli utils (Ubuntu 19.10+) / exa should be installed via Rust Cargo
-```
-
-For latest tmux (3.0+):
-```
-$ git clone https://github.com/tmux/tmux /tmp/tmux
-$ cd /tmp/tmux
-$ sudo apt install libevent-dev libncurses5-dev bison byacc
-$ ./autogen.sh
-$ ./configure --prefix=/usr/local && make && sudo make install
-$ hash -r
-```
-
-For latest mosh:
-```
-$ git clone https://github.com/mobile-shell/mosh /tmp/mosh
-$ cd /tmp/mosh
-$ sudo apt install libprotobuf-dev protobuf-compiler
-$ ./autogen.sh
-$ ./configure --prefix=/usr/local && make && sudo make install
-$ hash -r
+```shell
+sudo apt install build-essential pkg-config autoconf automake git-core tmux htop vim
+sudo apt install gnupg-agent gnupg2
+sudo apt install libssl-dev libreadline-dev libgdbm-dev zlib1g-dev libbz2-dev liblzma-dev libsqlite3-dev libffi-dev
+sudo apt install hexyl bat  # modern cli utils (Ubuntu 19.10+)
+# lsd as the "ls" replacement
 ```
 
 Some network debugging utilities:
-```console
-$ sudo apt install dnsutils iproute2
+```shell
+sudo apt install dnsutils iproute2
 ```
 
 ### System Packages (macOS with Homebrew)
 
-```console
-$ xcode-select --install
-$ brew install git tmux htop python3
-$ brew install macvim --with-override-system-vim --without-python --with-python3
-$ brew install gpg-agent
-$ brew install ncurses  # for gen-italics-terminfo.sh
-$ brew install openssl sqlite3 readline zlib xz gdbm tcl-tk
-$ brew install exa fd hexyl bat  # modern cli utils
+```shell
+xcode-select --install
+brew install git tmux htop python3
+brew install macvim --with-override-system-vim --without-python --with-python3
+brew install gpg-agent
+brew install ncurses  # for gen-italics-terminfo.sh
+brew install openssl sqlite3 readline zlib xz gdbm tcl-tk
+brew install exa fd hexyl bat  # modern cli utils
 ```
 
 Some network debugging utilities:
-```console
-$ brew install iproute2mac
+```shell
+brew install iproute2mac
 ```
 
 ### Initializing oh-my-zsh (when using zsh, for Linux/Mac only)
 
-```console
-$ wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O - | sh
+```shell
+wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O - | sh
 ```
 or
-```console
-$ curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh
+```shell
+curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh
 ```
 
 ### Initializing pyenv (Linux/Mac)
 
-```console
-$ git clone https://github.com/pyenv/pyenv.git ~/.pyenv
-$ git clone https://github.com/pyenv/pyenv-virtualenv.git ~/.pyenv/plugins/pyenv-virtualenv
-$ git clone https://github.com/pyenv/pyenv-update.git ~/.pyenv/plugins/pyenv-update
+```shell
+git clone https://github.com/pyenv/pyenv.git ~/.pyenv
+git clone https://github.com/pyenv/pyenv-virtualenv.git ~/.pyenv/plugins/pyenv-virtualenv
+git clone https://github.com/pyenv/pyenv-update.git ~/.pyenv/plugins/pyenv-update
 ```
 
 #### pyenv 2.0+
@@ -100,18 +78,10 @@ eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 ```
 
-#### extra for macOS
-
-When building Python with pyenv on macOS, `lzma` module may not be properly built.
-Set the following environment variables:
-```console
-$ source pyenv-build-flags-homebrew.sh
-```
-
 ### Deploying the static configurations
 
-```console
-$ ./deploy.py --flavor home
+```shell
+./deploy.py --flavor home --skip-scripts
 ```
 
 If any file already exists, it will ask you whether to overwrite it.
@@ -137,86 +107,81 @@ first put the following script as `/usr/local/bin/nvim` *if installed via Snap*:
 If you have built and installed NeoVim by yourself, `/usr/local/bin/nvim` is already the actual executable.
 
 Then, execute this following command:
-```console
-$ sudo update-alternatives --install /usr/bin/editor editor /usr/local/bin/nvim 50
-$ sudo update-alternatives --config editor
-$ sudo update-alternatives --install /usr/bin/vi vi /usr/local/bin/nvim 50
-$ sudo update-alternatives --config vi
+```shell
+sudo update-alternatives --install /usr/bin/editor editor /usr/local/bin/nvim 50
+sudo update-alternatives --config editor
+sudo update-alternatives --install /usr/bin/vi vi /usr/local/bin/nvim 50
+sudo update-alternatives --config vi
 ```
 
-### Initializing NeoVim Plug
+### Initializing NeoVim
 
-Follow the instructions from [the official GitHub README](https://github.com/junegunn/vim-plug).
-```console
-$ sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
->        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-$ nvim +PlugInstall
+When NeoVim is executed for the first time, it will automatically install and load plugins via Lazy.
+
+Install the CoC and treesitter plugins after initialization CoC itself.
+```
+:CocInstall coc-pyright coc-rust-analyzer coc-highlight
 ```
 
-Also install the CoC and treesitter plugins after initialization CoC itself.
-```
-:CocInstall coc-pyright coc-rust-analyzer coc-highlight @yaegassy/coc-ruff
-:CocCommand ruff.builtin.installServer
+### Sample configuration for a local `coc-settings.json`
+
+```json
+{
+  "python.formatting.provider": "ruff",
+  "python.linting.mypyEnabled": true,
+  "python.linting.ruffEnabled": true,
+  "coc.preferences.formatOnSaveFiletypes": ["python"],
+  "python.pythonPath": "dist/export/python/virtualenvs/python-default/3.11.6/bin/python3"
+}
 ```
 
 ### NodeJS for NeoVim CoC and npm packages
 
-Follow the instructions from [the nodesource distribution repository](https://github.com/nodesource/distributions).
+To install NodeJS as distro-specific packages, follow the instructions from [the nodesource distribution repository](https://github.com/nodesource/distributions).
 
-### Language Server configurations for Vim
-
-Run `:LspInstallServer` after opening a source file in a project working directory.
+To install multiple versions of NodeJS, use [the node version manager](http://github.com/nvm-sh/nvm).
 
 ### Enabling italics support in terminals (for Linux/Mac only)
 
-```console
-$ ./gen-italics-terminfo.sh
+To check if the italic font rednering works in your terminal, try:
+```shell
+echo -e "\e[3mfoo\e[23m"
 ```
 
-To check if the italic font rednering works in your terminal, try:
-```console
-$ echo -e "\e[3mfoo\e[23m"
+If the above test command does NOT display an italic text, run:
+```shell
+./gen-italics-terminfo.sh
 ```
 
 [A good guide is here.](https://www.reddit.com/r/vim/comments/24g8r8/italics_in_terminal_vim_and_tmux/)
 
 ### Setting up Git commit signing with the SSH keypair
 
-```console
-$ git config --global user.signingkey ~/.ssh/id_rsa
+```shell
+git config --global user.signingkey ~/.ssh/id_rsa
 ```
 
 ### Installing the GitHub CLI (Ubuntu/Debian Linux)
 
 ```shell
-type -p curl >/dev/null || (sudo apt update && sudo apt install curl -y)
-curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg \
-&& sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg \
-&& echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
-&& sudo apt update \
-&& sudo apt install gh -y
+./scripts/install-gh.sh
 ```
 
-```console
-$ gh auth login
-$ gh extension install seachicken/gh-poi  # extension to clean up local branches
+```shell
+gh auth login
+gh extension install seachicken/gh-poi  # extension to clean up local branches
 ```
 
 ### Installing the latest mobile-shell (mosh) (Optional)
 
-```console
-$ git clone https://github.com/mobile-shell/mosh
-$ cd mosh
-$ brew install automake
-$ ./autogen.sh
-$ ./configure --prefix=/usr/local
-$ make && sudo make install
+```shell
+./scripts/install-mosh.sh
 ```
 
 ### Workarounding user font recognition and system clipboard access issues in tmux on macOS
 
-```console
-$ brew install tmux reattach-to-user-namespace
+```shell
+brew install tmux reattach-to-user-namespace
 ```
 
 Set your iTerm profile's startup command to use `reattach-to-user-namespace -l zsh`.
@@ -225,16 +190,16 @@ Set your iTerm profile's startup command to use `reattach-to-user-namespace -l z
 ### Enabling macOS key repeats
 
 Run the following in the terminal and restart any apps to apply:
-```console
-$ defaults write -g ApplePressAndHoldEnabled -bool false
+```shell
+defaults write -g ApplePressAndHoldEnabled -bool false
 ```
 
 ### Making macOS key repeat faster
 
 Run the followings in the terminal and logout/login again.
-```console
-$ defaults write -g InitialKeyRepeat -int 10  # normal minimum is 15 (225 ms)
-$ defaults write -g KeyRepeat -int 1          # normal minimum is 2 (30 ms)
+```shell
+defaults write -g InitialKeyRepeat -int 10  # normal minimum is 15 (225 ms)
+defaults write -g KeyRepeat -int 1          # normal minimum is 2 (30 ms)
 ```
 
 
