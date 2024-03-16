@@ -21,7 +21,6 @@ sudo apt install build-essential pkg-config autoconf automake git-core tmux htop
 sudo apt install gnupg-agent gnupg2
 sudo apt install libssl-dev libreadline-dev libgdbm-dev zlib1g-dev libbz2-dev liblzma-dev libsqlite3-dev libffi-dev
 sudo apt install hexyl bat  # modern cli utils (Ubuntu 19.10+)
-# lsd as the "ls" replacement
 ```
 
 Some network debugging utilities:
@@ -77,6 +76,10 @@ eval "$(pyenv init --path)"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 ```
+
+### Installing lsd (ls replacement)
+
+[Visit the official repo](https://github.com/lsd-rs/lsd/releases) and download/install the lsd-musl deb package.
 
 ### Deploying the static configurations
 
