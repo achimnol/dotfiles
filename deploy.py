@@ -1,6 +1,6 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# This script can run with Python 2.6/2.7 and 3.0 or higher.
+# This script can run with Python 3.9 or higher.
 
 # TODO List:
 # - add extra handlers instead of just copying the template-generated files.
