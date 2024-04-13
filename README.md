@@ -205,6 +205,20 @@ defaults write -g InitialKeyRepeat -int 10  # normal minimum is 15 (225 ms)
 defaults write -g KeyRepeat -int 1          # normal minimum is 2 (30 ms)
 ```
 
+### Making oh-my-zsh's `git_current_branch` even faster (optional)
+
+```shell
+git clone https://github.com/notfed/git-branch-name
+make
+sudo install git-branch-name /usr/local/bin
+```
+
+Then replace the `git_current_branch` function in `~/.oh-my-zsh/lib/git.zsh` to:
+```shell
+function git_current_branch() {
+  echo $(git-branch-name)
+}
+```
 
 
 ## Archived instructions (not used currently)
