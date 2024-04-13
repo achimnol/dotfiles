@@ -216,7 +216,7 @@ sudo install git-branch-name /usr/local/bin
 Then replace the `git_current_branch` function in `~/.oh-my-zsh/lib/git.zsh` to:
 ```shell
 function git_current_branch() {
-  echo $(git-branch-name)
+  git-branch-name -q
 }
 ```
 
