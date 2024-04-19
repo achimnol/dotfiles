@@ -209,8 +209,20 @@ require("lazy").setup({
         -- disable = { "jsx", "cpp" }, list of languages you want to disable the plugin for
         extended_mode = false, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
       },
+      highlight = {
+        enable = true,
+      },
       indent = {
         enable = true,
+      },
+      incremental_selection = {
+        enable = true,
+        keymaps = {
+          init_selection = '<CR>',
+          scope_incremental = '<CR>',
+          node_incremental = '<TAB>',
+          node_decremental = '<S-TAB>',
+        },
       },
     },
     config = function(plugin, opts)
