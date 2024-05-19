@@ -97,7 +97,7 @@ We can install NeoVim using Snap (`sudo snap install nvim --classic`) but this v
 and plugins like Telescope breaks.
 
 To build NeoVim by yourself, install a few prerequisite and make it from source.
-[Check out the official build instructions.](https://github.com/neovim/neovim/wiki/Building-NeoVim)
+[Check out the official build instructions.](https://github.com/neovim/neovim/blob/master/BUILD.md)
 
 #### Setting NeoVim as the default editor/vi
 
