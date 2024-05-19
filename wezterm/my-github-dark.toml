@@ -1,0 +1,35 @@
+[colors]
+ansi = [
+    "#000000",
+    "#f78166",
+    "#56d364",
+    "#e3b341",
+    "#6ca4f8",
+    "#db61a2",
+    "#47a0b9",
+    "#ffffff",
+]
+background = "#101216"
+brights = [
+    "#4d4d4d",
+    "#f78166",
+    "#56d364",
+    "#e3b341",
+    "#6ca4f8",
+    "#db61a2",
+    "#51a7c2",
+    "#ffffff",
+]
+cursor_bg = "#c9d1d9"
+cursor_border = "#c9d1d9"
+cursor_fg = "#101216"
+foreground = "#c0c7d5"
+selection_bg = "#3b5070"
+selection_fg = "#ffffff"
+
+[colors.indexed]
+
+[metadata]
+aliases = []
+author = "Joongi Kim"
+name = "My GitHub Dark"

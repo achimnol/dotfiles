@@ -96,6 +96,16 @@
             "group": "neovim",
             "compatible_platforms": ["linux", "mac", "codespace"]
         },
+        ".config/wezterm/wezterm.lua": {
+            "source": "wezterm/config.lua",
+            "group": "wezterm",
+            "compatible_platforms": ["mac"]
+        },
+        ".config/wezterm/my-github-dark.toml": {
+            "source": "wezterm/my-github-dark.toml",
+            "group": "wezterm",
+            "compatible_platforms": ["mac"]
+        },
         ".config/flake8": {
             "source": "flake8.config",
             "compatible_platforms": ["linux", "mac", "windows", "codespace"]
