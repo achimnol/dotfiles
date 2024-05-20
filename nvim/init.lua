@@ -102,7 +102,7 @@ require("lazy").setup({
   },
   'HiPhish/jinja.vim',
   {
-    'HiPhish/nvim-ts-rainbow2',
+    'HiPhish/rainbow-delimiters.nvim',
     dependencies = {
       'nvim-treesitter/nvim-treesitter',
     },
@@ -178,7 +178,7 @@ require("lazy").setup({
       vim.keymap.set('n', '<leader>fr', '<cmd>Telescope registers<cr>', { noremap = true })
       vim.keymap.set('n', '<leader>fb', '<cmd>Telescope buffers<cr>', { noremap = true })
       vim.keymap.set('n', '<leader>fh', '<cmd>Telescope help_tags<cr>', { noremap = true })
-      vim.keymap.set('n', '<leader>c', '<cmd>PickColor<cr>', { silent = true, noremap = true })
+      -- vim.keymap.set('n', '<leader>c', '<cmd>PickColor<cr>', { silent = true, noremap = true }) -- conflict with osc52
       vim.keymap.set('i', '<C-c>', '<cmd>PickColorInsert<cr>', { silent = true, noremap = true })
     end,
   },
@@ -188,6 +188,8 @@ require("lazy").setup({
     opts = {
       ensure_installed = {
         "python",
+        "go",
+        "gomod",
         "c",
         "cpp",
         "lua",
