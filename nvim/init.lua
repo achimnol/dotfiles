@@ -169,7 +169,7 @@ require("lazy").setup({
     },
     init = function()
       require('telescope').load_extension('aerial')
-      vim.keymap.set('n', '<leader>a', '<cmd>AerialToggle!<CR>')
+      vim.keymap.set('n', '<leader>ta', '<cmd>AerialToggle!<CR>')
       vim.keymap.set('n', '<C-p>', '<cmd>Telescope find_files<cr>', { noremap = true })
       vim.keymap.set('n', '<leader>fa', '<cmd>Telescope aerial<cr>', { noremap = true })
       vim.keymap.set('n', '<leader>fg', '<cmd>Telescope live_grep<cr>', { noremap = true })
@@ -284,7 +284,7 @@ require("lazy").setup({
         command = 'call zip#Browse(expand("<amatch>"))'
       })
 
-      function _G.show_docs()
+      function _G.ShowDocs()
         local cw = vim.fn.expand('<cword>')
         if vim.fn.index({'vim', 'help'}, vim.bo.filetype) >= 0 then
           vim.api.nvim_command('h ' .. cw)
@@ -294,7 +294,9 @@ require("lazy").setup({
           vim.api.nvim_command('!' .. vim.o.keywordprg .. ' ' .. cw)
         end
       end
-      vim.keymap.set("n", "K", '<CMD>lua _G.show_docs()<CR>', { silent = true })
+      vim.keymap.set("n", "K", '<CMD>lua _G.ShowDocs()<CR>', { silent = true })
+      -- To hide it by default, put `inlayHint.display = false` in ~/.config/nvim/coc-settings.json
+      vim.api.nvim_set_keymap('n', '<leader>ti', '<cmd>CocCommand document.toggleInlayHint<CR>', { noremap = true, silent = true })
     end,
   },
   {
