@@ -119,6 +119,15 @@ require("lazy").setup({
     event = "VeryLazy",
   },
   {
+    "kylechui/nvim-surround",
+    version = "*",
+    event = "VeryLazy",
+    config = function()
+        require("nvim-surround").setup({
+        })
+    end
+  },
+  {
     'stevearc/aerial.nvim',
     dependencies = {
       'nvim-treesitter/nvim-treesitter',
@@ -169,7 +178,7 @@ require("lazy").setup({
     },
     init = function()
       require('telescope').load_extension('aerial')
-      vim.keymap.set('n', '<leader>ta', '<cmd>AerialToggle!<CR>')
+      vim.keymap.set('n', '<leader>ta', '<cmd>AerialToggle! right<CR>')
       vim.keymap.set('n', '<C-p>', '<cmd>Telescope find_files<cr>', { noremap = true })
       vim.keymap.set('n', '<leader>fa', '<cmd>Telescope aerial<cr>', { noremap = true })
       vim.keymap.set('n', '<leader>fg', '<cmd>Telescope live_grep<cr>', { noremap = true })
@@ -203,7 +212,7 @@ require("lazy").setup({
         "css",
         "html",
         "markdown",
-        --- "rst",  -- unstable; infinite recursion issue with git-merge-conflicted rst files
+        "rst",  -- unstable; infinite recursion issue with git-merge-conflicted rst files
         "gitcommit",
       },
       rainbow = {
@@ -336,9 +345,12 @@ require("lazy").setup({
   {
     'akinsho/toggleterm.nvim',
     version = "*",
-    opts = {
+    config = function ()
+      require('toggleterm').setup {
         open_mapping = [[<c-\>]],
-    }
+      }
+      vim.keymap.set('t', '<Esc><Esc>', [[<C-\><C-n><C-w>p]], { noremap = true })
+    end,
   },
   {
     'lewis6991/gitsigns.nvim',
