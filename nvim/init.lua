@@ -214,6 +214,8 @@ require("lazy").setup({
         "markdown",
         "rst",  -- unstable; infinite recursion issue with git-merge-conflicted rst files
         "gitcommit",
+        "diff",        -- dependency of gitcommit
+        "git_rebase",  -- dependency of gitcommit
       },
       rainbow = {
         enable = true,
