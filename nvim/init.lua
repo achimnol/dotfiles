@@ -332,16 +332,24 @@ require("lazy").setup({
   {
     "karb94/neoscroll.nvim",
     config = function ()
-      require('neoscroll').setup {
+      local neoscroll = require('neoscroll')
+      neoscroll.setup {
         easing_function = 'cubic',
       }
-      local t = {}
-      -- Syntax: t[keys] = {function, {function arguments}}
-      t['<C-u>'] = {'scroll', {'-vim.wo.scroll', 'true', '120'}}
-      t['<C-d>'] = {'scroll', { 'vim.wo.scroll', 'true', '120'}}
-      t['<C-b>'] = {'scroll', {'-vim.api.nvim_win_get_height(0)', 'true', '120'}}
-      t['<C-f>'] = {'scroll', { 'vim.api.nvim_win_get_height(0)', 'true', '120'}}
-      require('neoscroll.config').set_mappings(t)
+      local keymap = {
+        ["<C-u>"] = function() neoscroll.ctrl_u({ duration = 100 }) end,
+        ["<C-d>"] = function() neoscroll.ctrl_d({ duration = 100 }) end,
+        ["<C-b>"] = function() neoscroll.ctrl_b({ duration = 100 }) end,
+        ["<C-f>"] = function() neoscroll.ctrl_f({ duration = 100 }) end,
+        ["<PageUp>"] = function() neoscroll.ctrl_b({ duration = 100 }) end,
+        ["<PageDown>"] = function() neoscroll.ctrl_f({ duration = 100 }) end,
+        ["<C-y>"] = function() neoscroll.scroll(-0.1, { move_cursor = false, duration = 50 }) end,
+        ["<C-e>"] = function() neoscroll.scroll(0.1, { move_cursor = false, duration = 50 }) end,
+      }
+      local modes = { 'n', 'v', 'x' }
+      for key, func in pairs(keymap) do
+        vim.keymap.set(modes, key, func)
+      end
     end
   },
   {
