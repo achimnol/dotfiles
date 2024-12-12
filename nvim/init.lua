@@ -61,30 +61,41 @@ local ripgrep_config = {
 apply_ripgreprc(ripgrep_config)
 
 require("lazy").setup({
-  {
-    "projekt0n/github-nvim-theme",
-    lazy = false,
-    priority = 1000,
+  { "rose-pine/neovim", name = "rose-pine", lazy = false, priority = 1000,
     config = function(plugin, opts)
-      require('github-theme').setup({
-        groups = {
-          all = {
-            CursorLine = { bg = '#21262d' },
-            CocInlayHint = { fg = '#38404d', italic = true },
-            CocHighlightText = { bg = '#38404d' },
-            AerialLine = { bg = '#38404d' },
-          },
+      require("rose-pine").setup({
+        styles = { italic = false },
+        highlight_groups = {
+          Comment = { italic = true },
         },
-        options = {
-          transparent = true,
-          styles = {
-            comments = 'italic',
-          },
-        }
       })
-      vim.cmd 'colorscheme github_dark'
+      vim.cmd.colorscheme("rose-pine")
     end
   },
+  -- {
+  --   "projekt0n/github-nvim-theme",
+  --   lazy = false,
+  --   priority = 1000,
+  --   config = function(plugin, opts)
+  --     require('github-theme').setup({
+  --       groups = {
+  --         all = {
+  --           CursorLine = { bg = '#21262d' },
+  --           CocInlayHint = { fg = '#38404d', italic = true },
+  --           CocHighlightText = { bg = '#38404d' },
+  --           AerialLine = { bg = '#38404d' },
+  --         },
+  --       },
+  --       options = {
+  --         transparent = true,
+  --         styles = {
+  --           comments = 'italic',
+  --         },
+  --       }
+  --     })
+  --     vim.cmd 'colorscheme github_dark'
+  --   end
+  -- },
   'nvim-lua/plenary.nvim',
   'nvim-tree/nvim-web-devicons',
   {
