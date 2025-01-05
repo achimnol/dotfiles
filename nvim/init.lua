@@ -112,12 +112,12 @@ require("lazy").setup({
     end
   },
   'HiPhish/jinja.vim',
-  {
-    'HiPhish/rainbow-delimiters.nvim',
-    dependencies = {
-      'nvim-treesitter/nvim-treesitter',
-    },
-  },
+  -- {
+  --   'HiPhish/rainbow-delimiters.nvim',
+  --   dependencies = {
+  --     'nvim-treesitter/nvim-treesitter',
+  --   },
+  -- },
   'pwntester/octo.nvim',
   {
     'nvim-lualine/lualine.nvim',
@@ -147,8 +147,12 @@ require("lazy").setup({
     },
     cmd = { "AerialToggle" },
     opts = {
-      attach_mode = 'window',
+      attach_mode = 'global',
       manage_folds = true,
+      layout = {
+        placement = 'edge',
+        default_direction = 'left',
+      },
       on_attach = function(bufnr)
         vim.keymap.set('n', '{', '<cmd>AerialPrev<CR>', { buffer = bufnr })
         vim.keymap.set('n', '}', '<cmd>AerialNext<CR>', { buffer = bufnr })
@@ -189,7 +193,7 @@ require("lazy").setup({
     },
     init = function()
       require('telescope').load_extension('aerial')
-      vim.keymap.set('n', '<leader>ta', '<cmd>AerialToggle! right<CR>')
+      vim.keymap.set('n', '<leader>ta', '<cmd>AerialToggle! left<CR>')
       vim.keymap.set('n', '<C-p>', '<cmd>Telescope find_files<cr>', { noremap = true })
       vim.keymap.set('n', '<leader>fa', '<cmd>Telescope aerial<cr>', { noremap = true })
       vim.keymap.set('n', '<leader>fg', '<cmd>Telescope live_grep<cr>', { noremap = true })
@@ -229,7 +233,7 @@ require("lazy").setup({
         "git_rebase",  -- dependency of gitcommit
       },
       rainbow = {
-        enable = true,
+        enable = false,
         -- disable = { "jsx", "cpp" }, list of languages you want to disable the plugin for
         extended_mode = false, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
       },
