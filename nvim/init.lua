@@ -35,6 +35,26 @@ if vim.fn.has('termguicolors') == 1 then
   vim.o.termguicolors = true
 end
 
+-- osc52 clipboard setup
+local function paste()
+  return {
+    vim.fn.split(vim.fn.getreg(""), "\n"),
+    vim.fn.getregtype(""),
+  }
+end
+vim.g.clipboard = {
+  name = "OSC 52",
+  copy = {
+    ["+"] = require("vim.ui.clipboard.osc52").copy("+"),
+    ["*"] = require("vim.ui.clipboard.osc52").copy("*"),
+  },
+  paste = {
+    ["+"] = paste,
+    ["*"] = paste,
+  },
+}
+vim.opt.clipboard:append { 'unnamed', 'unnamedplus' }
+
 local function apply_ripgreprc(config_table)
   local ripgrep_config_path = vim.fn.getcwd() .. "/.ripgreprc"
   local f = io.open(ripgrep_config_path, "r")
