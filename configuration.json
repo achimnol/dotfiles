@@ -96,11 +96,6 @@
             "group": "neovim",
             "compatible_platforms": ["linux", "mac", "codespace"]
         },
-        ".config/nvim/lua/auto-theme.lua": {
-            "source": "nvim/lua/auto-theme.lua",
-            "group": "neovim",
-            "compatible_platforms": ["linux", "mac", "codespace"]
-        },
         ".config/nvim/coc-settings.json": {
             "source": "nvim/coc-settings.json",
             "group": "neovim",
