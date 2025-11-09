@@ -56,6 +56,13 @@ vim.g.clipboard = {
 vim.opt.clipboard:append { 'unnamed', 'unnamedplus' }
 
 local function read_wezterm_theme()
+  local uv = vim.uv or vim.loop
+  local os_uname = uv.os_uname()
+  if os_uname == "Darwin" then
+    -- In macOS, we can rely on native detection provided by the auto-dark-mode plugin.
+    -- This prevents flickering upon startup in the light mode.
+    return nil
+  end
   local filepath = "/tmp/wezterm-theme"
   local f = io.open(filepath, "r")
   if not f then
