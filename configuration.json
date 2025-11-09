@@ -125,6 +125,16 @@
             "source": "flake8.config",
             "compatible_platforms": ["linux", "mac", "windows", "codespace"]
         },
+        ".config/lsd/config.yaml": {
+            "source": "lsd/config.yaml",
+            "group": "lsd",
+            "compatible_platforms": ["linux", "mac"]
+        },
+        ".config/lsd/colors.yaml": {
+            "source": "lsd/colors.yaml",
+            "group": "lsd",
+            "compatible_platforms": ["linux", "mac"]
+        },
         ".local/bin/set-dark": {
             "source": "local-bin/set-dark",
             "group": "neovim",
