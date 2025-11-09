@@ -55,6 +55,17 @@ vim.g.clipboard = {
 }
 vim.opt.clipboard:append { 'unnamed', 'unnamedplus' }
 
+local function read_wezterm_theme()
+  local filepath = "/tmp/wezterm-theme"
+  local f = io.open(filepath, "r")
+  if not f then
+    return nil
+  end
+  local content = f:read("*a")
+  f:close()
+  return vim.trim(content)
+end
+
 local function apply_ripgreprc(config_table)
   local ripgrep_config_path = vim.fn.getcwd() .. "/.ripgreprc"
   local f = io.open(ripgrep_config_path, "r")
@@ -90,6 +101,12 @@ require("lazy").setup({
         },
       })
       vim.cmd.colorscheme("rose-pine")
+      -- If the manually configured theme setting is available, use it.
+      -- (e.g., for remote SSH terminals)
+      local theme = read_wezterm_theme()
+      if theme ~= nil then
+        vim.cmd(string.format("set bg=%s", theme))
+      end
     end
   },
   {
