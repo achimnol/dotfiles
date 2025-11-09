@@ -15,8 +15,12 @@ local detect = function(callback)
     },
     { text = true },
     ---@param obj vim.SystemCompleted
-    vim.schedule_wrap(function(obj)
-      callback(vim.trim(obj.stdout))
+    vim.schedule_wrap(function(result)
+      if result.code ~= 0 then
+        callback(vim.trim("dark"))
+      else
+        callback(vim.trim(result.stdout))
+      end
     end)
   )
 end
