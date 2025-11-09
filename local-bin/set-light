@@ -1,0 +1,2 @@
+#! /bin/sh
+echo "light" > /tmp/wezterm-theme

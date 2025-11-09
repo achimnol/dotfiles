@@ -125,6 +125,18 @@
             "source": "flake8.config",
             "compatible_platforms": ["linux", "mac", "windows", "codespace"]
         },
+        ".local/bin/set-dark": {
+            "source": "local-bin/set-dark",
+            "group": "neovim",
+            "compatible_platforms": ["linux"],
+            "executable": true
+        },
+        ".local/bin/set-light": {
+            "source": "local-bin/set-light",
+            "group": "neovim",
+            "compatible_platforms": ["linux"],
+            "executable": true
+        },
         ".gitconfig": {
             "source": "gitconfig",
             "compatible_platforms": ["linux", "mac", "windows", "codespace"],
