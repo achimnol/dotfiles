@@ -35,6 +35,10 @@ if vim.fn.has('termguicolors') == 1 then
   vim.o.termguicolors = true
 end
 
+vim.api.nvim_create_autocmd("FocusGained", {
+  callback = require("auto-theme").update,
+})
+
 -- osc52 clipboard setup
 local function paste()
   return {
@@ -89,33 +93,10 @@ require("lazy").setup({
           Comment = { italic = true },
         },
       })
-      vim.cmd.colorscheme("rose-pine")
+      -- vim.cmd.colorscheme("rose-pine")
+      require("auto-theme").update()
     end
   },
-  -- {
-  --   "projekt0n/github-nvim-theme",
-  --   lazy = false,
-  --   priority = 1000,
-  --   config = function(plugin, opts)
-  --     require('github-theme').setup({
-  --       groups = {
-  --         all = {
-  --           CursorLine = { bg = '#21262d' },
-  --           CocInlayHint = { fg = '#38404d', italic = true },
-  --           CocHighlightText = { bg = '#38404d' },
-  --           AerialLine = { bg = '#38404d' },
-  --         },
-  --       },
-  --       options = {
-  --         transparent = true,
-  --         styles = {
-  --           comments = 'italic',
-  --         },
-  --       }
-  --     })
-  --     vim.cmd 'colorscheme github_dark'
-  --   end
-  -- },
   'nvim-lua/plenary.nvim',
   'nvim-tree/nvim-web-devicons',
   {
