@@ -102,7 +102,7 @@
             "compatible_platforms": ["linux", "mac", "codespace"]
         },
         ".config/wezterm/wezterm.lua": {
-            "source": "wezterm/config.lua",
+            "source": "wezterm/wezterm.lua",
             "group": "wezterm",
             "compatible_platforms": ["mac"]
         },
