@@ -106,8 +106,8 @@
             "group": "wezterm",
             "compatible_platforms": ["mac"]
         },
-        ".config/wezterm/theme.lua": {
-            "source": "wezterm/theme.lua",
+        ".config/wezterm/rose-pine-custom.lua": {
+            "source": "wezterm/rose-pine-custom.lua",
             "group": "wezterm",
             "compatible_platforms": ["mac"]
         },

@@ -6,11 +6,13 @@ local config = {
     -- color_scheme = "Rosé Pine (Gogh)",
     -- color_scheme = "Rosé Pine Dawn (Gogh)",
     -- front_end = "WebGpu",
-    -- color_schemes = {
-    --     ['My GitHub Dark'] = scheme,
-    -- },
-    -- color_scheme = "My GitHub Dark",
     window_decorations = "RESIZE",
+    window_padding = {
+      left = 3,
+      right = 3,
+      top = 2,
+      bottom = 2,
+    },
     -- window_background_opacity = 0.92,
     -- text_background_opacity = 0.8,
     -- macos_window_background_blur = 40,

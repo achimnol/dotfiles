@@ -5,9 +5,14 @@ local M = {}
 local force = nil
 
 ---@enum (key) Mode
+local rose_pine = require('rose-pine-custom')
+
 local theme = {
-  light = "rose-pine-dawn",
-  dark = "rose-pine",
+  light = rose_pine.dawn,
+  dark = rose_pine.main,
+  -- (intrinsic themes)
+  -- light = "rose-pine-dawn",
+  -- dark = "rose-pine",
 }
 
 ---@return Mode
@@ -22,7 +27,8 @@ end
 
 M.set = function(config)
   local mode = detect()
-  config.color_scheme = theme[mode]
+  config.colors = theme[mode].colors()
+  config.window_frame = theme[mode].window_frame()
 
   local ok, _, stderr = wezterm.run_child_process({
     "sh",
