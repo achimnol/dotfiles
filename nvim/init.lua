@@ -13,7 +13,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 -- Basic Vim options
-vim.o.bg = 'dark'
 vim.o.enc = 'utf-8'
 vim.o.sts = 4
 vim.o.sw = 4
