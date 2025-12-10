@@ -52,15 +52,12 @@ vim.g.clipboard = {
     ["*"] = paste,
   },
 }
-vim.opt.clipboard:append { 'unnamed', 'unnamedplus' }
--- prevent overwriting clipboard by deleted text when pasting in visual mode
-vim.keymap.set("x", "p", '"_dP')
-vim.keymap.set("x", "s", '"_s')
-vim.keymap.set("x", "c", '"_c')
-vim.keymap.set("n", "s", '"_s')
-vim.keymap.set("n", "c", '"_c')
-vim.keymap.set("n", "C", '"_C')
-vim.keymap.set({ "n", "x" }, "x", '"_x')
+-- Use system clipboard only for visual mode yank,
+-- while keeping the original vim register assignment.
+vim.keymap.set("x", "y", function()
+  vim.cmd('normal! y')
+  vim.fn.setreg("+", vim.fn.getreg('"'))
+end)
 
 local function read_wezterm_theme()
   local uv = vim.uv or vim.loop
