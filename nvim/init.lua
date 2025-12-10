@@ -54,7 +54,14 @@ vim.g.clipboard = {
   },
 }
 vim.opt.clipboard:append { 'unnamed', 'unnamedplus' }
-vim.keymap.set("x", "p", "P")  -- prevent overwriting clipboard by deleted text when pasting in visual mode
+-- prevent overwriting clipboard by deleted text when pasting in visual mode
+vim.keymap.set("x", "p", '"_dP')
+vim.keymap.set("x", "s", '"_s')
+vim.keymap.set("x", "c", '"_c')
+vim.keymap.set("n", "s", '"_s')
+vim.keymap.set("n", "c", '"_c')
+vim.keymap.set("n", "C", '"_C')
+vim.keymap.set({ "n", "x" }, "x", '"_x')
 
 local function read_wezterm_theme()
   local uv = vim.uv or vim.loop
