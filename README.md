@@ -220,6 +220,16 @@ function git_current_branch() {
 }
 ```
 
+### Serena MCP configuration
+
+After installing `uv` (and `uvx`), run:
+
+```shell
+serena config edit
+```
+
+and set `dashboard = false`.
+
 
 ## Archived instructions (not used currently)
 
