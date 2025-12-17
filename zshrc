@@ -83,6 +83,7 @@ alias l='ls -CF'
 alias tmux='tmux -2'
 alias make='make -j'
 alias sudo='sudo '  # let aliases work with sudo
+alias serena='uvx --from git+https://github.com/oraios/serena serena'
 
 alias rg='rg --colors path:fg:green --colors path:style:bold --colors match:bg:yellow --colors match:fg:black --colors match:style:nobold --context-separator=---- '
 
