@@ -142,13 +142,13 @@
             "compatible_platforms": ["linux"],
             "executable": true
         },
-        ".git/allowed_signers": {
+        ".config/git/allowed_signers": {
             "source": "git/allowed_signers",
             "group": "git",
             "compatible_platforms": ["linux", "mac", "windows"]
         },
         ".gitconfig": {
-            "source": "gitconfig",
+            "source": "git/config",
             "group": "git",
             "compatible_platforms": ["linux", "mac", "windows", "codespace"],
             "template_vars": ["username", "email"]
