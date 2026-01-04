@@ -2,6 +2,7 @@ local wezterm = require 'wezterm';
 local _font_features = { }
 
 local config = {
+    mux_enable_ssh_agent = false,
     use_ime = true,
     -- color_scheme = "Rosé Pine (Gogh)",
     -- color_scheme = "Rosé Pine Dawn (Gogh)",
