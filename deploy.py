@@ -69,7 +69,7 @@ def populate_file(dotfile, flavor, args):
     source = ''
     encoding = dotfile.get('encoding', 'utf8')
     merge_if_exists = dotfile.get('merge_if_exists', False)
-    with codecs.open(dotfile['source'], 'r', encoding=encoding) as srcfile:
+    with open(dotfile['source'], 'r', encoding=encoding) as srcfile:
         source = srcfile.read()
     with tempfile.NamedTemporaryFile(prefix='dotfiles-', delete=False) as tmp:
         tmp_path = tmp.name
