@@ -32,12 +32,15 @@
 [credential]
 	helper = osxkeychain
 %end
+[blame]
+	ignoreRevsFile = .git-blame-ignore-revs
 [commit]
 	gpgsign = true
 [gpg]
 	format = ssh
-%if _platform == "mac":
 [gpg "ssh"]
+	allowedSignersFile = ~/.config/git/allowed_signers
+%if _platform == "mac":
 	program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
 %end
 
