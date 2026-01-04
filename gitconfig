@@ -25,6 +25,16 @@
 	followTags = true
 [pull]
 	rebase = true
+[fetch]
+	prune = true
+[blame]
+	ignoreRevsFile = .git-blame-ignore-revs
+[filter "lfs"]
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+
 %if _platform == "windows":
 [credential]
 	helper = wincred
@@ -32,8 +42,7 @@
 [credential]
 	helper = osxkeychain
 %end
-[blame]
-	ignoreRevsFile = .git-blame-ignore-revs
+
 [commit]
 	gpgsign = true
 [gpg]

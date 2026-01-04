@@ -39,10 +39,6 @@
             "source": "inputrc",
             "compatible_platforms": ["linux", "codespace"]
         },
-        ".git/allowed_signers": {
-            "source": "git/allowed_signers",
-            "compatible_platforms": ["linux", "mac", "windows"]
-        },
         ".gnupg/gpg-agent.conf": {
             "source": "gpg-agent.conf",
             "compatible_platforms": ["linux"]
@@ -146,8 +142,14 @@
             "compatible_platforms": ["linux"],
             "executable": true
         },
+        ".git/allowed_signers": {
+            "source": "git/allowed_signers",
+            "group": "git",
+            "compatible_platforms": ["linux", "mac", "windows"]
+        },
         ".gitconfig": {
             "source": "gitconfig",
+            "group": "git",
             "compatible_platforms": ["linux", "mac", "windows", "codespace"],
             "template_vars": ["username", "email"]
         }
