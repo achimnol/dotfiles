@@ -43,5 +43,13 @@
 %if _platform == "mac":
 	program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
 %end
+%if _platform in ("mac", "linux"):
+[credential "https://github.com"]
+	helper = 
+	helper = !gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !gh auth git-credential
+%end
 
 ; vim: ft=gitconfig ts=4 sts=4 sw=4 noet
