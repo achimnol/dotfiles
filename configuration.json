@@ -39,6 +39,10 @@
             "source": "inputrc",
             "compatible_platforms": ["linux", "codespace"]
         },
+        ".git/allowed_signers": {
+            "source": "git/allowed_signers",
+            "compatible_platforms": ["linux", "mac", "windows"]
+        },
         ".gnupg/gpg-agent.conf": {
             "source": "gpg-agent.conf",
             "compatible_platforms": ["linux"]
