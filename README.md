@@ -230,6 +230,10 @@ serena config edit
 
 and set `dashboard = false`.
 
+### SSH agent forwarding fix for persistent tmux sessions
+
+Build and install [ssh-agent-switcher](https://github.com/jmmv/ssh-agent-switcher).
+
 
 ## Archived instructions (not used currently)
 
