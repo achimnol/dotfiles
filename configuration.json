@@ -1,4 +1,18 @@
 {
+    "path_aliases": {
+        "$APP_CONFIG": {
+            "linux": ".config",
+            "mac": ".config",
+            "windows": "AppData/Local",
+            "codespace": ".config"
+        },
+        "$XDG_CONFIG": {
+            "linux": ".config",
+            "mac": ".config",
+            "windows": ".config",
+            "codespace": ".config"
+        }
+    },
     "dotfiles": {
         ".bashrc": {
             "source": "bashrc",
@@ -91,41 +105,41 @@
                 "windows": "vimfiles/colors/monochrome.vim"
             }
         },
-        ".config/nvim/init.lua": {
+        "$APP_CONFIG/nvim/init.lua": {
             "source": "nvim/init.lua",
             "group": "neovim",
-            "compatible_platforms": ["linux", "mac", "codespace"]
+            "compatible_platforms": ["linux", "mac", "codespace", "windows"]
         },
-        ".config/nvim/coc-settings.json": {
+        "$APP_CONFIG/nvim/coc-settings.json": {
             "source": "nvim/coc-settings.json",
             "group": "neovim",
-            "compatible_platforms": ["linux", "mac", "codespace"]
+            "compatible_platforms": ["linux", "mac", "codespace", "windows"]
         },
-        ".config/wezterm/wezterm.lua": {
+        "$APP_CONFIG/wezterm/wezterm.lua": {
             "source": "wezterm/wezterm.lua",
             "group": "wezterm",
             "compatible_platforms": ["mac"]
         },
-        ".config/wezterm/rose-pine-custom.lua": {
+        "$APP_CONFIG/wezterm/rose-pine-custom.lua": {
             "source": "wezterm/rose-pine-custom.lua",
             "group": "wezterm",
             "compatible_platforms": ["mac"]
         },
-        ".config/wezterm/my-github-dark.toml": {
+        "$APP_CONFIG/wezterm/my-github-dark.toml": {
             "source": "wezterm/my-github-dark.toml",
             "group": "wezterm",
             "compatible_platforms": ["mac"]
         },
-        ".config/flake8": {
+        "$XDG_CONFIG/flake8": {
             "source": "flake8.config",
             "compatible_platforms": ["linux", "mac", "windows", "codespace"]
         },
-        ".config/lsd/config.yaml": {
+        "$APP_CONFIG/lsd/config.yaml": {
             "source": "lsd/config.yaml",
             "group": "lsd",
             "compatible_platforms": ["linux", "mac"]
         },
-        ".config/lsd/colors.yaml": {
+        "$APP_CONFIG/lsd/colors.yaml": {
             "source": "lsd/colors.yaml",
             "group": "lsd",
             "compatible_platforms": ["linux", "mac"]
@@ -142,7 +156,7 @@
             "compatible_platforms": ["linux"],
             "executable": true
         },
-        ".config/git/allowed_signers": {
+        "$XDG_CONFIG/git/allowed_signers": {
             "source": "git/allowed_signers",
             "group": "git",
             "compatible_platforms": ["linux", "mac", "windows"]

@@ -133,6 +133,16 @@ def get_platform():
     return 'others'
 
 
+def resolve_path_aliases(path: str, aliases: dict, platform: str) -> str:
+    """경로 문자열에서 $ALIAS를 플랫폼별 실제 경로로 치환"""
+    for alias, platforms in aliases.items():
+        if path.startswith(alias):
+            resolved = platforms.get(platform, platforms.get('linux', ''))
+            path = resolved + path[len(alias):]
+            break
+    return path
+
+
 if __name__ == '__main__':
     # Determine the environment.
     HOME_DIR = os.path.expanduser('~')
@@ -176,14 +186,14 @@ if __name__ == '__main__':
         # update them with platform-specific values.
         if isinstance(value, dict):
             value.update(base_flavor['_'].get(key, {}))
-            value.update(base_flavor[PLATFORM].get(key, {}))
+            value.update(base_flavor.get(PLATFORM, {}).get(key, {}))
             value.update(concrete_flavor['_'].get(key, {}))
-            value.update(concrete_flavor[PLATFORM].get(key, {}))
+            value.update(concrete_flavor.get(PLATFORM, {}).get(key, {}))
         elif isinstance(value, list):
             value.extend(base_flavor['_'].get(key, []))
-            value.extend(base_flavor[PLATFORM].get(key, []))
+            value.extend(base_flavor.get(PLATFORM, {}).get(key, []))
             value.extend(concrete_flavor['_'].get(key, []))
-            value.extend(concrete_flavor[PLATFORM].get(key, []))
+            value.extend(concrete_flavor.get(PLATFORM, {}).get(key, []))
         else:
             raise NotImplementedError('Unsupported data type for value inheritance.')
 
@@ -213,16 +223,21 @@ if __name__ == '__main__':
         if 'excludes' in flavor and key in flavor['excludes']:
             active_dotfiles.pop(key, None)
 
+    # Load path aliases
+    path_aliases = conf.get('path_aliases', {})
+
     for key, data in active_dotfiles.items():
         data = data.copy()
         assert os.path.isfile(data['source']), \
                'The source file "{0}" does not exist.'.format(data['source'])
         if 'platform_dependent_paths' in data:
+            # 명시적 오버라이드 우선
             ppath = data['platform_dependent_paths'].get(PLATFORM, key)
             if isinstance(ppath, list) or isinstance(ppath, tuple):
                 ppath = os.path.join(*(os.path.expandvars(p) for p in ppath))
         else:
-            ppath = key
+            # 별칭 치환 적용
+            ppath = resolve_path_aliases(key, path_aliases, PLATFORM)
         ppath = ppath.replace('/', os.sep)
         data['dest'] = os.path.join(args.base_path, ppath)
         dotfiles.append(data)
