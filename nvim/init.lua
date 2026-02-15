@@ -34,6 +34,9 @@ if vim.fn.has('termguicolors') == 1 then
   vim.o.termguicolors = true
 end
 
+vim.keymap.set("n", "j", 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', { desc = "Move down", expr = true })
+vim.keymap.set("n", "k", 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', { desc = "Move up", expr = true })
+
 -- osc52 clipboard setup
 local function paste()
   return {
