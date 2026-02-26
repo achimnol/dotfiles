@@ -84,9 +84,8 @@ local config = {
     cell_width = 0.82,  -- PragmataPro adjustment
     line_height = 0.83, -- PragmataPro adjustment
     freetype_render_target = 'Normal',
-    freetype_load_target = 'HorizontalLcd',
-    -- freetype_load_flags = 'NO_HINTING',
-    -- freetype_load_target = 'Normal',
+    freetype_load_target = 'Light',
+    freetype_load_flags = 'NO_HINTING',
     normalize_output_to_unicode_nfc = false,
     custom_block_glyphs = false,
     -- colors = { compose_cursor = "orange" },
@@ -99,6 +98,7 @@ local config = {
       {key="DownArrow", mods="SUPER", action=wezterm.action{SendString="\x1b[6~"}}, -- PageDown
       {key="f", mods="SHIFT|SUPER", action="ToggleFullScreen"},
       {key="q", mods="CTRL", action=wezterm.action{ SendString="\x11" } },  -- wez/wezterm#2630
+      {key="Enter", mods="SHIFT", action=wezterm.action{ SendString="\x1b[13;2u" } },  -- Shift+Enter for Claude Code
     },
     -- debug_key_events = true,
 }
