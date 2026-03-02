@@ -112,9 +112,26 @@ require("lazy").setup({
         styles = { italic = false },
         highlight_groups = {
           Comment = { italic = true },
+          -- Cursor: use rose-pine highlight_high (#524f67) matching WezTerm cursor_bg
+          Cursor = { bg = "highlight_high", fg = "text" },
         },
       })
       vim.cmd.colorscheme("rose-pine")
+      -- Insert mode bar cursor: white on dark bg, black on light bg.
+      -- fg is used by non-WezTerm terminals/GUI for the character under a block
+      -- cursor (e.g. IME composition). In WezTerm, IME composition is handled
+      -- independently via compose_cursor in ~/.config/wezterm/rose-pine-custom.lua.
+      local function set_insert_cursor_hl()
+        if vim.o.background == "dark" then
+          vim.api.nvim_set_hl(0, "iCursor", { bg = "#ffffff", fg = "#191724" })
+        else
+          vim.api.nvim_set_hl(0, "iCursor", { bg = "#000000", fg = "#faf4ed" })
+        end
+      end
+      set_insert_cursor_hl()
+      vim.api.nvim_create_autocmd("ColorScheme", { callback = set_insert_cursor_hl })
+      -- Block cursor (normal) uses Cursor group; bar/underline cursors (insert/replace) use iCursor
+      vim.opt.guicursor = "n-v-c-sm:block-Cursor,i-ci-ve:ver25-iCursor,r-cr-o:hor20-iCursor"
       -- If the manually configured theme setting is available, use it.
       -- (e.g., for remote SSH terminals)
       local theme = read_wezterm_theme()
@@ -123,19 +140,19 @@ require("lazy").setup({
       end
     end
   },
-  {
-    'f-person/auto-dark-mode.nvim',
-    lazy = false,
-    priority = 999,
-    opts = {
-      set_dark_mode = function()
-        vim.cmd [[set bg=dark]]
-      end,
-      set_light_mode = function()
-        vim.cmd [[set bg=light]]
-      end,
-    },
-  },
+  -- {
+  --   'f-person/auto-dark-mode.nvim',
+  --   lazy = false,
+  --   priority = 999,
+  --   opts = {
+  --     set_dark_mode = function()
+  --       vim.cmd [[set bg=dark]]
+  --     end,
+  --     set_light_mode = function()
+  --       vim.cmd [[set bg=light]]
+  --     end,
+  --   },
+  -- },
   'nvim-lua/plenary.nvim',
   'nvim-tree/nvim-web-devicons',
   {

@@ -36,6 +36,7 @@ function main.colors()
         cursor_bg = main_palette.highlight_high,
         cursor_border = main_palette.highlight_high,
         cursor_fg = main_palette.text,
+        compose_cursor = main_palette.pine,  -- distinct teal for IME composition; cursor_fg (text) is readable on it
         selection_bg = '#2a283e',
         selection_fg = main_palette.text,
 
@@ -113,6 +114,7 @@ function moon.colors()
         cursor_bg = '#59546d',
         cursor_border = '#59546d',
         cursor_fg = moon_palette.text,
+        compose_cursor = moon_palette.pine,  -- distinct teal for IME composition; cursor_fg (text) is readable on it
         selection_bg = moon_palette.overlay,
         selection_fg = moon_palette.text,
 
@@ -190,6 +192,7 @@ function dawn.colors()
         cursor_bg = dawn_palette.muted,
         cursor_border = dawn_palette.muted,
         cursor_fg = dawn_palette.text,
+        compose_cursor = dawn_palette.gold,  -- distinct amber for IME composition; cursor_fg (text) is readable on it
         selection_bg = dawn_palette.overlay,
         selection_fg = dawn_palette.text,
 
