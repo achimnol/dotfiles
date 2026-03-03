@@ -20,6 +20,20 @@
 	autocrlf = false
 	precomposeunicode = true
 	quotepath = false
+	editor = nvim
+	pager = delta
+[diff]
+	tool = 'nvim -d $LOCAL $REMOTE'
+[delta]
+	features = side-by-side unobtrusive-line-numbers no-decorations
+	syntax-theme = Nord
+[delta "no-decorations"]
+	commit-decoration-style = none
+	file-decoration-style = none
+	hunk-header-decoration-style = none
+[delta "unobtrusive-line-numbers"]
+	line-numbers-left-format = "{nm:>4}┊"
+	line-numbers-right-format = "{np:>4}┊"
 [push]
 	default = simple
 	followTags = true
