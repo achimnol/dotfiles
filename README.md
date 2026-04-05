@@ -246,6 +246,14 @@ serena config edit
 
 and set `dashboard = false`.
 
+### SSH agent forwarding fix for persistent tmux sessions on remote Linux hosts
+
+When connecting to a remote Linux host from macOS,
+the SSH agent forwarding socket (`SSH_AUTH_SOCK`) becomes stale
+if the client disconnects (e.g., due to sleep) while a tmux session persists.
+Build and install [ssh-agent-switcher](https://github.com/jmmv/ssh-agent-switcher)
+on the remote host to automatically detect and switch to a working forwarded agent socket.
+
 ## Archived instructions (not used currently)
 
 ### Initializing Vim Vundle
