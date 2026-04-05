@@ -13,6 +13,11 @@ setopt hist_ignore_dups
 setopt hist_ignore_space
 setopt no_share_history
 
+# --- Key bindings ---
+# Use emacs keymap (Ctrl+R for reverse search, etc.)
+# oh-my-zsh set this implicitly; needed now that we use starship directly.
+bindkey -e
+
 # --- Options ---
 unsetopt auto_cd
 
