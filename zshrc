@@ -63,11 +63,17 @@ alias serena='uvx --from git+https://github.com/oraios/serena serena'
 
 alias rg='rg --colors path:fg:green --colors path:style:bold --colors match:bg:yellow --colors match:fg:black --colors match:style:nobold --context-separator=---- '
 
-# Fix tmux/screen home/end keys
-if [[ "$TERM" =~ ^tmux || "$TERM" =~ ^screen ]]; then
-  bindkey '^[[1~' beginning-of-line
-  bindkey '^[[4~' end-of-line
-fi
+# Terminal key bindings (previously handled by oh-my-zsh)
+bindkey '^[[H'  beginning-of-line      # Home (xterm)
+bindkey '^[[F'  end-of-line            # End (xterm)
+bindkey '^[[1~' beginning-of-line      # Home (tmux/screen)
+bindkey '^[[4~' end-of-line            # End (tmux/screen)
+bindkey '^[[3~' delete-char            # Delete
+bindkey '^[[1;5C' forward-word         # Ctrl+Right
+bindkey '^[[1;5D' backward-word        # Ctrl+Left
+bindkey '^[[1;3C' forward-word         # Alt+Right
+bindkey '^[[1;3D' backward-word        # Alt+Left
+bindkey '^H'    backward-delete-word   # Ctrl+Backspace
 
 # --- Environment ---
 export TTY=$(tty)
