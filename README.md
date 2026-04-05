@@ -158,10 +158,19 @@ If the above test command does NOT display an italic text, run:
 
 [A good guide is here.](https://www.reddit.com/r/vim/comments/24g8r8/italics_in_terminal_vim_and_tmux/)
 
-### Setting up Git commit signing with the SSH keypair
+### Loading the Git signing key into ssh-agent on macOS
 
+The Git signing key (`~/.ssh/git-sign`) is not used for SSH connections, so `AddKeysToAgent`/`UseKeychain` in `~/.ssh/config` won't load it automatically. Register it with the Keychain explicitly (one-time):
 ```shell
-git config --global user.signingkey ~/.ssh/id_rsa
+ssh-add --apple-use-keychain ~/.ssh/git-sign
+```
+
+Then add the following to `.zprofile` to load all Keychain-stored keys into the agent on login:
+```zsh
+if [[ -z "$TMUX" ]]; then
+  export SSH_AUTH_SOCK="$(launchctl getenv SSH_AUTH_SOCK)"
+  ssh-add --apple-load-keychain 2>/dev/null
+fi
 ```
 
 ### Installing the GitHub CLI (Ubuntu/Debian Linux)
@@ -181,14 +190,21 @@ gh extension install seachicken/gh-poi  # extension to clean up local branches
 ./scripts/install-mosh.sh
 ```
 
-### Workarounding user font recognition and system clipboard access issues in tmux on macOS
+### SSH_AUTH_SOCK propagation inside tmux on macOS
 
-```shell
-brew install tmux reattach-to-user-namespace
-```
+The macOS ssh-agent socket path (`/var/run/com.apple.launchd.<random>/Listeners`) changes on every reboot. To properly propagate `SSH_AUTH_SOCK` into tmux sessions, two conditions must be met:
 
-Set your iTerm profile's startup command to use `reattach-to-user-namespace -l zsh`.
-(Replace zsh with your favorite shell.)
+1. **tmux.conf**: `update-environment` must include `SSH_AUTH_SOCK` (do not use the `-r` flag as it clears the entire list).
+   ```tmux
+   set-option -g update-environment "DISPLAY SSH_AUTH_SOCK SSH_AGENT_PID SSH_CONNECTION WINDOWID XAUTHORITY"
+   ```
+
+2. **Shell profile (`.zprofile`, etc.)**: If you use `launchctl getenv SSH_AUTH_SOCK` to obtain the socket path, it may return an empty value inside tmux and overwrite the value propagated by tmux. Guard it so it only runs outside of tmux.
+   ```zsh
+   if [[ -z "$TMUX" ]]; then
+     export SSH_AUTH_SOCK="$(launchctl getenv SSH_AUTH_SOCK)"
+   fi
+   ```
 
 ### Enabling macOS key repeats
 
@@ -229,11 +245,6 @@ serena config edit
 ```
 
 and set `dashboard = false`.
-
-### SSH agent forwarding fix for persistent tmux sessions
-
-Build and install [ssh-agent-switcher](https://github.com/jmmv/ssh-agent-switcher).
-
 
 ## Archived instructions (not used currently)
 
