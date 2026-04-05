@@ -26,6 +26,17 @@ if [ -f ~/.zshrc_local ]; then
   source ~/.zshrc_local
 fi
 
+# --- Git email cache (updated on cd, read by starship env_var) ---
+_update_git_email() {
+  if git rev-parse --is-inside-work-tree &>/dev/null; then
+    export GIT_EMAIL=$(git config user.email)
+  else
+    unset GIT_EMAIL
+  fi
+}
+_update_git_email  # initial shell
+chpwd_functions+=(_update_git_email)
+
 # --- Starship prompt ---
 eval "$(starship init zsh)"
 

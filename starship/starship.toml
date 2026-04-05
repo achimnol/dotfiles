@@ -9,7 +9,7 @@
 add_newline = true
 
 format = """
-$hostname: $directory$python${custom.git_dirty}$git_branch${custom.git_email}\
+$hostname: $directory$python$git_status$git_branch${env_var.GIT_EMAIL}\
 $line_break\
 $character"""
 
@@ -32,33 +32,32 @@ detect_extensions = []
 detect_files = [".python-version"]
 detect_folders = []
 
-# Replicate parse_git_dirty with DISABLE_UNTRACKED_FILES_DIRTY=true
-[custom.git_dirty]
-command = 'echo "+"'
-when = '[ -n "$(git status --porcelain --untracked-files=no 2>/dev/null)" ]'
-format = "[$output](red)"
-shell = ["sh"]
-description = "Git dirty indicator"
+# Git dirty indicator (built-in, no fork)
+[git_status]
+format = "[+](red)"
+ahead = ""
+behind = ""
+diverged = ""
+renamed = ""
+deleted = ""
+stashed = ""
+untracked = ""
+staged = "[+](red)"
+modified = "[+](red)"
+conflicted = "[+](red)"
 
 [git_branch]
 format = "[\\[git:$branch\\]](green) "
 
-# Replicate [author:$(git_current_user_email)]
-[custom.git_email]
-command = 'git config user.email'
-when = "git rev-parse --is-inside-work-tree 2>/dev/null"
-format = "[\\[author:$output\\]](bold default) "
-shell = ["sh"]
-description = "Git author email from local/global config"
+# Git author email — read from env var set by chpwd hook (no fork)
+[env_var.GIT_EMAIL]
+format = "[\\[author:$env_value\\]](bold default) "
 
 [character]
 success_symbol = "[>](white)"
 error_symbol = "[>](red)"
 
 # Disable unneeded modules
-[git_status]
-disabled = true
-
 [aws]
 disabled = true
 
