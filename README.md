@@ -45,14 +45,24 @@ Some network debugging utilities:
 brew install iproute2mac
 ```
 
-### Initializing oh-my-zsh (when using zsh, for Linux/Mac only)
+### Installing starship prompt
 
+Starship must be installed separately before deploying dotfiles.
+It provides the shell prompt (replaces the old oh-my-zsh achimnol theme).
+
+macOS (Homebrew):
 ```shell
-wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O - | sh
+brew install starship
 ```
-or
+
+Linux (binary install to `/usr/local/bin`):
 ```shell
-curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh
+curl -sS https://starship.rs/install.sh | sh
+```
+
+To verify:
+```shell
+starship --version
 ```
 
 ### Initializing pyenv (Linux/Mac)
@@ -219,21 +229,6 @@ Run the followings in the terminal and logout/login again.
 ```shell
 defaults write -g InitialKeyRepeat -int 10  # normal minimum is 15 (225 ms)
 defaults write -g KeyRepeat -int 1          # normal minimum is 2 (30 ms)
-```
-
-### Making oh-my-zsh's `git_current_branch` even faster (optional)
-
-```shell
-git clone https://github.com/notfed/git-branch-name
-make
-sudo install git-branch-name /usr/local/bin
-```
-
-Then replace the `git_current_branch` function in `~/.oh-my-zsh/lib/git.zsh` to:
-```shell
-function git_current_branch() {
-  git-branch-name -q
-}
 ```
 
 ### Serena MCP configuration

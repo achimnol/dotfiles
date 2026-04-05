@@ -26,9 +26,10 @@
             "source": "direnvrc",
             "compatible_platforms": ["linux", "mac", "codespace"]
         },
-        ".oh-my-zsh/themes/achimnol.zsh-theme": {
-            "source": "achimnol.zsh-theme",
-            "compatible_platforms": ["linux", "mac"]
+        "$XDG_CONFIG/starship.toml": {
+            "source": "starship/starship.toml",
+            "group": "starship",
+            "compatible_platforms": ["linux", "mac", "codespace"]
         },
         ".dircolors": {
             "source": "dircolors",
@@ -184,6 +185,7 @@
                     "sudo apt install -y build-essential automake autoconf pkg-config",
                     "sudo apt install -y libssl-dev libreadline-dev libgdbm-dev zlib1g-dev libbz2-dev liblzma-dev libsqlite3-dev libffi-dev",
                     "sudo apt install dnsutils iproute2",
+                    "curl -sS https://starship.rs/install.sh | sh",
                     "bash ./scripts/install-ripgrep.sh",
                     "bash ./scripts/install-tmux.sh",
                     "bash ./scripts/install-mosh.sh",
@@ -202,6 +204,7 @@
                     "brew install openssl sqlite3 readline zlib xz gdbm tcl-tk",
                     "brew install exa fd hexyl bat",
                     "brew install gh",
+                    "brew install starship",
                     "bash ./scripts/install-ripgrep.sh",
                     "bash ./scripts/config-vim.sh",
                     "bash ./scripts/config-nvim.sh",
