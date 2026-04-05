@@ -16,7 +16,12 @@ setopt no_share_history
 # --- Options ---
 unsetopt auto_cd
 
-# --- Local config (load before starship for pyenv/virtualenv init) ---
+# --- pyenv ---
+if command -v pyenv >/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+fi
+
+# --- Local config ---
 if [ -f ~/.zshrc_local ]; then
   source ~/.zshrc_local
 fi

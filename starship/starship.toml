@@ -9,7 +9,7 @@
 add_newline = true
 
 format = """
-$hostname: $directory${custom.pyenv}${custom.git_dirty}$git_branch${custom.git_email}\
+$hostname: $directory$python${custom.git_dirty}$git_branch${custom.git_email}\
 $line_break\
 $character"""
 
@@ -24,20 +24,13 @@ style = "yellow"
 truncation_length = 0
 truncate_to_repo = false
 
-# Replicate pyvenv_info(): show virtualenv name if active, else pyenv version
-[custom.pyenv]
-command = '''
-if [ -n "$VIRTUAL_ENV" ]; then
-  echo "${VIRTUAL_ENV##*/}"
-elif command -v pyenv >/dev/null 2>&1; then
-  v=$(pyenv version-name 2>/dev/null)
-  if [ "$v" != "system" ]; then echo "$v"; fi
-fi
-'''
-when = 'test -n "$VIRTUAL_ENV" || command -v pyenv >/dev/null 2>&1'
-format = "[\\[py:$output\\]](bold yellow) "
-shell = ["sh"]
-description = "Python virtualenv or pyenv version"
+# Python virtualenv or pyenv version (built-in module)
+[python]
+format = "[\\[py:${pyenv_prefix}${version}( \\($virtualenv\\))\\]](bold yellow) "
+pyenv_version_name = true
+detect_extensions = []
+detect_files = [".python-version"]
+detect_folders = []
 
 # Replicate parse_git_dirty with DISABLE_UNTRACKED_FILES_DIRTY=true
 [custom.git_dirty]
