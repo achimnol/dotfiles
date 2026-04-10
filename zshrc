@@ -22,11 +22,6 @@ bindkey -e
 # --- Options ---
 unsetopt auto_cd
 
-# --- pyenv ---
-if command -v pyenv >/dev/null 2>&1; then
-  eval "$(pyenv init -)"
-fi
-
 # --- Local config ---
 if [ -f ~/.zshrc_local ]; then
   source ~/.zshrc_local
@@ -80,14 +75,16 @@ export TTY=$(tty)
 export SVN_EDITOR=vim
 export HGENCODING=UTF-8
 export HGEDITOR=~/hgeditor
+export PAGER='less -RFX'
+export GH_PAGER='less -RFX'
 
 typeset -U PATH
 
-if [ -f "$(which direnv)" ]; then
-  eval "$(direnv hook zsh)"
-fi
-
-export PAGER='less -RFX'
-export GH_PAGER='less -RFX'
+# --- Hooks and version managers ---
+[ -f "$(which direnv)" ] && eval "$(direnv hook zsh)"
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+[ -s "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
+if command -v pyenv >/dev/null 2>&1; then eval "$(pyenv init -)"; fi
 
 # vim: sts=2 sw=2 et
