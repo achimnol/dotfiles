@@ -81,10 +81,15 @@ export GH_PAGER='less -RFX'
 typeset -U PATH
 
 # --- Hooks and version managers ---
+[ -f "$HOME/.local/bin/env" ] && . "$HOME/.local/bin/env"
 [ -f "$(which direnv)" ] && eval "$(direnv hook zsh)"
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 [ -s "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
-if command -v pyenv >/dev/null 2>&1; then eval "$(pyenv init -)"; fi
+export PYENV_ROOT="$HOME/.pyenv"
+[ -d $PYENV_ROOT/bin ] && export PATH="$PYENV_ROOT/bin:$PATH"
+[ -d $PYENV_ROOT/bin ] && eval "$(pyenv init - zsh)"
+[ -s "$HOME/.gvm/scripts/gvm" ] && source "$HOME/.gvm/scripts/gvm"
 
 # vim: sts=2 sw=2 et
