@@ -18,7 +18,6 @@ After forking this repository, you need to customize `configuration.json`, in pa
 
 ```shell
 sudo apt install build-essential pkg-config autoconf automake git-core tmux htop vim
-sudo apt install gnupg-agent gnupg2
 sudo apt install libssl-dev libreadline-dev libgdbm-dev zlib1g-dev libbz2-dev liblzma-dev libsqlite3-dev libffi-dev
 sudo apt install hexyl bat  # modern cli utils (Ubuntu 19.10+)
 ```
@@ -34,7 +33,6 @@ sudo apt install dnsutils iproute2
 xcode-select --install
 brew install git tmux htop python3
 brew install macvim --with-override-system-vim --without-python --with-python3
-brew install gpg-agent
 brew install ncurses  # for gen-italics-terminfo.sh
 brew install openssl sqlite3 readline zlib xz gdbm tcl-tk
 brew install exa fd hexyl bat  # modern cli utils
@@ -100,7 +98,11 @@ eval "$(pyenv virtualenv-init -)"
 If any file already exists, it will ask you whether to overwrite it.
 To overwrite always, add `--force`.
 
-### NeoVim on Linux arm64/aarch64
+### NeoVim
+
+#### Installing NeoVim on Linux arm64/aarch64
+
+Use linuxbrew when possible.
 
 Many NeoVim plugins require luajit instead of Lua 5.1 to work properly.
 We can install NeoVim using Snap (`sudo snap install nvim --classic`) but this version is built with Lua 5.1
@@ -127,7 +129,7 @@ sudo update-alternatives --install /usr/bin/vi vi /usr/local/bin/nvim 50
 sudo update-alternatives --config vi
 ```
 
-### Initializing NeoVim
+#### Initializing NeoVim
 
 When NeoVim is executed for the first time, it will automatically install and load plugins via Lazy.
 
@@ -136,7 +138,7 @@ Install the CoC and treesitter plugins after initialization CoC itself.
 :CocInstall coc-pyright coc-rust-analyzer coc-highlight
 ```
 
-### Sample configuration for a local `coc-settings.json`
+#### Sample configuration for a local `coc-settings.json`
 
 ```json
 {
@@ -231,6 +233,49 @@ defaults write -g InitialKeyRepeat -int 10  # normal minimum is 15 (225 ms)
 defaults write -g KeyRepeat -int 1          # normal minimum is 2 (30 ms)
 ```
 
+### SSH agent forwarding fix for persistent tmux sessions on remote Linux hosts
+
+When connecting to a remote Linux host from macOS,
+the SSH agent forwarding socket (`SSH_AUTH_SOCK`) becomes stale
+if the client disconnects (e.g., due to sleep) while a tmux session persists.
+Build and install [ssh-agent-switcher](https://github.com/jmmv/ssh-agent-switcher)
+on the remote host to automatically detect and switch to a working forwarded agent socket.
+
+### WSL Setup
+
+* `/mnt/c/Users/joongi/.wslconfig`:
+```dosini
+[wsl2]
+networkingMode=mirrored
+vmIdleTimeout=-1
+
+[experimental]
+hostAddressLoopback=true
+```
+
+* `/etc/wsl.conf`:
+```dosini
+[boot]
+systemd=true
+command="nohup dbus-launch true >/dev/null 2>&1 &"
+
+[user]
+default=joongi
+```
+
+> [!TIP]
+> To keep the VM running after closing all terminals in the Windows host, run `dbus-launch true`.
+
+To allow external SSH access (e.g., via VPN), we need to set the Windows & HyperV firewall rules:
+```powershell
+New-NetFirewallRule -DisplayName "Allow WSL SSH (Windows)" -Enabled True -Direction Inbound -Protocol TCP -LocalPort <SSHPORT> -Action Allow
+New-NetFirewallHyperVRule -DisplayName "Allow WSL SSH (HyperV)" -Direction Inbound -LocalPorts <SSHPORT> -Action Allow
+```
+
+---
+
+## Archived instructions (not used currently)
+
 ### Serena MCP configuration
 
 After installing `uv` (and `uvx`), run:
@@ -240,16 +285,6 @@ serena config edit
 ```
 
 and set `dashboard = false`.
-
-### SSH agent forwarding fix for persistent tmux sessions on remote Linux hosts
-
-When connecting to a remote Linux host from macOS,
-the SSH agent forwarding socket (`SSH_AUTH_SOCK`) becomes stale
-if the client disconnects (e.g., due to sleep) while a tmux session persists.
-Build and install [ssh-agent-switcher](https://github.com/jmmv/ssh-agent-switcher)
-on the remote host to automatically detect and switch to a working forwarded agent socket.
-
-## Archived instructions (not used currently)
 
 ### Initializing Vim Vundle
 
