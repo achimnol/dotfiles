@@ -265,9 +265,11 @@ require("lazy").setup({
   },
   {
     'nvim-treesitter/nvim-treesitter',
+    branch = 'main',
+    lazy = false,
     build = ":TSUpdate",
-    opts = {
-      ensure_installed = {
+    config = function()
+      require('nvim-treesitter').install({
         "python",
         "go",
         "gomod",
@@ -288,42 +290,14 @@ require("lazy").setup({
         "gitcommit",
         "diff",        -- dependency of gitcommit
         "git_rebase",  -- dependency of gitcommit
-      },
-      rainbow = {
-        enable = false,
-        -- disable = { "jsx", "cpp" }, list of languages you want to disable the plugin for
-        extended_mode = false, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
-      },
-      highlight = {
-        enable = true,
-      },
-      indent = {
-        enable = true,
-      },
-      incremental_selection = {
-        enable = true,
-        keymaps = {
-          init_selection = '<CR>',
-          scope_incremental = '<CR>',
-          node_incremental = '<TAB>',
-          node_decremental = '<S-TAB>',
-        },
-      },
-    },
-    config = function(plugin, opts)
-      -- ref: https://www.lazyvim.org/plugins/treesitter
-      if type(opts.ensure_installed) == "table" then
-        ---@type table<string, boolean>
-        local added = {}
-        opts.ensure_installed = vim.tbl_filter(function(lang)
-          if added[lang] then
-            return false
+      })
+      vim.api.nvim_create_autocmd('FileType', {
+        callback = function(args)
+          if pcall(vim.treesitter.start, args.buf) then
+            vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
           end
-          added[lang] = true
-          return true
-        end, opts.ensure_installed)
-      end
-      require('nvim-treesitter.configs').setup(opts)
+        end,
+      })
     end,
   },
   {
