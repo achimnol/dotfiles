@@ -123,15 +123,29 @@ If you have built and installed NeoVim by yourself, `/usr/local/bin/nvim` is alr
 
 Then, execute this following command:
 ```shell
-sudo update-alternatives --install /usr/bin/editor editor /usr/local/bin/nvim 50
-sudo update-alternatives --config editor
-sudo update-alternatives --install /usr/bin/vi vi /usr/local/bin/nvim 50
-sudo update-alternatives --config vi
+# self-compiled:
+export NVIM_PATH=/usr/local/bin/nvim
+# installed via homebrew (MacOS):
+export NVIM_PATH=/opt/homebrew/bin/nvim
+# installed via homebrew (Linux):
+export NVIM_PATH=/home/linuxbrew/.linuxbrew/bin/nvim
+
+sudo update-alternatives --install /usr/bin/vi vi "${NVIM_PATH}" 110
+sudo update-alternatives --install /usr/bin/vim vim "${NVIM_PATH}" 110
+sudo update-alternatives --install /usr/bin/editor editor "${NVIM_PATH}" 110
+sudo update-alternatives --install /usr/bin/view view "${NVIM_PATH}" 110
+sudo update-alternatives --install /usr/bin/vimdiff vimdiff "${NVIM_PATH}" 110
+sudo update-alternatives --install /usr/bin/ex ex "${NVIM_PATH}" 110
 ```
 
 #### Initializing NeoVim
 
 When NeoVim is executed for the first time, it will automatically install and load plugins via Lazy.
+
+As of NeoVim 0.12 and the latest nvim-treesitter plugin (the main branch), you need to install the prebuilt `tree-sitter-cli` to build and update parsers.
+```shell
+npm install -g tree-sitter-cli
+```
 
 Install the CoC and treesitter plugins after initialization CoC itself.
 ```
