@@ -16,11 +16,13 @@
     "dotfiles": {
         ".bashrc": {
             "source": "bashrc",
-            "compatible_platforms": ["linux", "mac"]
+            "compatible_platforms": ["linux", "mac"],
+            "template_vars": ["term_colorscheme"]
         },
         ".zshrc": {
             "source": "zshrc",
-            "compatible_platforms": ["linux", "mac"]
+            "compatible_platforms": ["linux", "mac"],
+            "template_vars": []
         },
         ".direnvrc": {
             "source": "direnvrc",
