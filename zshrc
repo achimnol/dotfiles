@@ -81,6 +81,7 @@ export GH_PAGER='less -RFX'
 typeset -U PATH
 
 # --- Hooks and version managers ---
+[ -d "$HOME/.local/bin" ] && export PATH="$HOME/.local/bin:$PATH"
 [ -f "$HOME/.local/bin/env" ] && . "$HOME/.local/bin/env"
 [ -f "$(which direnv)" ] && eval "$(direnv hook zsh)"
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
