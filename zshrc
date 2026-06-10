@@ -37,7 +37,7 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 export PYENV_ROOT="$HOME/.pyenv"
 [ -d $PYENV_ROOT/bin ] && export PATH="$PYENV_ROOT/bin:$PATH"
 [ -d $PYENV_ROOT/bin ] && eval "$(pyenv init - zsh)"
-[ -s "$HOME/.gvm/scripts/gvm" ] && source "$HOME/.gvm/scripts/gvm"
+command -v gvm >/dev/null && eval "$(gvm 1.26.4)"
 
 # --- Local config ---
 if [ -f ~/.zshrc_local ]; then
