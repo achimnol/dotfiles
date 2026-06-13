@@ -94,6 +94,8 @@ export HGENCODING=UTF-8
 export HGEDITOR=~/hgeditor
 export PAGER='less -RFX'
 export GH_PAGER='less -RFX'
+export CLAUDE_CODE_NO_FLICKER=1
+export CLAUDE_CODE_TMUX_TRUECOLOR=true
 
 typeset -U PATH
 
