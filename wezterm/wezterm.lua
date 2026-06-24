@@ -18,71 +18,72 @@ local config = {
     -- text_background_opacity = 0.8,
     -- macos_window_background_blur = 40,
     native_macos_fullscreen_mode = false,
-    font_rules = {
-        {
-            intensity = 'Normal',
-            italic = false,
-            font = wezterm.font_with_fallback({
-                { family = "PragmataPro", weight = "Medium", harfbuzz_features = _font_features },
-                -- "JetBrains Mono",
-                -- { family = "Apple SD 산돌고딕 Neo", weight = "Regular" },
-                { family = "Pretendard", weight = "Medium" },
-            }),
-        },
-        {
-            intensity = 'Normal',
-            italic = true,
-            font = wezterm.font_with_fallback({
-                { family = "PragmataPro", weight = "Medium", style = "Oblique", harfbuzz_features = _font_features },
-                -- "JetBrains Mono",
-                -- { family = "Apple SD 산돌고딕 Neo", weight = "Regular", style = "Oblique" },
-                { family = "Pretendard", weight = "Medium", style = "Oblique" },
-            }),
-        },
-        {
-            intensity = 'Half',
-            italic = false,
-            font = wezterm.font_with_fallback({
-                { family = "PragmataPro", weight = "Light", harfbuzz_features = _font_features },
-                -- "JetBrains Mono",
-                -- { family = "Apple SD 산돌고딕 Neo", weight = "Light" },
-                { family = "Pretendard", weight = "Light" },
-            }),
-        },
-        {
-            intensity = 'Half',
-            italic = true,
-            font = wezterm.font_with_fallback({
-                { family = "PragmataPro", weight = "Light", style = "Oblique", harfbuzz_features = _font_features },
-                -- "JetBrains Mono",
-                -- { family = "Apple SD 산돌고딕 Neo", weight = "Light", style = "Oblique" },
-                { family = "Pretendard", weight = "Light", style = "Oblique" },
-            }),
-        },
-        {
-            intensity = 'Bold',
-            italic = false,
-            font = wezterm.font_with_fallback({
-                { family = "PragmataPro", weight = "Bold", harfbuzz_features = _font_features },
-                -- { family = "JetBrains Mono", weight = "Bold" },
-                -- { family = "Apple SD 산돌고딕 Neo", weight = "Bold" },
-                { family = "Pretendard", weight = "Bold" },
-            }),
-        },
-        {
-            intensity = 'Bold',
-            italic = true,
-            font = wezterm.font_with_fallback({
-                { family = "PragmataPro", weight = "Bold", style = "Oblique", harfbuzz_features = _font_features },
-                -- { family = "JetBrains Mono", weight = "Bold", style = "Oblique" },
-                -- { family = "Apple SD 산돌고딕 Neo", weight = "Bold", style = "Oblique" },
-                { family = "Pretendard", weight = "Bold", style = "Oblique" },
-            }),
-        },
-    },
+    -- font_rules = {
+    --     {
+    --         intensity = 'Normal',
+    --         italic = false,
+    --         font = wezterm.font_with_fallback({
+    --             { family = "PragmataPro", weight = "Medium", harfbuzz_features = _font_features },
+    --             -- "JetBrains Mono",
+    --             -- { family = "Apple SD 산돌고딕 Neo", weight = "Regular" },
+    --             { family = "Pretendard", weight = "Medium" },
+    --         }),
+    --     },
+    --     {
+    --         intensity = 'Normal',
+    --         italic = true,
+    --         font = wezterm.font_with_fallback({
+    --             { family = "PragmataPro", weight = "Medium", style = "Oblique", harfbuzz_features = _font_features },
+    --             -- "JetBrains Mono",
+    --             -- { family = "Apple SD 산돌고딕 Neo", weight = "Regular", style = "Oblique" },
+    --             { family = "Pretendard", weight = "Medium", style = "Oblique" },
+    --         }),
+    --     },
+    --     {
+    --         intensity = 'Half',
+    --         italic = false,
+    --         font = wezterm.font_with_fallback({
+    --             { family = "PragmataPro", weight = "Light", harfbuzz_features = _font_features },
+    --             -- "JetBrains Mono",
+    --             -- { family = "Apple SD 산돌고딕 Neo", weight = "Light" },
+    --             { family = "Pretendard", weight = "Light" },
+    --         }),
+    --     },
+    --     {
+    --         intensity = 'Half',
+    --         italic = true,
+    --         font = wezterm.font_with_fallback({
+    --             { family = "PragmataPro", weight = "Light", style = "Oblique", harfbuzz_features = _font_features },
+    --             -- "JetBrains Mono",
+    --             -- { family = "Apple SD 산돌고딕 Neo", weight = "Light", style = "Oblique" },
+    --             { family = "Pretendard", weight = "Light", style = "Oblique" },
+    --         }),
+    --     },
+    --     {
+    --         intensity = 'Bold',
+    --         italic = false,
+    --         font = wezterm.font_with_fallback({
+    --             { family = "PragmataPro", weight = "Bold", harfbuzz_features = _font_features },
+    --             -- { family = "JetBrains Mono", weight = "Bold" },
+    --             -- { family = "Apple SD 산돌고딕 Neo", weight = "Bold" },
+    --             { family = "Pretendard", weight = "Bold" },
+    --         }),
+    --     },
+    --     {
+    --         intensity = 'Bold',
+    --         italic = true,
+    --         font = wezterm.font_with_fallback({
+    --             { family = "PragmataPro", weight = "Bold", style = "Oblique", harfbuzz_features = _font_features },
+    --             -- { family = "JetBrains Mono", weight = "Bold", style = "Oblique" },
+    --             -- { family = "Apple SD 산돌고딕 Neo", weight = "Bold", style = "Oblique" },
+    --             { family = "Pretendard", weight = "Bold", style = "Oblique" },
+    --         }),
+    --     },
+    -- },
+    -- cell_width = 0.82,  -- PragmataPro adjustment
+    -- line_height = 0.83, -- PragmataPro adjustment
+    font = wezterm.font "PragmataPro",
     font_size = 14.0,
-    cell_width = 0.82,  -- PragmataPro adjustment
-    line_height = 0.83, -- PragmataPro adjustment
     freetype_render_target = 'Normal',
     freetype_load_target = 'Light',
     freetype_load_flags = 'NO_HINTING',
