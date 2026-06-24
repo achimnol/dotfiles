@@ -82,7 +82,7 @@ local config = {
     -- },
     -- cell_width = 0.82,  -- PragmataPro adjustment
     -- line_height = 0.83, -- PragmataPro adjustment
-    font = wezterm.font "PragmataPro",
+    font = wezterm.font_with_fallback { "PragmataPro", "Sarasa Term K" },
     font_size = 14.0,
     freetype_render_target = 'Normal',
     freetype_load_target = 'Light',
