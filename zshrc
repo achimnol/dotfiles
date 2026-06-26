@@ -38,6 +38,8 @@ export PYENV_ROOT="$HOME/.pyenv"
 [ -d $PYENV_ROOT/bin ] && export PATH="$PYENV_ROOT/bin:$PATH"
 [ -d $PYENV_ROOT/bin ] && eval "$(pyenv init - zsh)"
 command -v gvm >/dev/null && eval "$(gvm 1.26.4)"
+export GOROOT="$HOME/go"
+[ -d "$GOROOT/bin" ] && export PATH="$GOROOT/bin:$PATH"
 
 # --- Local config ---
 if [ -f ~/.zshrc_local ]; then
