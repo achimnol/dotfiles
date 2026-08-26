@@ -121,17 +121,22 @@
         "$APP_CONFIG/wezterm/wezterm.lua": {
             "source": "wezterm/wezterm.lua",
             "group": "wezterm",
-            "compatible_platforms": ["mac"]
+            "compatible_platforms": ["linux", "mac"]
+        },
+        "$APP_CONFIG/wezterm/theme.lua": {
+            "source": "wezterm/theme.lua",
+            "group": "wezterm",
+            "compatible_platforms": ["linux", "mac"]
         },
         "$APP_CONFIG/wezterm/rose-pine-custom.lua": {
             "source": "wezterm/rose-pine-custom.lua",
             "group": "wezterm",
-            "compatible_platforms": ["mac"]
+            "compatible_platforms": ["linux", "mac"]
         },
         "$APP_CONFIG/wezterm/my-github-dark.toml": {
             "source": "wezterm/my-github-dark.toml",
             "group": "wezterm",
-            "compatible_platforms": ["mac"]
+            "compatible_platforms": ["linux", "mac"]
         },
         "$XDG_CONFIG/flake8": {
             "source": "flake8.config",
