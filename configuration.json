@@ -24,6 +24,10 @@
             "compatible_platforms": ["linux", "mac"],
             "template_vars": []
         },
+        ".zshenv": {
+            "source": "zshenv",
+            "compatible_platforms": ["linux", "mac"]
+        },
         ".direnvrc": {
             "source": "direnvrc",
             "compatible_platforms": ["linux", "mac", "codespace"]

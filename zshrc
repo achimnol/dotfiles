@@ -1,8 +1,15 @@
 # Zsh configuration (starship prompt)
 
+# --- Homebrew (before compinit so its completions are picked up) ---
+%if _platform == "linux":
+test -d ~/.linuxbrew && eval "$(~/.linuxbrew/bin/brew shellenv)"
+test -d /home/linuxbrew/.linuxbrew && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+%end
+
 # --- Completion ---
+# -u: trust fpath dirs owned by other users (e.g., a shared linuxbrew install)
 autoload -Uz compinit
-compinit
+compinit -u
 zstyle ':completion:*' menu select
 
 # --- History ---
@@ -25,10 +32,6 @@ unsetopt auto_cd
 # --- Hooks and version managers ---
 [ -d "$HOME/.local/bin" ] && export PATH="$HOME/.local/bin:$PATH"
 [ -f "$HOME/.local/bin/env" ] && . "$HOME/.local/bin/env"
-%if _platform == "linux":
-test -d ~/.linuxbrew && eval "$(~/.linuxbrew/bin/brew shellenv)"
-test -d /home/linuxbrew/.linuxbrew && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-%end
 [ -f "$(which direnv)" ] && eval "$(direnv hook zsh)"
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
