@@ -28,6 +28,10 @@
             "source": "zshenv",
             "compatible_platforms": ["linux", "mac"]
         },
+        "$XDG_CONFIG/systemd/user/ssh-agent.service": {
+            "source": "systemd/ssh-agent.service",
+            "compatible_platforms": ["linux"]
+        },
         ".direnvrc": {
             "source": "direnvrc",
             "compatible_platforms": ["linux", "mac", "codespace"]
@@ -203,6 +207,7 @@
                     "bash ./scripts/install-gh.sh",
                     "bash ./scripts/config-vim.sh",
                     "bash ./scripts/config-nvim.sh",
+                    "bash ./scripts/config-ssh-agent.sh",
                     "./gen-italics-terminfo.sh"
                 ]
             },

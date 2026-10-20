@@ -32,6 +32,13 @@ unsetopt auto_cd
 # --- Hooks and version managers ---
 [ -d "$HOME/.local/bin" ] && export PATH="$HOME/.local/bin:$PATH"
 [ -f "$HOME/.local/bin/env" ] && . "$HOME/.local/bin/env"
+%if _platform == "linux":
+# Use the systemd user ssh-agent (fixed socket) so that mosh/tmux sessions
+# never see a stale forwarded agent socket.
+_ssh_agent_sock="${XDG_RUNTIME_DIR:-/run/user/$UID}/ssh-agent.socket"
+[ -S "$_ssh_agent_sock" ] && export SSH_AUTH_SOCK="$_ssh_agent_sock"
+unset _ssh_agent_sock
+%end
 [ -f "$(which direnv)" ] && eval "$(direnv hook zsh)"
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"

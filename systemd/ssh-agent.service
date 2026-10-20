@@ -1,0 +1,14 @@
+[Unit]
+Description=SSH agent with a fixed socket shared by all login/mosh/tmux sessions
+Documentation=man:ssh-agent(1)
+
+[Service]
+Type=simple
+Environment=SSH_AUTH_SOCK=%t/ssh-agent.socket
+ExecStartPre=-/usr/bin/rm -f %t/ssh-agent.socket
+ExecStart=/usr/bin/ssh-agent -D -a %t/ssh-agent.socket
+# Preload the git signing key if present (the leading "-" ignores failures).
+ExecStartPost=-/bin/sh -c 'for i in 1 2 3 4 5; do [ -S "$SSH_AUTH_SOCK" ] && break; sleep 0.2; done; [ -f %h/.ssh/git-sign ] && /usr/bin/ssh-add %h/.ssh/git-sign'
+
+[Install]
+WantedBy=default.target
