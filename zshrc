@@ -67,6 +67,14 @@ _update_git_email() {
 _update_git_email  # initial shell
 chpwd_functions+=(_update_git_email)
 
+# --- pyenv extras ---
+pyenv-install-sys() {
+  # Ensure using system libraries only
+  env PATH="$(tr ':' '\n' <<<"$PATH" | grep -v linuxbrew | paste -sd:)" \
+      PYTHON_BUILD_SKIP_HOMEBREW=1 \
+      pyenv install "$@"
+}
+
 # --- Starship prompt ---
 eval "$(starship init zsh)"
 
