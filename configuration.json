@@ -172,6 +172,12 @@
             "compatible_platforms": ["linux"],
             "executable": true
         },
+        ".local/bin/git-cclone": {
+            "source": "local-bin/git-cclone",
+            "group": "git",
+            "compatible_platforms": ["linux", "mac", "codespace"],
+            "executable": true
+        },
         "$XDG_CONFIG/git/allowed_signers": {
             "source": "git/allowed_signers",
             "group": "git",

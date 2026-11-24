@@ -56,6 +56,16 @@ if [ -f ~/.zshrc_local ]; then
   source ~/.zshrc_local
 fi
 
+# --- git clone via local cache (git-cclone) ---
+# Opt-in: set GIT_CCLONE_WRAP=1 in ~/.zshrc_local to route `git clone` through
+# `git cclone`. Unsupported options fall back to the plain `git clone`;
+# use `command git clone ...` or `git clone --no-cache ...` to bypass.
+if [[ -n "$GIT_CCLONE_WRAP" ]] && command -v git-cclone >/dev/null; then
+  git() {
+    if [[ "$1" == clone ]]; then shift; command git cclone "$@"; else command git "$@"; fi
+  }
+fi
+
 # --- Git email cache (updated on cd, read by starship env_var) ---
 _update_git_email() {
   if git rev-parse --is-inside-work-tree &>/dev/null; then
