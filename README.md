@@ -210,6 +210,31 @@ gh auth login
 gh extension install seachicken/gh-poi  # extension to clean up local branches
 ```
 
+### Cache-backed fast `git clone` (`git cclone`)
+
+`local-bin/git-cclone` is deployed to `~/.local/bin/git-cclone` (config group `@git`), which makes it available as a git subcommand:
+```shell
+./deploy.py --flavor home --skip-scripts @git
+```
+
+```shell
+git cclone [-b <branch>] [--recurse-submodules] [-q] <url> [<dir>]
+git cclone --warm <url>    # create/refresh only the cache
+git cclone --cache-dir     # print the cache location
+```
+
+It keeps a bare mirror per repository under `~/.cache/git-cclone/<host>/<path>.git`
+(ssh and https URLs of the same repository share one cache), fetches it first,
+then copies it into `<dir>/.git` using the fastest method available:
+copy-on-write (`cp -c` on APFS, `cp --reflink` on Btrfs/XFS/ZFS 2.2+) → hardlinked objects → plain copy.
+`origin` is set to the URL you typed and the default (or `-b`) branch is checked out with parallel checkout.
+Options it does not handle (`--depth`, `--bare`, `--mirror`, ...) and local paths are passed through to the plain `git clone`.
+
+* Change the cache location with `GIT_CCLONE_DIR` or `git config --global cclone.dir <path>`.
+* Force a copy method with `GIT_CCLONE_STRATEGY=cow|hardlink|copy`.
+* To make `git clone` itself use the cache, add `export GIT_CCLONE_WRAP=1` to `~/.zshrc_local`.
+  Bypass it per command with `git clone --no-cache ...` or `command git clone ...`.
+
 ### Installing the latest mobile-shell (mosh) (Optional)
 
 ```shell

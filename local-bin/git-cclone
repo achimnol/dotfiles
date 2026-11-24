@@ -1,0 +1,241 @@
+#!/usr/bin/env bash
+# git-cclone — 로컬 캐시를 거쳐 빠르게 clone 하는 git 서브커맨드
+#
+#   git cclone [-b <branch>] [--recurse-submodules] [-q] <url> [<dir>]
+#   git cclone --warm <url>        # 캐시만 만들거나 갱신
+#   git cclone --cache-dir         # 캐시 위치 출력
+#
+# 동작:
+#   1) URL을 정규화해 캐시 경로 결정 (ssh/https 형식이 달라도 같은 캐시 공유)
+#   2) 캐시가 있으면 fetch로 갱신, 없으면 bare 캐시 생성
+#   3) 캐시를 대상 디렉터리의 .git 으로 복제
+#        CoW(reflink/clonefile) → 객체 하드링크 → 일반 복사 순으로 시도
+#   4) origin URL을 사용자가 입력한 URL로 설정, 브랜치를 체크아웃(병렬 checkout)
+#
+# 지원하지 않는 옵션(--depth, --bare, --mirror 등)이나 로컬 경로가 오면
+# 그대로 `git clone` 으로 넘긴다.
+#
+# 설정:
+#   GIT_CCLONE_DIR 또는 `git config --global cclone.dir <path>`  캐시 위치
+#   GIT_CCLONE_STRATEGY=cow|hardlink|copy                        복제 방식 강제
+set -euo pipefail
+
+prog=git-cclone
+quiet=""
+log()  { [ -n "$quiet" ] || printf '%s: %s\n' "$prog" "$*" >&2; }
+warn() { printf '%s: warning: %s\n' "$prog" "$*" >&2; }
+die()  { printf '%s: error: %s\n' "$prog" "$*" >&2; exit 1; }
+
+usage() { sed -n '2,10p' "$0" | sed 's/^# \{0,1\}//'; }
+
+cache_root() {
+  if [ -n "${GIT_CCLONE_DIR:-}" ]; then
+    printf '%s\n' "$GIT_CCLONE_DIR"
+  else
+    git config --global --type=path --get cclone.dir 2>/dev/null \
+      || printf '%s\n' "${XDG_CACHE_HOME:-$HOME/.cache}/git-cclone"
+  fi
+}
+
+# ---------------------------------------------------------------- 인자 파싱
+fwd=()          # fallback 시 git clone 에 넘길 인자 (우리 전용 옵션 제외)
+branch="" recurse=0 no_cache=0 warm_only=0 unsupported=0
+url="" dest=""
+while [ $# -gt 0 ]; do
+  case "$1" in
+    -h|--help)       usage; exit 0 ;;
+    --cache-dir)     cache_root; exit 0 ;;
+    --no-cache)      no_cache=1; shift; continue ;;
+    --warm)          warm_only=1; shift; continue ;;
+  esac
+  fwd+=("$1")
+  case "$1" in
+    -b|--branch)     [ $# -ge 2 ] || die "$1 requires a value"; branch=$2; fwd+=("$2"); shift 2 ;;
+    --branch=*)      branch=${1#*=}; shift ;;
+    --recurse-submodules|--recursive) recurse=1; shift ;;
+    -q|--quiet)      quiet=1; shift ;;
+    --)              shift
+                     while [ $# -gt 0 ]; do
+                       fwd+=("$1")
+                       if [ -z "$url" ]; then url=$1; elif [ -z "$dest" ]; then dest=$1; else unsupported=1; fi
+                       shift
+                     done ;;
+    -*)              unsupported=1; shift ;;
+    *)               if [ -z "$url" ]; then url=$1; elif [ -z "$dest" ]; then dest=$1; else unsupported=1; fi
+                     shift ;;
+  esac
+done
+
+passthrough() { exec git clone ${fwd[@]+"${fwd[@]}"}; }
+
+[ -n "$url" ] || { usage; exit 129; }
+
+# 원격 URL인지 판정 (로컬 경로·file:// 은 git 자체가 이미 하드링크로 빠르게 처리)
+is_remote=0
+case "$url" in
+  file://*) ;;
+  *://*)    is_remote=1 ;;
+  *)        [[ "$url" =~ ^[^/:]+: ]] && is_remote=1 ;;   # scp 형식 user@host:path
+esac
+
+if [ "$warm_only" -eq 0 ] && { [ "$unsupported" -eq 1 ] || [ "$no_cache" -eq 1 ] || [ "$is_remote" -eq 0 ]; }; then
+  passthrough
+fi
+[ "$is_remote" -eq 1 ] || die "--warm needs a remote URL"
+
+# ------------------------------------------------------------ 캐시 키 계산
+# git@github.com:foo/bar.git, https://github.com/foo/bar, ssh://git@github.com/foo/bar
+#   → github.com/foo/bar
+key=$url
+case "$key" in
+  *://*) key=${key#*://}
+         authority=${key%%/*}; rest=${key#"$authority"}
+         authority=${authority##*@}           # user[:pass]@ 제거
+         authority=${authority//:/_}          # host:port → host_port
+         key=$authority$rest ;;
+  *)     key=${key#*@}; key=${key/:/\/} ;;    # scp 형식
+esac
+key=${key%/}; key=${key%.git}; key=${key%/}
+key=$(printf '%s' "$key" | tr -c 'A-Za-z0-9._/-' '_' | sed -e 's#\.\.#_#g' -e 's#//*#/#g' -e 's#^/##')
+[ -n "$key" ] || die "cannot derive cache key from '$url'"
+
+root=$(cache_root)
+cache="$root/$key.git"
+
+if [ "$warm_only" -eq 0 ]; then
+  [ -n "$dest" ] || dest=$(basename "$key")
+  if [ -e "$dest" ] && [ -n "$(ls -A "$dest" 2>/dev/null)" ]; then
+    die "destination path '$dest' already exists and is not an empty directory."
+  fi
+fi
+
+# ------------------------------------------------------------- 잠금/정리
+lock="$cache.lock"
+have_lock=0 created_dest=0
+cleanup() {
+  local rc=$?
+  [ "$have_lock" -eq 1 ] && rm -rf "$lock"
+  if [ $rc -ne 0 ] && [ "$created_dest" -eq 1 ]; then rm -rf "$dest"; fi
+  rm -rf "$cache.tmp.$$"
+}
+trap cleanup EXIT
+trap 'exit 130' INT TERM
+
+acquire_lock() {
+  mkdir -p "$(dirname "$cache")"
+  local waited=0
+  until mkdir "$lock" 2>/dev/null; do
+    local pid; pid=$(cat "$lock/pid" 2>/dev/null || true)
+    if [ -n "$pid" ] && ! kill -0 "$pid" 2>/dev/null; then
+      warn "removing stale lock (pid $pid)"; rm -rf "$lock"; continue
+    fi
+    [ $waited -eq 0 ] && log "waiting for another git-cclone on $key ..."
+    waited=$((waited + 1)); [ $waited -gt 3000 ] && die "timed out waiting for $lock"
+    sleep 0.2
+  done
+  echo $$ > "$lock/pid"; have_lock=1
+}
+
+# ------------------------------------------------------ 캐시 생성/갱신
+fetch_q=(); [ -n "$quiet" ] && fetch_q=(-q)
+
+acquire_lock
+if [ -d "$cache" ]; then
+  log "updating cache $cache"
+  git -C "$cache" remote set-url origin "$url"
+  if git -C "$cache" fetch ${fetch_q[@]+"${fetch_q[@]}"} --prune --tags origin; then
+    git -C "$cache" remote set-head origin --auto >/dev/null 2>&1 || true
+  else
+    warn "fetch failed; continuing with possibly stale cache"
+  fi
+else
+  log "creating cache $cache"
+  tmp="$cache.tmp.$$"
+  git init -q --bare "$tmp"
+  git -C "$tmp" config remote.origin.url "$url"
+  git -C "$tmp" config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*'
+  git -C "$tmp" config cclone.cache true
+  git -C "$tmp" fetch ${fetch_q[@]+"${fetch_q[@]}"} --tags origin || die "initial fetch failed"
+  git -C "$tmp" remote set-head origin --auto >/dev/null 2>&1 || true
+  mv "$tmp" "$cache"
+fi
+
+[ "$warm_only" -eq 1 ] && { log "cache ready: $cache"; exit 0; }
+
+# ---------------------------------------------------------- .git 복제
+dev_of() { stat -c %d "$1" 2>/dev/null || stat -f %d "$1"; }
+
+copy_cow() {
+  case "$(uname -s)" in
+    Darwin) cp -c -R "$1" "$2" ;;                          # APFS clonefile(2)
+    *)      cp -R --reflink=always "$1" "$2" ;;            # Btrfs/XFS/ZFS 2.2+/bcachefs
+  esac
+}
+
+copy_hardlink() {   # 메타데이터는 복사, 불변인 objects 는 하드링크
+  local src=$1 dst=$2 e
+  mkdir -p "$dst"
+  for e in "$src"/*; do
+    [ "$(basename "$e")" = objects ] && continue
+    cp -R "$e" "$dst/"
+  done
+  if cp -al "$src/objects" "$dst/objects" 2>/dev/null; then return 0; fi
+  rm -rf "$dst/objects"
+  if command -v pax >/dev/null 2>&1; then
+    (cd "$src" && pax -rwl objects "$dst") 2>/dev/null && return 0
+    rm -rf "$dst/objects"
+  fi
+  return 1
+}
+
+mkdir -p "$dest"; created_dest=1
+[ -d "$dest/.git" ] && rmdir "$dest/.git" 2>/dev/null || true
+gitdir="$(cd "$dest" && pwd)/.git"
+strategy=${GIT_CCLONE_STRATEGY:-auto}
+same_fs=0; [ "$(dev_of "$cache")" = "$(dev_of "$dest")" ] && same_fs=1
+
+used=""
+if [ "$strategy" = auto ] || [ "$strategy" = cow ]; then
+  if [ $same_fs -eq 1 ] && copy_cow "$cache" "$gitdir" 2>/dev/null; then used=cow
+  else rm -rf "$gitdir"; [ "$strategy" = cow ] && die "copy-on-write clone not supported here"; fi
+fi
+if [ -z "$used" ] && { [ "$strategy" = auto ] || [ "$strategy" = hardlink ]; }; then
+  if [ $same_fs -eq 1 ] && copy_hardlink "$cache" "$gitdir"; then used=hardlink
+  else rm -rf "$gitdir"; [ "$strategy" = hardlink ] && die "hardlink clone not possible here"; fi
+fi
+if [ -z "$used" ]; then cp -R "$cache" "$gitdir"; used=copy; fi
+
+have_lock=0; rm -rf "$lock"          # 캐시 복제가 끝났으니 잠금 해제
+log "cloned object store via $used"
+
+# --------------------------------------------- 일반 저장소로 전환 + origin
+g() { git --git-dir="$gitdir" --work-tree="$(dirname "$gitdir")" "$@"; }
+g config core.bare false
+g config core.logallrefupdates true
+g config remote.origin.url "$url"
+g config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*'
+g config --remove-section cclone 2>/dev/null || true
+rm -f "$gitdir/FETCH_HEAD"
+
+if [ -z "$branch" ]; then
+  head=$(g symbolic-ref -q --short refs/remotes/origin/HEAD 2>/dev/null || true)
+  branch=${head#origin/}
+fi
+
+cd "$dest"
+co=(git -c checkout.workers=0 checkout); [ -n "$quiet" ] && co+=(-q)
+if [ -z "$branch" ]; then
+  warn "remote HEAD unknown (empty repository?); nothing checked out"
+elif git show-ref --verify -q "refs/remotes/origin/$branch"; then
+  "${co[@]}" -b "$branch" --track "origin/$branch"
+elif git show-ref --verify -q "refs/tags/$branch"; then
+  "${co[@]}" --detach "refs/tags/$branch"
+else
+  die "Remote branch $branch not found in upstream origin"
+fi
+
+if [ "$recurse" -eq 1 ] && [ -f .gitmodules ]; then
+  git submodule update --init --recursive ${quiet:+--quiet}
+fi
+created_dest=0
+log "done: $dest (origin = $url)"
